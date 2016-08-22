@@ -74,6 +74,13 @@ There is some extra flexibility more than no defiers which we should use, for ex
 All agents know a common prior that gives full probability distribution of rewards over all posible signals,  chosen actions and actual actions. 
 The following VCG style mechanism is natural: each expert reports their signal, the mechanism calculates the action that maximizes the reward and chooses it. Each expert receives a share of the reward based on the difference between the received payoff and the payoff we would have obtained in expectation (using the other experts reports only) if we had not used the agents report.
 
+this could lead to overpayments (paying more than the rewards of the experts), but you can scale the payments of the experts so that they are over some fraction of the total reward, and using the prior you can calibrate this to wokr out (TODO: less hand wavy)
+
+the only way a experts report affects their payments is via the chosen action.
+
+example: if you have two experts and they both observe the same signal, they both get outcome zero. 
+
+the experts have to have the potential for negative payoffs (even through the expected payoff in equilibrium is positive). Since the mchanism stoping the payments around zero would change the expectation. 
 
 \subsection{Bayesian Nash Incentive Compatibility and Full Efficiency}
 
