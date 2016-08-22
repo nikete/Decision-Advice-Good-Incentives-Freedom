@@ -1,3 +1,4 @@
+%!TEX root = main.tex
 
 Consider a setting with multiple experts providing advice to a subject, who wishes to incentivize them to inform them of which of a set of available actions maximize the reward.
 One natural way to attempt to do is by applying the machinery of prediction markets based on sequentially shared proper scoring rules, and only settlign the markets where actions are taken. Doing this in an incentive compatible manner for the experts is however incompatible with maintaining the subjects freedom to select the action that appears optimal ex-post (\cite{othman2010decision,  chen2014eliciting}, that is using the max decision rule. 
@@ -16,10 +17,10 @@ We then analize a simple bid based variation of the mechansim, and provide a suf
 We consider a single subject with access to $K$ possible choices, their outcomes are sufficiently characterized for the subject by a reward vector $R$ which is unobservable to the subject, where each element in $r_k$ corresponds to the reward the subject receives if he carries out the corresponding action in $K$ . We consider a set of $N$ experts, each of whom have access to some signal $s_i$ which are potentially informative about $R$, we use $S$ to denote the vector containing all signals.  $P$ denotes a prior distribution over $P(R|S) $ which is common knowledge; to map to the mechanism design literature the $P$ would be over states of the world in $\Omega$ and each state of the world consists
 
 
-A mechanism anounces a payment rule $\pi(r*,a,c,S)$, with $p_i$ being the payment to expert $i$. We will denote by $\hat{c}^{*}$ the chosen action that maximizes the reward given the reported signals $\hat{S}$, and by $\c^{*}$ the optimal choice given the true signals.
-We seek a mechanism that  $\c^{*} = \hat{c}^{*}$.
+A mechanism anounces a payment rule $\pi(r*,a,c,S)$, with $p_i$ being the payment to expert $i$. We will denote by $\hat{c}^{*}$ the chosen action that maximizes the reward given the reported signals $\hat{S}$, and by $c^{*}$ the optimal choice given the true signals.
+We seek a mechanism that  $c^{*} = \hat{c}^{*}$.
 
-Each experts receives their signals $s_i$, and makes a reports a $\hat{s}_i$ to the mechanism, which outputs a chosen action $\c^{*}$.
+Each experts receives their signals $s_i$, and makes a reports a $\hat{s}_i$ to the mechanism, which outputs a chosen action $c^{*}$.
 
 The subject observes the action chosen by the mechanism $c$, and takes a (potentially different) action $a$. A reward $r^{*}$ is observed, and the mechanism makes the payments.
 
