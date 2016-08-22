@@ -21,7 +21,7 @@ We seek a mechanism that  $\c^{*} = \hat{c}^{*}$.
 
 Each experts receives their signals $s_i$, and makes a reports a $\hat{s}_i$ to the mechanism, which outputs a chosen action $\c^{*}$.
 
-The subject observes the action chosen by the mechanism $c$, and takes a (potentially different) action $a$. A reward $r^{*}$ is observed, and the mechanism makes the payments.
+The subject observes the action chosen by the mechanism $c$, and takes a (potentially different) action $a$. A reward $r^{*}$ is observed, and the mechanism makes the corresponding payments.
 
 
 %
@@ -32,34 +32,27 @@ An experts $i$ report is truthful when $\hat{s}_i=s_i$. A mechanism is incentive
 
 \section{Shared Reward Mechanism}
 
-Here we explore a set of mechanisms based around the idea of sharing the rewards from the taken action with the experts, 
+Here we explore a set of mechanisms based around the idea of sharing the rewards from the taken action with the experts.
 
 \subsection{Share of Reward Mechanism}
 
 Let us first consider a very basic direct mechanism, which will help us understand the model and the limitations that subjects freedom imposes. 
 A simple mechanism that is strictly incentive compatible (in equilibrium) for an expert to reveal their signal when subjects are utility maximizers is to give all experts a share of the reward. Equivalently (in expectation) run a lotery after the reports are submitted that assigns a share of the reward to the expert that wins. 
 
-In this case the signals may be arbitrary, the payment rule is invariant to them, and defined as $\pi_n  = \alpha / N $ with $\alpha < 1$. Note that we are not defining the payment rule to be conditional on the subject actual action in any way. In particular, it might naively seem appropiate to only give the share when the chosen action is the actual action carried out. 
+In this case the signals may be arbitrary, the payment rule is invariant to them, and defined as $\pi_i  = (\alpha / N ) r^{*} $ with $\alpha < 1$. Note that we are not defining the payment rule to be conditional on the subjects actual action in any way. %In particular, it might naively seem appropiate to only give the share when the chosen action is the actual action carried out. 
 
 
 \subsubsection{Limitations}
-This mechanism is however problematic in a number of ways
+This mechanism is problematic in a number of ways
 
 \begin{itemize}
 \item it pays out even when experts signals are useless.
 \item the entrey of useless experts reduces the payment received by valuable ones or the budget needed by the mechanism.
 \end{itemize}
 
-Somewhat more formally we say a expert is useless, if where the expert able to force the action to be his choice, he would not improve the expected reward beyond sampling a action uniformly at random.
+Somewhat more formally we say a expert is useless, if where the expert able to force the action to be his choice, he would not improve the expected reward beyond picking the action that is the max expected utility in the common prior.
 
 This motivates considering the next mechanism.
-
-
-
-\subsection{Share Functions and Bounding Payoffs}
-
-To achieve  (strict) incentiie compatibility the reward assigned to the subject must be (strictly) monotonically increasing in the reward received by the expert who wins the auction for any given outcome and bid. By choosing a bounded monotonic increasing function we can bound worst case payouts. 
-
 
 
 \section{Freedom and Limits to Defiance}
@@ -73,13 +66,13 @@ This preseves substantial freedom, in that it is not required the subject known 
 Note that under this assumption existing mechanisms for the many expert setting are not incentive compatible unless subjects can credibly commit to using a randomized strategy which places positive mass on dominated action (i.e. there are no ex-post incntive compatible mechanisms based on proper scoring rules and voiding given a no defiers assumption)
 
 
-
+There is some extra flexibility more than no defiers which we should use, for example differential compliance rates for different actions, the mechanisms selects the action that most raises the reward not the one who has the highest reward (for exmaple a action that has the seccond highest reward but 1\% noncompliance might be chosen instead of one  that has 99\% noncompliance and the highest reward. No defiers buys us the extra part that chosen is the highest reward action, so makes life easier for the subject (if the noncpliance depened on the signals the expert receives a utility maximizing decision maker would have to consider other decision markets noncomplaince characteristics in the prior before deciding how to interpret the chosen action; this removes such ambiguities and doesn't seem to loose too much generality)
 
 
 \section{A Direct Mechanism with strong Common Priors}
 
-All agents know a common prior that gives full probability distribution over all signals and all chosen action conditional actual actions. 
-Then the following VCG style mechanism is natural: each expert reports their signal, the mechanism calculates the action that maximizes the reward. Each expert receives a share of the reward based on the difference between the received payoff and the payoff we would have obtained in expectation (using the other experts reports only) if we had not used the agents report.
+All agents know a common prior that gives full probability distribution of rewards over all posible signals,  chosen actions and actual actions. 
+The following VCG style mechanism is natural: each expert reports their signal, the mechanism calculates the action that maximizes the reward and chooses it. Each expert receives a share of the reward based on the difference between the received payoff and the payoff we would have obtained in expectation (using the other experts reports only) if we had not used the agents report.
 
 
 \subsection{Bayesian Nash Incentive Compatibility and Full Efficiency}
@@ -87,17 +80,17 @@ Then the following VCG style mechanism is natural: each expert reports their sig
 There is a  equilibrium where all experts maximize their payment by maximizing the probability that the action with the highest reward is taken; if all other reports are truthful and under a no defiers assumption then this is optimized by being truthful.
 
 
-NOT TRUE: restrit the mechanism to be the one that select (chooses) a single action. then the right thing to do is to choose the one that cuases the highest reward (i.e. somehting else migth have a higher expectation if caried out but would have a lower probability of being carried out,t he carrying out probabilities have to be a part of the common prior.)
+The incentive compatibility here is only in one nash equilibrium, and not in dominant strategies. In particular, if another expert does not report their signal truthfully, an expert might maximize the reward by making a countervailing report that is not truthful, to cancel out the other untruthful expert. For example consider a setting with a reward maximizing subject with probability 1, two possible actions, where two experts know with certainty that the rewards are $1,2$ and one of them reports $1,0$. A truthful report would lead to choosing the first action (the average of the two reports) with rewards of $1$ while a report of $0,2$ would cause the max to select the seccond action and obtain a reward of $2$.
 
+Also note that the payout to the in this example to the expert is positive it can triviall be made negative, so the expert does not make the countervailing report as it wouldnt maximize their payment; for example if the untruthful agent reports was $3,0$.
 
-The incentive compatibility here is only in one nash equilibrium, and not in dominant strategies. In particular, if another expert does not report their signal truthfully, an expert might maximize the reward by making a countervailing report that is not truthful. For example consider a setting with three possible actions, where two experts know with certainty that the rewards are $1,2$ and one of them reports $4,2$. A truthful report would lead to a expected rewards of $1,2.5,2.5$ while a report of $0,3$ would cause the max rule to select the seccond action correctly.
+conjecture: no mechanism can get around this (intuition; we are tyring to get as close to vcg as possible, and i dont see a way to get closer).
 
 
 \subsection{A sufficient condition for dominat truthfulness in reports}
 
-in general the mechanism is not dominant truthful, since a trickster agent who inverts their reporrts would make the other agents try to compensate if possible. For example TODO (check git comit) 
-
-If the action chosen depends only on the signal of the highest type, (the type whose signal without using he other signals implies the highest reward for the optimaly chosen action) then the 
+in general the mechanism is not dominant truthful, since a trickster agent who inverts their reporrts would make the other agents try to compensate if possible, as seen above.
+If the action chosen depends only on the signal of the highest type, (the type whose signal without using he other signals implies the highest reward for the optimaly chosen action) 
 
 To see this, note that bidding the valuation conditional on their signal and winning is domminant strategy in the 
 
