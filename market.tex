@@ -1,0 +1,173 @@
+
+Consider a setting with multiple experts providing advice to a subject, who wishes to incentivize them to inform them of which of a set of available actions maximize the reward.
+One natural way to attempt to do is by applying the machinery of prediction markets based on sequentially shared proper scoring rules, and only settlign the markets where actions are taken. Doing this in an incentive compatible manner for the experts is however incompatible with maintaining the subjects freedom to select the action that appears optimal ex-post (\cite{othman2010decision,  chen2014eliciting}, that is using the max decision rule. 
+The core of the problem with using the machinery of prediction markets in the decision setting is that at the point where the mechanism has correct belief over the optimal action but not others, a expert  can profit by changing expected rewards to make optimal action appear worse than an action for which the expected reward can be corrected.
+
+
+The guiding design criterion in this work is to restrict as little as possible the decision that the subject must take (maximizing their freedom) while still providing good incentives to the experts. No previous mechanisms in the literature can truthfully aggregate arbitrary signals over many experts in BNE. 
+
+We first focus on a direct mechanism. Experts directly report their signals to the mechanism, which then uses them to compute the optimal action given the prior to output to the subject. This requires  the experts and the mechanism having access to a common bayesian prior, over the joint probabilities of the rewards, true signals, the output action and the response of the subject to a given output of the mechanism. Ghere is a BNE that aggregates all information over N experts, unlike the case in the previous mechanisms in the literature.
+We then analize a simple bid based variation of the mechansim, and provide a sufficient conditions on the signal structures where information can be fully aggregated; we further show that these conditions are sufficient to make truthfulness dominant incentive compatible.  
+
+
+
+\section{Model}
+
+We consider a single subject with access to $K$ possible choices, their outcomes are sufficiently characterized for the subject by a reward vector $R$ which is unobservable to the subject, where each element in $r_k$ corresponds to the reward the subject receives if he carries out the corresponding action in $K$ . We consider a set of $N$ experts, each of whom have access to some signal $s_i$ which are potentially informative about $R$, we use $S$ to denote the vector containing all signals.  $P$ denotes a prior distribution over $P(R|S) $ which is common knowledge; to map to the mechanism design literature the $P$ would be over states of the world in $\Omega$ and each state of the world consists
+
+
+A mechanism anounces a payment rule $\pi(r*,a,c,S)$, with $p_i$ being the payment to expert $i$. We will denote by $\hat{c}^{*}$ the chosen action that maximizes the reward given the reported signals $\hat{S}$, and by $\c^{*}$ the optimal choice given the true signals.
+We seek a mechanism that  $\c^{*} = \hat{c}^{*}$.
+
+Each experts receives their signals $s_i$, and makes a reports a $\hat{s}_i$ to the mechanism, which outputs a chosen action $\c^{*}$.
+
+The subject observes the action chosen by the mechanism $c$, and takes a (potentially different) action $a$. A reward $r^{*}$ is observed, and the mechanism makes the payments.
+
+
+%
+
+%There are n players, i = 1􏰸􏰷􏰷􏰷􏰸n. There is a finite set of states of the world, Ω, and a random variable (“security”) X : Ω → R. As in Aumann (1976), each player i receives information about the true state of the world, ω ∈ Ω, accord- ing to partition Πi of Ω (i.e., if the true state is ω, player i observes Πi(ω)). For notational convenience, without loss of generality, assume that the join (the coarsest common refinement) of partitions Π1􏰸􏰷􏰷􏰷􏰸Πn consists of single- ton sets; that is, for any two states ω1 ̸= ω2, there exists player i such that Πi(ω1) ̸= Πi(ω2). Π = (Π1􏰸􏰷􏰷􏰷􏰸Πn) is the partition structure. Players have a common prior distribution P over states in Ω.
+
+An experts $i$ report is truthful when $\hat{s}_i=s_i$. A mechanism is incentive compatible when truthful reports maximize the payment experts receive and this holds for all experts; this can be in dominant strategies or in a bayesian nash equilibrium.
+
+\section{Shared Reward Mechanism}
+
+Here we explore a set of mechanisms based around the idea of sharing the rewards from the taken action with the experts, 
+
+\subsection{Share of Reward Mechanism}
+
+Let us first consider a very basic direct mechanism, which will help us understand the model and the limitations that subjects freedom imposes. 
+A simple mechanism that is strictly incentive compatible (in equilibrium) for an expert to reveal their signal when subjects are utility maximizers is to give all experts a share of the reward. Equivalently (in expectation) run a lotery after the reports are submitted that assigns a share of the reward to the expert that wins. 
+
+In this case the signals may be arbitrary, the payment rule is invariant to them, and defined as $\pi_n  = \alpha / N $ with $\alpha < 1$. Note that we are not defining the payment rule to be conditional on the subject actual action in any way. In particular, it might naively seem appropiate to only give the share when the chosen action is the actual action carried out. 
+
+
+\subsubsection{Limitations}
+This mechanism is however problematic in a number of ways
+
+\begin{itemize}
+\item it pays out even when experts signals are useless.
+\item the entrey of useless experts reduces the payment received by valuable ones or the budget needed by the mechanism.
+\end{itemize}
+
+Somewhat more formally we say a expert is useless, if where the expert able to force the action to be his choice, he would not improve the expected reward beyond sampling a action uniformly at random.
+
+This motivates considering the next mechanism.
+
+
+
+\subsection{Share Functions and Bounding Payoffs}
+
+To achieve  (strict) incentiie compatibility the reward assigned to the subject must be (strictly) monotonically increasing in the reward received by the expert who wins the auction for any given outcome and bid. By choosing a bounded monotonic increasing function we can bound worst case payouts. 
+
+
+
+\section{Freedom and Limits to Defiance}
+
+If we consider subjects with potentially unrestricted freedom, i.e. subjects are not necesarily expected reward maximizers, then the mechanism is not necesarily truthful, even for a single expert. For example, consider a subject that has a prejudice in favour of treatment A, and so will take it unless the expected reward of treatment B is more than 10 utils highers. Consider a expert with access to a signal wich is an unbiased estimate of the rewards over both actions, receives a signal  that B reward is higher by 9 utils. The expert is strictly better of reporting that his signal has B as more than 10 better.
+More generically we can consider of an agent who does the oposite of what maximizes reward (the min decision rule), this creates incentives for experts to flip the ordering that their signals imply. Thus, it can be seenthat providing unrestricted freedom in the broadest sense to subjects makes the setting hopeless. 
+
+One restriction on subjects freedom that is sufficient to allow (in the single expert setting) dominant strategy truthful mehcanism is \emph{no defiers}: assuming that all subjects are either utility maximizers (compliers) or have some actionthey will take irrespective of the reports of the experts (allways takers or never takers in the binary setting).
+This preseves substantial freedom, in that it is not required the subject known a priori that they will compliers, their realization of the always taker type could come after the mechanism has been run and before the action is taken. 
+
+Note that under this assumption existing mechanisms for the many expert setting are not incentive compatible unless subjects can credibly commit to using a randomized strategy which places positive mass on dominated action (i.e. there are no ex-post incntive compatible mechanisms based on proper scoring rules and voiding given a no defiers assumption)
+
+
+
+
+
+\section{A Direct Mechanism with strong Common Priors}
+
+All agents know a common prior that gives full probability distribution over all signals and all chosen action conditional actual actions. 
+Then the following VCG style mechanism is natural: each expert reports their signal, the mechanism calculates the action that maximizes the reward. Each expert receives a share of the reward based on the difference between the received payoff and the payoff we would have obtained in expectation (using the other experts reports only) if we had not used the agents report.
+
+
+\subsection{Bayesian Nash Incentive Compatibility and Full Efficiency}
+
+There is a  equilibrium where all experts maximize their payment by maximizing the probability that the action with the highest reward is taken; if all other reports are truthful and under a no defiers assumption then this is optimized by being truthful.
+
+
+NOT TRUE: restrit the mechanism to be the one that select (chooses) a single action. then the right thing to do is to choose the one that cuases the highest reward (i.e. somehting else migth have a higher expectation if caried out but would have a lower probability of being carried out,t he carrying out probabilities have to be a part of the common prior.)
+
+
+The incentive compatibility here is only in one nash equilibrium, and not in dominant strategies. In particular, if another expert does not report their signal truthfully, an expert might maximize the reward by making a countervailing report that is not truthful. For example consider a setting with three possible actions, where two experts know with certainty that the rewards are $1,2$ and one of them reports $4,2$. A truthful report would lead to a expected rewards of $1,2.5,2.5$ while a report of $0,3$ would cause the max rule to select the seccond action correctly.
+
+
+\subsection{A sufficient condition for dominat truthfulness in reports}
+
+in general the mechanism is not dominant truthful, since a trickster agent who inverts their reporrts would make the other agents try to compensate if possible. For example TODO (check git comit) 
+
+If the action chosen depends only on the signal of the highest type, (the type whose signal without using he other signals implies the highest reward for the optimaly chosen action) then the 
+
+To see this, note that bidding the valuation conditional on their signal and winning is domminant strategy in the 
+
+\subsection{Noncompliance and Incentive Compatibility}
+
+For the same reassonsas before there is no dominant strategy incentive compatibility. 
+
+A interesting question that arrises is how to handle the case where the action that is optimal given the reports is not the actual chosen action. Three natural strategies are:
+
+\begin{itemize}
+\item make payments irrespective.
+\item make the payment for the $\beta r_a$ but do not require the payment of $b_{i-1}$.
+\item make no payment, and require no payment.
+\end{itemize}
+
+Only the first is incentive compatible. TODO: formalize. Sketch: a crucial property is that w separate bids and reports, this lets the reports be truthful while the bids are shaded (as is standard in common value seccond price auction). Further, it means that noncompliance (given te no defiers assumption) 
+
+If we do not require the payment, it can incentivize experts to report in such a way as to encourage non-compliance, since this would increase their payout.
+If we void the payment completely this can have the oposite effect, biasing experts away from reporting the 
+
+
+
+
+
+
+\section{The signal reporting vcg mechanism can work even when utilities are not part of the common prior}
+
+the mechanism, but not necesarily the experts, needs access to the utility function of the decision maker and the prior over which expectations are taken 
+
+for a cancer example; the chemiotherapy specialist might explain the likely side effects conditional on their knowledge of the specifics of the patient (the rapidly dropping cost of sequencing a genome means this) without needing to understand the relative value the patient places on discomfort relative to life lengthening, while the surgeon might explain the (again subject tot he specific characteristics of the subject) risks he foresees in the surgury (in contrast to the baseline risks of the populatin that gets the procude which is what cna be observed, a reasoable prior) for that patient, without needing to udnerstand the risk aversion of the patient which would be necesary for calculating their utility.
+
+the subject (oracle style) can then be queried for their chosen action and expected utility for different subsets of the signals (for every expert we need to query what the action (and the expected payoff) would be without that experts signal having been reported)
+
+contrast the information structure in the cancer example and its non separability 
+
+
+\section{A bidding mehcnaism }
+
+In many practical applicationsof interest, it might be that the signals can't be practically reported. For example, because while the expert knows something when they see it, they do not have a vocabulary to unambigously express it. 
+
+
+If we replace the reports in the direct mechnaism by bids, and we allow the winner of the auction to pick the action, we have a mechanism that doesnt make any strong assumptions beyond that the agents understand the rules of the game.
+
+For some information structures this still aggregates information well, for example if each expert knows the exact outcome conditonal on one action and knows he doesnt know what happens under other actions, and there is at least one expert that is informaed about each action.
+
+For other information structures it does not work, for exmaple the classic example without separability that fails in the bayesian games so broadly (TODO Add cite) also fails here. 
+%\section{Summary}
+
+\subsection{Interpreting bids}
+
+the bids reflect the expected value of the mechanism choosing a particular action, not of that action being taken. example if half are allways takers, the bid effectively waters down the true effect by half.
+
+further, due to the winners curse, it is the expected effect conditional on having won the auction. 
+
+\subsection{A sufficient separability condition for efficiency}
+
+if each expert knows the value of a action the MSR and Void mechanism in the style of Hanson fail to be myopically incentive compatible when agents always follow the action whose price is maximal in the market (\cite{othman2010decision})
+
+
+
+\section{Tradeoff between Dominant Strategy Incentive Compatible and Expressivity}
+
+
+
+\section{Incentive Compatibility for Subjects}
+
+One natural question given the bayesian incentive compatible bandit exploration literautre, is wether these mechanisms can work when all subjects are expected utility maximizers. If the experts bring enough information to bear, the answer is yes, and it can be so without hidding past subjects outcomes, if the experts bring sufficient information. Note however,that there are intermediate situations 
+
+\subsection{A sufficient condition}
+
+when the expert who won the auction selects and action, particularly in the early rounds she might be doing it becuase he wishes to explore, and thus the incentives 
+
+

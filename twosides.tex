@@ -1,0 +1,51 @@
+ A sequence of subjects choosing each choosing from the same fixed set of action which only affect them directly, as in our frst model, while eliciting advice for those subjects from a fixed set of experts, as in our seccond model. 
+At each step a subject arrives, experts recieve signals conditional on the subject, reports of experts are submited to the mechanism, the subject observes the action chosen by the mechanisms, picks an action and receives a reward, the mechanism then uses the observed reports, action and reward to assign payments to the experts.
+
+Bounded regret algorithms from the compliance awareness can be seen as addressing the special case where the experts signals are known apriori to not be informative, and thus only the experience can be learned from. Our one-decision mechanism is the special case for T=1, thus there is no role for exploration, since there are no future decisions in the game.
+The compliance-aware algorithm can be used for initial rounds where a reserve price has not been met.
+
+The mechanism consists of a seccond price auction of the right to select the sequence of chosen actions for all remaning periods, and a share of the resulting rewards.
+
+For the special case where knowledge is  fully substituble accross at least two experts informed per actions, it incentivizes the experts to carry out the optimal amount of exploration. 
+
+While existing results for bayesian incentive compatible exploration and its limits still apply on the subjects part if they are all rational and this is common knowledge. For medical applications this is unlikely to be the case, with a diverse set of motivations for agents making them some far from rational, and that this will be common knowledge ammong the rational agents. Somewhat paradoxically 
+
+% Algorithmic Bayesian Persuasion http://arxiv.org/pdf/1503.05988.pdf
+%  Kremer et. al. [9] introduce http://arxiv.org/pdf/1507.07191.pdf . In our main result we provide a tight bound on how many other agents can each agent observe and still have an incentive-compatible algorithm and asymptotically optimal outcome.
+
+
+\section{A sequence of one shot mechanisms does not explore}
+
+Attempting to run the single action elicitation mechanism at the start of each period does not preserve its incentive compatibility or its efficiency.
+The single shot mechanism creates incentives that are equivalent to a greedy policy that only exploits and does not exploit. If we reveal the outcome of the round to all experts,  no agent can internalize the information revelation that comes from the outcome of a action. On the other hand, if we only allow the winner of the bidding on a given round 
+
+\section{A Direct Mechanism with Strong Common knowledge}
+
+We use the bidding rules of the direct mechanism from chapter 2 but we add a reserve price and instead of the rights to a share of the periods payoff, you are buying the right to a share of all future periods payoffs (when there is only one period left the two coincide). The rights are chained so the reserve price is set by the winner of previous period, and if no sale then the 
+
+\section{A Practical Bid Based Mechanism}
+
+instead of reporting signals the experts send bids and actions they would pick if the winning bid. The actions are now plans for all posible contigent periods of chosen or actual action. 
+
+As the mechanism (representing the collective of subjects ideally?  what about the experts welfare footnote) 
+
+
+
+
+\sectionP{Efficicency of the mechanism}
+
+
+
+Bayesian arguments  (?)  bound the best rate at which we could learn if we had accss to the experts signals (i.e. given a correct prior, how fast do we identify the optimal action? how does this vary with the concentration of the prior? , the direct mechanism is equivalent to learning it, for example under Optimally Confident UCB can we give numbers? There is the 79 bounds on the minimax rate in bnadits of gittins, does that work? note dificulty of simulations, since it involves solvng for strategies that might exploit the specific algo we propose as the initiator.
+
+\subsection{One Action per Expert is not enough for incentive compatibility}
+
+even when each expert observes the signal that is informative of just one action, versus when the expert observes a statistic about an action (say the mean of a given arm) which can still be informative of the mean of other arms. Note in the one shot setting this doesnt hold, and ne qctin per expert is sufficient, this is becuase the seccond price auction is effective in cuting off manipulation there, but here the effect on uture beliefs and thus bids in later rounds is not cut (while in one shot it is inexistent)
+
+\subsection{A sufficient condition; Expert signals only informative about one action}
+
+Both the subjects rewards are idependent conditional on the treatment, and the treatments are conditionally indepedent.
+
+if they are not independent one can consider a situation in which if you take my bid as truthful I can gain by lying to confuse your bid in the next period, (and i buy it in the period before or during tricking you)
+
+
