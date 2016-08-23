@@ -69,15 +69,13 @@ Thus, it can be seen that providing unrestricted freedom in the broadest sense t
 One restriction on subjects freedom that is sufficient to allow (in the single expert setting) dominant strategy truthful mehcanism is \emph{no defiers}: assuming that all subjects are either utility maximizers (compliers) or have some action they will take irrespective of the reports of the experts (always takers or never takers in the binary setting).
 This preserves substantial freedom, in that it is not required the subject known a priori that they will compliers, their realization of the always taker type could come after the mechanism has been run and before the action is taken. 
 
-This can be somewhat relaxed, since the needed property it implies is that the mechansim choosing an action with higher expected reward if actually carried out leads to the expected reward conditional on the chosen action to be higher. Formaly the condition that is sufficient (\NDP{necesary?})
-
-$E[ ^{*}|c_i]  >= E[ r^{*}|c_j] if E[ ^{*}|a_i]  >= E[ r^{*}|a_j]  \forall j \neq i \in K$ 
-
+This can be somewhat relaxed, since the needed property it implies is that the mechanism choosing an action with higher expected reward if actually carried out leads to the expected reward conditional on the chosen action to be higher. Formally the condition that is sufficient (\NDP{necesary?})
+$$E[ ^{*}|c_i]  \geq E[ r^{*}|c_j] \text{ if }E[ ^{*}|a_i]  \geq E[ r^{*}|a_j]  \forall j \neq i \in K$$
 Note that under this assumption existing mechanisms for the many expert setting are not incentive compatible unless subjects can credibly commit to using a randomized strategy which places positive mass on dominated action (i.e. there are no ex-post incntive compatible mechanisms based on proper scoring rules and voiding given a no defiers assumption):
 
 
 
-There is some extra flexibility more than no defiers which we should use, for example differential compliance rates for different actions, the mechanisms selects the action that most raises the reward not the one who has the highest reward (for exmaple a action that has the seccond highest reward but 1\% noncompliance might be chosen instead of one  that has 99\% noncompliance and the highest reward. No defiers buys us the extra part that chosen is the highest reward action, so makes life easier for the subject (if the noncpliance depened on the signals the expert receives a utility maximizing decision maker would have to consider other decision markets noncomplaince characteristics in the prior before deciding how to interpret the chosen action; this removes such ambiguities and doesn't seem to loose too much generality)
+There is some extra flexibility more than no defiers which we should use, for example differential compliance rates for different actions, the mechanisms selects the action that most raises the reward not the one who has the highest reward (for example an action that has the second highest reward but 1\% noncompliance might be chosen instead of one  that has 99\% noncompliance and the highest reward. No defiers buys us the extra part that chosen is the highest reward action, so makes life easier for the subject (if the noncompliance depended on the signals the expert receives a utility maximizing decision maker would have to consider other decision markets noncomplaince characteristics in the prior before deciding how to interpret the chosen action; this removes such ambiguities and doesn't seem to loose too much generality)
 
 
 
@@ -88,22 +86,22 @@ There is some extra flexibility more than no defiers which we should use, for ex
 \end{eg}
 
 
-\NDP{Having the first theorem in a paper seems less than ideal, maybe we can instead state the following corollary which reexpresses it in our terms?}
+\NDP{Having the first theorem in a paper seems less than ideal, maybe we can instead state the following corollary which reexpresses it in our terms?} \DBA{I don't understand the words before ``less than ideal''.}
 
-Further, an inmidiate corollary to a theorem X of \cite{chen2014eliciting} 
+Further, an immediate corollary to a theorem X of \cite{chen2014eliciting} 
  which states that Randomized decision rules with full support are necesary for incentive compatible  scoring rule decision markets (SRDM) is : If a subject is free to either maximize their expected utility at decision time, or can have probability zero of taking some actions, then a SRDM is not IC for them.
 
 
 
 
 \section{A Direct VCG style mechanism for optimal decision elicitation }
-Gien these desires and the limitation of the existing mechanism we take a approach inspired by direct VCG-style mechanism.
+Given these desires and the limitation of the existing mechanism we take a approach inspired by direct VCG-style mechanism.
 
 All agents know a common prior that gives full probability distribution of rewards over all posible signals, chosen actions and actual actions.
 
 For each expert $i$, compute the optimal action to choose without using that experts report (i.e. marginalizing over the prior on signal $i$ signal), denote this action $\hat{c}_{-i}$ and it's expected reward 
 
-$E[\hat{r}_{-i}] = E[ r| \hat{c}_{-i}, \bigcup \hat{s}_j  \forall j \neq i \in N]$ \NDP{is there a better way to notate this conditioning on the information in all the other signals than the experts? maybe $S_{-i}$ to denote the joint signals off all the others?}
+$E[\hat{r}_{-i}] = E[ r| \hat{c}_{-i}, \bigcup \hat{s}_j  \forall j \neq i \in N]$ \NDP{is there a better way to notate this conditioning on the information in all the other signals than the experts? maybe $S_{-i}$ to denote the joint signals off all the others?} \DBA{I've seen $S_{-i}$ and $S_{\hat{i}}$ used}
 
 
  The payment rule is announced as follows:
@@ -166,20 +164,22 @@ Payments can be more than the improvement in the reward the mechanism creates \N
 
 
 \begin{eg}[expensive experts]
-	Let there be two experts, two actions ${\alpha,\beta}$ and four equl probability states of the world, ${A,B,C,D}$, with payoffs to the actions correspondingly as ${(0,1),(0,-1),(-1,0),(1,0)}$. Let one expert oberve that they are in either ${A,B}$ or ${C,D}$ and the other ${B,C}$ or ${A,D}$. A uniform random strategy ahcieves a expected value of 0. An optimal strategy with access to a single expert (either one) achieves a value of 0. Using the signals of both we can achieve reward 1. Thus the VCG payments are $1$ to each, and the mechansim improves the subjects wellfare by $1$ while making $2$ in payments, thus $-1$ 
+	Let there be two experts, two actions ${\alpha,\beta}$ and four equal probability states of the world, ${A,B,C,D}$, with payoffs to the actions correspondingly as ${(0,1),(0,-1),(-1,0),(1,0)}$. Let one expert oberve that they are in either ${A,B}$ or ${C,D}$ and the other ${B,C}$ or ${A,D}$. A uniform random strategy achieves an expected value of 0. An optimal strategy with access to a single expert (either one) achieves a value of 0. Using the signals of both we can achieve reward 1. Thus the VCG payments are $1$ to each, and the mechanism improves the subjects welfare by $1$ while making $2$ in payments, thus $-1$. 
 \end{eg}
 
-\NDP{Can you check my algebra in the above example, it is a variation on a classic in the literature on prediciton markets where a separability condition doesnt hold.}
+\DBA{Checked}
 
 
 
 \section{Bounded Payments}
-As presented the direct VCG mechanism might hae unbounded payments (if there are states of the world with sufficiently high reward differentials and a sufficiently large number of experts with complementary signals) and thus the subject might be betteroff not participating a priori. Here we introduce a variation on the mechanism that re-scales payments using the prior so they are bounded.
+As presented the direct VCG mechanism might have unbounded payments (if there are states of the world with sufficiently high reward differentials and a sufficiently large number of experts with complementary signals) and thus the subject might be better off not participating a priori. Here we introduce a variation on the mechanism that re-scales payments using the prior so they are bounded.
 
 
 \DBA{Provide argument that the rescaling component of the mechanism cannot be gamed}
 
 \NDP{This might not be possible. see http://web.stanford.edu/~jacksonm/mechtheo.pdf }
+
+\DBA{this worries me. If rescaling can be gamed, then we need some other way to guarantee the mechanism is always of value to the subject.}
 
 \begin{eg}[bounding payments mechanism]
 
@@ -225,7 +225,7 @@ Also note that the payout to the in this example to the expert is positive it ca
 \begin{con}
 	No mechanism can get around this (intuition; we are tyring to get as close to vcg as possible, and i dont see a way to get closer).
 \end{con}
-\DBA{proving a negative is hard; e.g. this paper is circumenting Chen's negative result}
+\DBA{proving a negative is hard; e.g. this paper is circumventing Chen's negative result}
 
 \subsection{A sufficient condition for dominat truthfulness in reports}
 
