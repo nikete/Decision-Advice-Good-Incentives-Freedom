@@ -183,17 +183,17 @@ As presented the direct VCG mechanism might hae unbounded payments (if there are
 
 \begin{eg}[bounding payments mechanism]
 
-Let $E[r|c(s)]$ denote the expected reward obtained from choosing the optimal action using all signals if they where reported truthfully, and $E[r|c(p)] $ the expetec treward from picking the action using only the prior and no singals. Thus $E[r|c(s)] - [r|c(p)] $ is the expected surplus from using the information in a truthful mechanism relative to using only the priors.
+Let $E[r|c(s)]$ denote the expected reward obtained from choosing the optimal action using all signals if they where reported truthfully, and $E[r|c(p)] $ the expetec treward from picking the action using only the prior and no singals. Thus $E[r|c(s)] - E[r|c(p)] $ is the expected surplus from using the information in a truthful mechanism relative to using only the priors. Let $alpha$ be a constant bellow zero, and consider scaled payment of agent $i$ as 
 
 \[
-    \pi_i = 
-\begin{cases}
-    ((r - E[\hat{r}_{-i}] ) / N )       (E[r|a(s)] - [r|a(p)] )          ,& \text{if } \hat{c}_{-i} \neq c\\
-    0,              & \text{otherwise}
-\end{cases}
+  \rho_i  = ( \pi_i  / \sum \pi_{-i} )    \alpha  (E[r|a(s)] - E[r|a(p)] 
 \]
 
+while this guarantees we never pay more than alpha share of the benefit, it is gamable. in particular the experts report now affects his payout beyodn the chosen action by affecting the payout of the other agents before scaling (\pi_{-i}).
+
 \end{eg}
+
+
 
 
 \begin{lem}
@@ -259,11 +259,10 @@ If we void the payment completely this can have the oposite effect, biasing expe
 
 
 
-
-
 \section{The signal reporting vcg mechanism can work even when utilities are not part of the common prior}
 
 the mechanism, but not necesarily the experts, needs access to the utility function of the decision maker and the prior over which expectations are taken 
+
 \DBA{does the utility function of the decision maker (along with prior) ``explain'' its noncompliance? This is somehow a conceptual question, not sure if it makes a difference to the meat of the paper. }
 
 for a cancer example; the chemiotherapy specialist might explain the likely side effects conditional on their knowledge of the specifics of the patient (the rapidly dropping cost of sequencing a genome means this) without needing to understand the relative value the patient places on discomfort relative to life lengthening, while the surgeon might explain the (again subject tot he specific characteristics of the subject) risks he foresees in the surgury (in contrast to the baseline risks of the populatin that gets the procude which is what cna be observed, a reasoable prior) for that patient, without needing to udnerstand the risk aversion of the patient which would be necesary for calculating their utility.
