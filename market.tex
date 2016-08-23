@@ -14,22 +14,21 @@ We then analyze a simple bid based variation of the mechansim, and provide a suf
 
 \section{Model}
 
-We consider a single subject with access to $K$ possible choices, their outcomes are sufficiently characterized for the subject by a reward vector $R$ which is unobservable to the subject, where each element in $r_k$ corresponds to the reward the subject receives if he carries out the corresponding action in $K$ . We consider a set of $N$ experts, each of whom have access to some signal $s_i$ which are potentially informative about $R$, we use $S$ to denote the vector containing all signals.  $P$ denotes a prior distribution over $P(R|S) $ which is common knowledge. To map to the mechanism design literature the $P$ would be over states of the world in $\Omega$ and each state of the world consists
+We consider a single subject with access to $K$ possible choices, their outcomes are sufficiently characterized for the subject by a reward vector $R$ which is unobservable to the subject, where each element in $r_k$ corresponds to the reward the subject receives if he carries out the corresponding action in $K$ . We consider a set of $N$ experts, each of whom have access to some signal $s_i$ which are potentially informative about $R$, we use $S$ to denote the vector containing all signals.  $P$ denotes a prior distribution over $P(R|S) $ which is common knowledge.
 
+\NDP{Does this seems worth noting at this point? it maps to mechanism design adn chen et al more clearly, but it doesnt add much light}  To map to the mechanism design literature the $P$ would be over states of the world in $\Omega$ and each state of the world consists of a agent type (complier probability and action outcome and the value (reward) a utility functin placed on it) and the signals of each expert)
 
 A mechanism anounces a payment rule $p_i(r^*,a,c,S)$, with $p_i$ being the payment to expert $i$. We will denote by $\hat{c}^{*}$ the chosen action that maximizes the reward given the reported signals $\hat{S}$, and by $c^{*}$ the optimal choice given the true signals.
 We seek a mechanism that  $c^{*} = \hat{c}^{*}$.
 
 Each experts receives their signals $s_i$, and makes a reports $\hat{s}_i$ to the mechanism, which outputs a chosen action $c^{*}$.
-
 The subject observes the action chosen by the mechanism $c$, and takes a (potentially different) action $a$. A reward $r^{*}$ is observed, and the mechanism makes the corresponding payments.
 
 
-%
 
 %There are n players, i = 1􏰸􏰷􏰷􏰷􏰸n. There is a finite set of states of the world, Ω, and a random variable (“security”) X : Ω → R. As in Aumann (1976), each player i receives information about the true state of the world, ω ∈ Ω, accord- ing to partition Πi of Ω (i.e., if the true state is ω, player i observes Πi(ω)). For notational convenience, without loss of generality, assume that the join (the coarsest common refinement) of partitions Π1􏰸􏰷􏰷􏰷􏰸Πn consists of single- ton sets; that is, for any two states ω1 ̸= ω2, there exists player i such that Πi(ω1) ̸= Πi(ω2). Π = (Π1􏰸􏰷􏰷􏰷􏰸Πn) is the partition structure. Players have a common prior distribution P over states in Ω.
 
-An experts $i$ report is truthful when $\hat{s}_i=s_i$. A mechanism is incentive compatible when truthful reports maximize the payment experts receive and this holds for all experts; this can be in dominant strategies or in a bayesian nash equilibrium.
+An experts $i$ report is truthful when $\hat{s}_i=s_i$. A mechanism is incentive compatible when truthful reports maximize the payment experts receive and this holds for all experts. This can be in dominant strategies or in a bayesian nash equilibrium.
 
 \section{Shared Reward Mechanism}
 
@@ -73,10 +72,16 @@ Thus, it can be seen that providing unrestricted freedom in the broadest sense t
 One restriction on subjects freedom that is sufficient to allow (in the single expert setting) dominant strategy truthful mehcanism is \emph{no defiers}: assuming that all subjects are either utility maximizers (compliers) or have some action they will take irrespective of the reports of the experts (always takers or never takers in the binary setting).
 This preserves substantial freedom, in that it is not required the subject known a priori that they will compliers, their realization of the always taker type could come after the mechanism has been run and before the action is taken. 
 
+This can be somewhat relaxed, since the needed property it implies is that the mechansim choosing an action with higher expected reward if actually carried out leads to the expected reward conditional on the chosen action to be higher. Formaly the condition that is sufficient (\NDP{necesary?})
+
+$E[ ^{*}|c_i]  >= E[ r^{*}|c_j] if E[ ^{*}|a_i]  >= E[ r^{*}|a_j]  \forall j \neq i \in K$ 
+
+
+
 Note that under this assumption existing mechanisms for the many expert setting are not incentive compatible unless subjects can credibly commit to using a randomized strategy which places positive mass on dominated action (i.e. there are no ex-post incntive compatible mechanisms based on proper scoring rules and voiding given a no defiers assumption):
 
 \begin{thm}
-	Randomized decision rule allows incentive compatible decision scoring rule
+        Randomized decision rules are necesary for incentive compatible  scoring rule decision markets (SRDM)
 \end{thm}
 
 \begin{proof}
@@ -85,32 +90,87 @@ Note that under this assumption existing mechanisms for the many expert setting 
 
 In fact, it has been shown that
 
-\begin{eg}[deterministic decision rule is not incentive compatible]
-	counterexample from \cite{chen2014eliciting}
+\begin{eg}[under SRDM with a utitlity maximizing subject an expert can always benefit from exaggerating the success probability of a suboptimal action]
+	counterexample from \cite{othman2010decision}
 \end{eg}
+
+
+\begin{Corollaries}
+	If a subject is free to either maximize their expected utility at decision time, or to have probability zero of taking some actions due to their revealed prices, then a SRDM is not IC for them.
+\end{Corollary}
 
 
 There is some extra flexibility more than no defiers which we should use, for example differential compliance rates for different actions, the mechanisms selects the action that most raises the reward not the one who has the highest reward (for exmaple a action that has the seccond highest reward but 1\% noncompliance might be chosen instead of one  that has 99\% noncompliance and the highest reward. No defiers buys us the extra part that chosen is the highest reward action, so makes life easier for the subject (if the noncpliance depened on the signals the expert receives a utility maximizing decision maker would have to consider other decision markets noncomplaince characteristics in the prior before deciding how to interpret the chosen action; this removes such ambiguities and doesn't seem to loose too much generality)
 
 
-\section{A Direct Mechanism with strong Common Priors}
+\section{A Direct Mechanism with Common Priors}
 
-All agents know a common prior that gives full probability distribution of rewards over all posible signals, chosen actions and actual actions. 
-The following VCG style mechanism is natural: each expert reports their signal, the mechanism calculates the action that maximizes the reward and chooses it. Each expert receives a share of the reward based on the difference between the received payoff and the payoff we would have obtained in expectation (using the other experts reports only) if we had not used the agents report.
+All agents know a common prior that gives full probability distribution of rewards over all posible signals, chosen actions and actual actions.
 
-\DBA{It took me a while to notice that there are three quantities that are relevant: (1) received payoff, (2) expected payoff from using all agents reports except winner, (3) expected payoff from using all agents reports including winner. It seems only (1) and (2) are used -- and (3) is not. Worth emphasizing this more, since it also matters for noncompliance (comment below).
+A direct VCG-style mechanism.
+
+For each expert $i$, compute the optimal action to choose without using that experts report (i.e. marginalizing over the prior on signal $i$ signal), denote this action $\hat{c}_{-i}$ and it's expected reward 
+
+$E[\hat{r}_{-i}] = E[ r| \hat{c}_{-i}, \bigcup \hat{s}_j  \forall j \neq i \in N]$
+
+ The payment rule is announced as follows:
+
+\[
+    \pi_i = 
+\begin{cases}
+    r^{*} - E[\hat{r}_{-i}] ,& \text{if } \hat{c}_{-i} \neq c\\
+    0,              & \text{otherwise}
+\end{cases}
+\]
+
+If a experts reports alter the chosen action then expert gets a payment proportional to the difference between the realized action and the expectation of the 
+
+ Note that this doesnt change the expectation when reports are truthful, but it does when they are not; since the misreported signals can't in expectation increase the payoff when others are truthful, it is never optimal to manipulate when others are truthful. 
+
+
+Each expert reports their signal, the mechanism calculates the action that maximizes the reward and chooses it. 
+\NDP{is there a better way to notate this? maybe $S_{-i}$ to denote the joint signals off all the others?}
+
+
+The difference between the received payoff and the payoff that would have been obtained in expectation if only the other experts reports had been taken into account , the payment rule is:
+
+Note that such payments do not depend on the reported signal of agent $i$, instead they depend on the achieved outcome and the expected reward of the optimal action without using a given agents signal.
+
+\DBA{It took me a while to notice that there are three quantities that are relevant: (1) received payoff, (2) expected payoff from using all agents reports except winner, (3) expected payoff from using all agents reports including winner. It seems only (1) and (2) are used -- and (3) is not. Worth emphasizing this more, since it also matters for noncompliance (comment below).}
+\NDP{The winner is not a clearly defined notion in the signal reporting mechanism (as opposed to the bid based one). We could have them submit a bid too, and use the seccond highest bid, but the revelation priciple suggest this is unnecesary. 
+
+OTOH the above mechanism has the problem that if my signal is bad news that makes all payoffs lower and changes the optimal action, I have to pay out (Not sure about this, does the marginalization over the prior make it wash out in expectation?) That is, if you didnt have my signal, you would assume that some share of the time I would be getting the bad signal and you would pick an even worst action. So ex-ante it is rational even if ex-post it is not.
+
+The situation }
+
+
+ 
+$\pi_i  = r^{*} - E[\hat{r}_{-i}] $
+
+
 }
 
-
-this could lead to overpayments (paying more than the rewards of the experts), but you can scale the payments of the experts so that they are over some fraction of the total reward, and using the prior you can calibrate this to wokr out (TODO: less hand wavy)
+As presented this mechanism might hae unbounded payments and result in a net loss of utility for the decision maker.
+This could lead to overpayments (paying more than the rewards of the experts), but you can scale the payments of the experts so that they are over some fraction of the total reward, and using the prior you can calibrate this to wokr out (TODO: less hand wavy)
 \DBA{Provide argument that the rescaling component of the mechanism cannot be gamed}
+
+\begin{eg}[bounding payments]
+
+\end{eg}
+
+
+\begin{lem}
+	the rescaling component of the mechanism cannot be gamed
+\end{lem}
+
+
 
 \begin{lem}
 	the only way a experts report affects their payments is via the chosen action.
 \end{lem}
 
 \begin{eg}[redundant experts]
-	if you have two experts and they both observe the same signal, they both get outcome zero. \DBA{note: redundant experts get zero in expectation. If actual reward is more than predicted, then they all get paid; if it is less then they all get negative payments.}
+	If you have two experts and they both observe the same signal, they both get outcome zero. \DBA{note: redundant experts get zero in expectation. If actual reward is more than predicted, then they all get paid; if it is less then they all get negative payments.}
 \end{eg}
 
 
@@ -163,12 +223,16 @@ A interesting question that arrises is how to handle the case where the action t
 
 \begin{itemize}
 \item make payments irrespective. \DBA{I realized here that you're using (1) received payoff instead of (3) expected payoff. This seems problematic. E.g. if noncompliance leads to lower reward (which is presumably to be expected if experts know more than subject) then experts' payouts take a hit based on subject's capriciousness. This is especially problematic if payouts are negative due to subject's noncompliance.}
+\NDP{I initially tried setting to void market if action nto followed, but this creates perverse incentives, where the subject might not follow the advice and receive a lower payoff to avoid payment. While your statements abotu the experts are true they (A) the prior taking into account noncompliance makes these expectations workable, you take into account the fact that some advice might not be followed with higher probability. (B) the \emph{no defiers} (terrible name, sinc eit is even stronger than that, uniform noncompliance might be a better term), is a sufficient condition to rule this out.}
+
 \item make the payment for the $\beta r_a$ but do not require the payment of $b_{i-1}$.
 \item make no payment, and require no payment.
 \end{itemize}
 
 Only the first is incentive compatible. TODO: formalize. Sketch: a crucial property is that w separate bids and reports, this lets the reports be truthful while the bids are shaded (as is standard in common value seccond price auction). Further, it means that noncompliance (given the no defiers assumption) 
 \DBA{maybe I'm missing something. But if the subject has a strong tendency to pick low-reward actions, then the experts are disincentivized from providing any advice at all, since they will likely receive negative payouts}
+\NDP{The prior is over the noncompliance (what you are terming it the tendency to pick low actions here) }
+
 
 If we do not require the payment, it can incentivize experts to report in such a way as to encourage non-compliance, since this would increase their payout. \DBA{example}
 If we void the payment completely this can have the oposite effect, biasing experts away from reporting the \DBA{Is this paragraph dependent on agent's having a model of the subject's noncompliance? E.g. If subject's noncompliance is random (ignore advice with probability $p$ and then pick action uniformly), are the second and third options incentive compatible?}
