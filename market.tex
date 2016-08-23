@@ -58,13 +58,36 @@ This motivates considering the next mechanism.
 
 \section{Freedom and Limits to Defiance}
 
-If we consider subjects with potentially unrestricted freedom, i.e. subjects are not necesarily expected reward maximizers, then the mechanism is not necesarily truthful, even for a single expert. For example, consider a subject that has a prejudice in favour of treatment A, and so will take it unless the expected reward of treatment B is more than 10 utils highers. Consider a expert with access to a signal wich is an unbiased estimate of the rewards over both actions, receives a signal  that B reward is higher by 9 utils. The expert is strictly better off reporting that his signal has B as more than 10 better.
-More generically we can consider of an agent who does the oposite of what maximizes reward (the min decision rule), this creates incentives for experts to flip the ordering that their signals imply. Thus, it can be seen that providing unrestricted freedom in the broadest sense to subjects makes the setting hopeless. 
+If we consider subjects with potentially unrestricted freedom, i.e. subjects are not necesarily expected reward maximizers, then the mechanism is not necesarily truthful, even for a single expert. 
+
+\begin{eg}[total freedom yields bad incentives for a single expert]
+	For example, consider a subject that has a prejudice in favour of treatment A, and so will take it unless the expected reward of treatment B is more than 10 utils highers. Consider a expert with access to a signal wich is an unbiased estimate of the rewards over both actions, receives a signal  that B reward is higher by 9 utils. The expert is strictly better off reporting that his signal has B as more than 10 better.
+\end{eg}
+
+\begin{eg}[subjects who defy experts yield perverse incentives]
+	More generically we can consider of an agent who does the oposite of what maximizes reward (the min decision rule), this creates incentives for experts to flip the ordering that their signals imply. 
+\end{eg}
+
+Thus, it can be seen that providing unrestricted freedom in the broadest sense to subjects makes the setting hopeless. 
 
 One restriction on subjects freedom that is sufficient to allow (in the single expert setting) dominant strategy truthful mehcanism is \emph{no defiers}: assuming that all subjects are either utility maximizers (compliers) or have some action they will take irrespective of the reports of the experts (always takers or never takers in the binary setting).
 This preserves substantial freedom, in that it is not required the subject known a priori that they will compliers, their realization of the always taker type could come after the mechanism has been run and before the action is taken. 
 
-Note that under this assumption existing mechanisms for the many expert setting are not incentive compatible unless subjects can credibly commit to using a randomized strategy which places positive mass on dominated action (i.e. there are no ex-post incntive compatible mechanisms based on proper scoring rules and voiding given a no defiers assumption)
+Note that under this assumption existing mechanisms for the many expert setting are not incentive compatible unless subjects can credibly commit to using a randomized strategy which places positive mass on dominated action (i.e. there are no ex-post incntive compatible mechanisms based on proper scoring rules and voiding given a no defiers assumption):
+
+\begin{thm}
+	Randomized decision rule allows incentive compatible decision scoring rule
+\end{thm}
+
+\begin{proof}
+	\cite{chen2014eliciting}
+\end{proof}
+
+In fact, it has been shown that
+
+\begin{eg}[deterministic decision rule is not incentive compatible]
+	counterexample from \cite{chen2014eliciting}
+\end{eg}
 
 
 There is some extra flexibility more than no defiers which we should use, for example differential compliance rates for different actions, the mechanisms selects the action that most raises the reward not the one who has the highest reward (for exmaple a action that has the seccond highest reward but 1\% noncompliance might be chosen instead of one  that has 99\% noncompliance and the highest reward. No defiers buys us the extra part that chosen is the highest reward action, so makes life easier for the subject (if the noncpliance depened on the signals the expert receives a utility maximizing decision maker would have to consider other decision markets noncomplaince characteristics in the prior before deciding how to interpret the chosen action; this removes such ambiguities and doesn't seem to loose too much generality)
@@ -99,6 +122,18 @@ the experts have to have the potential for negative payoffs (even through the ex
 
 There is a  equilibrium where all experts maximize their payment by maximizing the probability that the action with the highest reward is taken; if all other reports are truthful and under a no defiers assumption then this is optimized by being truthful.
 
+
+\begin{defn}[nash equilibrium]
+	lala
+\end{defn}
+
+\begin{defn}[bayesian nash equilibrium; BNE incentive compatibility]
+	fala
+\end{defn}
+
+\begin{defn}[dominant truthfulness]
+	ftw
+\end{defn}
 
 The incentive compatibility here is only in one nash equilibrium, and not in dominant strategies. In particular, if another expert does not report their signal truthfully, an expert might maximize the reward by making a countervailing report that is not truthful, to cancel out the other untruthful expert. 
 
