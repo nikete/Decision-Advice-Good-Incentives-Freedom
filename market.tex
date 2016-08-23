@@ -161,16 +161,28 @@ In many practical applications of interest, it might be that the signals can't b
 
 If we replace the reports in the direct mechnaism by bids, and we allow the winner of the auction to pick the action, we have a mechanism that doesnt make any strong assumptions beyond that the agents understand the rules of the game.
 
-For some information structures this still aggregates information well, for example if each expert knows the exact outcome conditonal on one action and knows he doesnt know what happens under other actions, and there is at least one expert that is informaed about each action.
+For some information structures this still aggregates information well, for example:
 
-For other information structures it does not work, for exmaple the classic example without separability that fails in the bayesian games so broadly (TODO Add cite) also fails here. 
+\begin{lem}[specialist experts]
+	if each expert knows the exact outcome conditonal on one action and knows he doesnt know what happens under other actions, and there is at least one expert that is informaed about each action.
+\end{lem}
+
+For other information structures it does not work, for exmaple 
+\begin{eg}
+	the classic example without separability that fails in the bayesian games so broadly (TODO Add cite) also fails here. 
+\end{eg}
+
 %\section{Summary}
 
 \subsection{Interpreting bids}
 
-the bids reflect the expected value of the mechanism choosing a particular action, not of that action being taken. example if half are allways takers, the bid effectively waters down the true effect by half.
+the bids reflect the expected value of the mechanism choosing a particular action, not of that action being taken. \DBA{I'm confused. In previous section, ``each expert knows the exact outcome conditonal on one action'', and now its conditional on action being chosen, not taken. These sentences sentences seem to be at odds.} Example: if half are allways takers, the bid effectively waters down the true effect by half.
+\DBA{So the bids made by experts depend on the expert's model of the subject's behavior?}
 
 further, due to the winners curse, it is the expected effect conditional on having won the auction. 
+\DBA{can you write down how expected conditional on having won is computed?}
+
+\DBA{At this point, the interpretation of the bid has been qualified twice, and I'm lost}
 
 \subsection{A sufficient separability condition for efficiency}
 
