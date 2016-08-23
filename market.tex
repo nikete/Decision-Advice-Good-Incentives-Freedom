@@ -100,8 +100,9 @@ Given these desires and the limitation of the existing mechanism we take a appro
 All agents know a common prior that gives full probability distribution of rewards over all posible signals, chosen actions and actual actions.
 
 For each expert $i$, compute the optimal action to choose without using that experts report (i.e. marginalizing over the prior on signal $i$ signal), denote this action $\hat{c}_{-i}$ and it's expected reward 
+$\hat{S}_{-i} = \bigcup \hat{s}_j  \forall j \neq i \in N $ then the expected reward given the others reports is:
 
-$E[\hat{r}_{-i}] = E[ r| \hat{c}_{-i}, \bigcup \hat{s}_j  \forall j \neq i \in N]$ \NDP{is there a better way to notate this conditioning on the information in all the other signals than the experts? maybe $S_{-i}$ to denote the joint signals off all the others?} \DBA{I've seen $S_{-i}$ and $S_{\hat{i}}$ used}
+$E[\hat{r}_{-i}] = E[ r| \hat{c}_{-i}, \hat{S}_{-i}] 
 
 
  The payment rule is announced as follows:
