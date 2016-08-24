@@ -190,39 +190,39 @@ As presented the VCG style direct mechanism might have higher payments than the 
 
 \begin{mech}[Efficiency and Rational Entry]
 
-Let $E[r|c(s)]$ denote the expected reward obtained from choosing the optimal action using all signals if they where reported truthfully, and $E[r|c(P)] $ the expetec treward from picking the action using only the prior and no singals. Thus $E[r|c(s)] - E[r|c(p)] $ is the expected surplus from using the information in a truthful mechanism relative to using only the priors. For a efficient mechanism to be rational apriori for the subject to implement it must be that $E[r|c(s)] - E[r|c(P)] > E[\sum \pi]$ where $\pi$ is either the result of a nash equilibrium or in dominant strategy (i.e. we set all elements of $\hat{s}$ jointly to maximize $\sum \pi$, even ifthis does not result in a equilirium for the experts).
+Let $E[r|c(s)]$ denote the expected reward obtained from choosing the optimal action using all signals if they where reported truthfully, and $E[r|c(P)] $ the expetec treward from picking the action using only the prior and no singals. Thus $E[r|c(S)] - E[r|c(P)] $ is the expected surplus from using the information in the truthful equilibrium of the mechanism relative to using only the priors. For a efficient mechanism to be rational apriori for the subject to implement it must be that $E[r|c(S)] - E[r|c(P)] > E[\sum \pi]$ where $\pi$ is either the result of a nash equilibrium or in dominant strategy (i.e. we set all elements of $\hat{s}$ jointly to maximize $\sum \pi$, even ifthis does not result in a equilirium for the experts).
 
 Note that a constant afine transformation of the rewards preserves the incentives. Denote by $alpha$ and $beta$ two constants that recale the reward part of the payment.
 
 \[
-  \rho_i  = 
-\begin{cases}
-    \alpha + \beta r(a) -  E[ r| c_{-i}, \bigcup s_j  \forall j \neq i \in N] ,& \text{if } \hat{c}_{-i} \neq c\\
-    0,              & \text{otherwise}
-\end{cases}
+  \rho_i  = \alpha \pi_i
 \]
+\ND{Initiall I tried instead of just a multiplier < 1, having a gneeral function g with g(0) = 0, and g is monotonically increasing in $pi_i$. But this doesnt work if you lower the negatives more than the positive for example you fuck up the payments.
+}
 
+The value of $\alpha$ can be chosen apriori based on $P$ such that: $ E[\sum \rho_i] < E[r|c(s,P)] - E[r|c(P)] $ . 
 
+\NDP{This seems like it should be just algebra, for exmaple if aprior I expect 10 complementary signals which combined produce a expected surplus of 1 then i want to have $g = \alpha pi$ and \alpha < 1/10. How can we make this procedure generic? }
 
 \end{mech}
-
-Before the payment rule is anounced the two constants can be set given the prior such that 
-
-$ 0 =< E[\sum \rho_i] < $ this is an expectation over the true   
 
 \begin{lem}
 	the rescaling component of the mechanism cannot be gamed
 \end{lem}
 
 \begin{proof}
-	As they are set apriori based on expectations only. both alpha and beta are invariant to any reports the experts make. Since the transformation is afine, whatever report maximizes payoffs remains unchanged.
+	As they are set apriori based on expectations only. both alpha is invariant to any reports the experts make. Since the transformation is afine, whatever report maximizes payoffs remains unchanged.
 \end{proof}
 
 
 
+\begin{lem}
+	entering the mechanism is (weakly) positive expectation for the experts.
+\end{lem}
 
-
-the experts have to have the potential for negative payoffs (even through the expected payoff in equilibrium is positive). Since the mchanism stoping the payments around zero would change the expectation. 
+\begin{proof}
+Since a truthful signal cannot lower (if all other signals are being reported truthfully) the expected reward of the optimal chosen action and the transformation of the payoff is linear, and 
+\end{proof}
 
 
 
