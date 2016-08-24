@@ -27,11 +27,9 @@ An experts $i$ report is truthful when $\hat{s}_i=s_i$. A mechanism is incentive
 
 
 
-\section{Shared Reward Mechanism}
+\section{A Simple Reward Sharing Mechanism}
 
 Here we explore a set of mechanisms based around the idea of sharing the rewards from the taken action with the experts.
-
-\subsection{Share of Reward Mechanism}
 
 Let us first consider a very basic direct mechanism, which will help us understand the model and the limitations that subjects freedom imposes. 
 A simple mechanism that is strictly incentive compatible (in equilibrium) for an expert to reveal their signal when subjects are utility maximizers is to give all experts a share of the reward. Equivalently (in expectation) run a lottery after the reports are submitted that assigns a share of the reward to the expert that wins. 
@@ -79,30 +77,36 @@ There is some extra flexibility more than no defiers which we should use, for ex
 
 
 
-\section{Limits of Sequential Scoring Rule and Void Decision Markets}
+\section{Scoring Rule and Void Decision Market Mechanisms}
 
-\begin{eg}[under SSRDM with a utitlity maximizing subject an expert can always benefit from exaggerating the success probability of a suboptimal action]
-	counterexample from \cite{othman2010decision}
+An attempt to adapt Market Scoring Rules prediction markets to the decision setting (see background chapter for details) which might be termed Scoring-rule and Void Decision Market Mechanisms (we will abreviate to SVDM). The basic idea is to use a sequentially shared proper socring rule to run a prediction market for the value of the reward conditional each possible action, and to void the markets for the non-chosen actions.  
+
+
+\begin{eg}[With a utitlity maximizing subject an expert can benefit from exaggerating the success probability of a suboptimal action]
+	Example from \cite{othman2010decision}
 \end{eg}
 
 
-\NDP{Having the first theorem in a paper seems less than ideal, maybe we can instead state the following corollary which reexpresses it in our terms?} \DBA{I don't understand the words before ``less than ideal''.}
+\NDP{Having the first theorem in a paper not be one of the main theorems of the paper seems less than ideal, maybe we can instead state the following corollary which reexpresses it in our terms?} \DBA{I don't understand the words before ``less than ideal''.} \NDP{Sorry, id acidentally cutted off some text there. Now is fixed.}
 
-Further, an immediate corollary to a theorem X of \cite{chen2014eliciting} 
- which states that Randomized decision rules with full support are necesary for incentive compatible  scoring rule decision markets (SRDM) is : If a subject is free to either maximize their expected utility at decision time, or can have probability zero of taking some actions, then a SRDM is not IC for them.
+Further, an immediate corollary to a theorem X of \cite{chen2014eliciting} which states that Randomized decision rules with full support are necesary for incentive compatible SVDM mechanisms:
+
+If a subject is free to either maximize their expected utility at decision time, or can have probability zero of taking some actions, then a SRDM is not IC for them.
 
 
 
+\section{Efficient Optimal Decision Elicitation}
 
-\section{A Direct VCG style mechanism for optimal decision elicitation }
-Given these desires and the limitation of the existing mechanism we take a approach inspired by direct VCG-style mechanism.
+We now consider a VCG style mechanism for the optimal decision elicitation problem. The sense in which it is VCG is that it is efficient (always chooses the action whose choice maximizes rewards, note this can be different form the actual action which if carried out with perfect compliance would do so).  
 
-All agents know a common prior that gives full probability distribution of rewards over all posible signals, chosen actions and actual actions.
+All agents know a common prior that gives a proper prior probability distribution of rewards over all posible signals, chosen actions and actual actions.
 
+
+\begin{mech}[Efficient VCG style Mechanism]
 For each expert $i$, compute the optimal action to choose without using that experts report (i.e. marginalizing over the prior on signal $i$ signal), denote this action $\hat{c}_{-i}$ and it's expected reward 
 $\hat{S}_{-i} = \bigcup \hat{s}_j  \forall j \neq i \in N $ then the expected reward given the others reports is:
 
-$E[\hat{r}_{-i}] = E[ r| \hat{c}_{-i}, \hat{S}_{-i}] 
+$E[\hat{r}_{-i}] = E[ r| \hat{c}_{-i}, \hat{S}_{-i}] $
 
 
  The payment rule is announced as follows:
@@ -115,14 +119,19 @@ $E[\hat{r}_{-i}] = E[ r| \hat{c}_{-i}, \hat{S}_{-i}]
 \end{cases}
 \]
 
-
-Each expert reports their signal, the mechanism calculates the action that maximizes the reward, $c$ and chooses it. After observing the actual action taken $a$ and its reward $r$ the payments are made, this concludes the mechansim.
+Each expert reports their signal, the mechanism calculates the action that maximizes the reward $c$, and chooses it. After observing the actual action taken $a$ and its reward $r$, the corresponding payments are made, this concludes the mechansim.
 
 Note that conditional on the action taken and the payments do not depend on the reported signal of agent $i$ if we hold fixed the chosen action. 
+
+\end{mech}
 
 \begin{lem}
 	the only way a experts reports affects their payments is via the chosen action.
 \end{lem}
+
+\begin{proof}
+\NDP{can we formalize the above lemma argument into a proof? It is that the derivative of $\pi_i $ wrt to the singal $s_i$ is zero if we hold $c$ fixed, but ofcourse signals are discrete so derivatives are not hte right thing.}
+\end{proof}
 
 \begin{eg}[redundant experts]
 	If you have two experts and they both observe and report the same signal, they both get outcome zero. 
@@ -130,12 +139,14 @@ Note that conditional on the action taken and the payments do not depend on the 
 
 
 \begin{lem}
-	useless experts cannot profit from participation
+	Useless experts cannot profit from participation
 \end{lem}
 
-this is inmidiate from hwo the payment rule and useless experts are defined, since if there is no ifnromation to raise r and that is all tha that can lead to 
+\begin{proof}
+This is inmidiate from how the payment rule and useless experts are defined, since by definiion there is no information that can be reported to raise $r$ and that is all that can lead to higher rewards.
+\end{proof}
 
-\subsection{Incentive Compatibility and Efficiency}
+\subsection{Incentive Compatibility and Efficient}
 
 
 \begin{defn}[Bayes-Nash Incentive Compatibility]
@@ -161,6 +172,7 @@ thus the only thing his report will affect in his payment is $r(a)$ via the choi
 \end{proof}
 
 \subsection{Potential Negative Expetation for Subject}
+
 Payments can be more than the improvement in the reward the mechanism creates \NDP{This is standard of VCG style stuff; we are getting efficiency and truthfulness, so the payments dont work out or the mechanism isnt voluentary}. 
 
 
@@ -168,38 +180,43 @@ Payments can be more than the improvement in the reward the mechanism creates \N
 	Let there be two experts, two actions ${\alpha,\beta}$ and four equal probability states of the world, ${A,B,C,D}$, with payoffs to the actions correspondingly as ${(0,1),(0,-1),(-1,0),(1,0)}$. Let one expert oberve that they are in either ${A,B}$ or ${C,D}$ and the other ${B,C}$ or ${A,D}$. A uniform random strategy achieves an expected value of 0. An optimal strategy with access to a single expert (either one) achieves a value of 0. Using the signals of both we can achieve reward 1. Thus the VCG payments are $1$ to each, and the mechanism improves the subjects welfare by $1$ while making $2$ in payments, thus $-1$. 
 \end{eg}
 
-\DBA{Checked}
 
 
 
-\section{Bounded Payments}
-As presented the direct VCG mechanism might have unbounded payments (if there are states of the world with sufficiently high reward differentials and a sufficiently large number of experts with complementary signals) and thus the subject might be better off not participating a priori. Here we introduce a variation on the mechanism that re-scales payments using the prior so they are bounded.
+\section{Rational Entry}
+
+As presented the VCG style direct mechanism might have higher payments than the benefits it provides in terms of higher rewards (if there are states of the world with sufficiently high reward differentials and a sufficiently large number of experts with complementary signals). Thus the subject might be better off not participating a priori. Here we introduce a variation on the mechanism that re-scales payments using the prior so a subject a priori wishes to parcitipate in the mechanism.
 
 
-\DBA{Provide argument that the rescaling component of the mechanism cannot be gamed}
+\begin{mech}[Efficiency and Rational Entry]
 
-\NDP{This might not be possible. see http://web.stanford.edu/~jacksonm/mechtheo.pdf }
+Let $E[r|c(s)]$ denote the expected reward obtained from choosing the optimal action using all signals if they where reported truthfully, and $E[r|c(P)] $ the expetec treward from picking the action using only the prior and no singals. Thus $E[r|c(s)] - E[r|c(p)] $ is the expected surplus from using the information in a truthful mechanism relative to using only the priors. For a efficient mechanism to be rational apriori for the subject to implement it must be that $E[r|c(s)] - E[r|c(P)] > E[\sum \pi]$ where $\pi$ is either the result of a nash equilibrium or in dominant strategy (i.e. we set all elements of $\hat{s}$ jointly to maximize $\sum \pi$, even ifthis does not result in a equilirium for the experts).
 
-\DBA{this worries me. If rescaling can be gamed, then we need some other way to guarantee the mechanism is always of value to the subject.}
-
-\begin{eg}[bounding payments mechanism]
-
-Let $E[r|c(s)]$ denote the expected reward obtained from choosing the optimal action using all signals if they where reported truthfully, and $E[r|c(p)] $ the expetec treward from picking the action using only the prior and no singals. Thus $E[r|c(s)] - E[r|c(p)] $ is the expected surplus from using the information in a truthful mechanism relative to using only the priors. Let $alpha$ be a constant bellow zero, and consider scaled payment of agent $i$ as 
+Note that a constant afine transformation of the rewards preserves the incentives. Denote by $alpha$ and $beta$ two constants that recale the reward part of the payment.
 
 \[
-  \rho_i  = ( \pi_i  / \sum \pi_{-i} )    \alpha  (E[r|a(s)] - E[r|a(p)] 
+  \rho_i  = 
+\begin{cases}
+    \alpha + \beta r(a) -  E[ r| c_{-i}, \bigcup s_j  \forall j \neq i \in N] ,& \text{if } \hat{c}_{-i} \neq c\\
+    0,              & \text{otherwise}
+\end{cases}
 \]
 
-while this guarantees we never pay more than alpha share of the benefit, it is gamable. in particular the experts report now affects his payout beyodn the chosen action by affecting the payout of the other agents before scaling ($\sum \pi_{-i}$).
-
-\end{eg}
 
 
+\end{mech}
 
+Before the payment rule is anounced the two constants can be set given the prior such that 
+
+$ 0 =< E[\sum \rho_i] < $ this is an expectation over the true   
 
 \begin{lem}
 	the rescaling component of the mechanism cannot be gamed
 \end{lem}
+
+\begin{proof}
+	As they are set apriori based on expectations only. both alpha and beta are invariant to any reports the experts make. Since the transformation is afine, whatever report maximizes payoffs remains unchanged.
+\end{proof}
 
 
 
