@@ -1,8 +1,12 @@
 %!TEX root = main.tex
-\section{Two-sides}
 
- A sequence of subjects choosing each choosing from the same fixed set of action which only affect them directly, as in our frst model, while eliciting advice for those subjects from a fixed set of experts, as in our seccond model. 
-At each step a subject arrives, experts recieve signals conditional on the subject, reports of experts are submited to the mechanism, the subject observes the action chosen by the mechanisms, picks an action and receives a reward, the mechanism then uses the observed reports, action and reward to assign payments to the experts.
+
+ A sequence of subjects choosing each choosing from the same fixed set of action which only affect them directly, as in bandits with compliance awareness, while eliciting advice for those subjects from a fixed set of experts, as in elicitation of information to enable optimal decisions. 
+
+\section{Model}
+
+The game occurs over $T$ steps, at each step: a subject $t$ arrives, $N$ experts recieve each receive a $s_{t,i}$ signal, each expert $i$ reports to the mechanism $\hat{s}_{t,i}$, the subject observes the action chosen by the mechanisms $c_t$, picks an action $a_t$ that is actually carried out and receives a reward $r_t$.
+
 
 Bounded regret algorithms from the compliance awareness can be seen as addressing the special case where the experts signals are known apriori to not be informative, and thus only the experience can be learned from. Our one-decision mechanism is the special case for T=1, thus there is no role for exploration, since there are no future decisions in the game.
 The compliance-aware algorithm can be used for initial rounds where a reserve price has not been met.

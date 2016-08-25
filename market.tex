@@ -7,9 +7,9 @@ The core of the problem with using the machinery of prediction markets in the de
 
 
 The guiding design criterion in this work is to restrict as little as possible the decision that the subject must take (maximizing their freedom) while still providing good incentives to the experts. No previous mechanisms in the literature can truthfully aggregate arbitrary signals over many experts in BNE. 
-
-We first focus on a direct mechanism. Experts directly report their signals to the mechanism, which then uses them to compute the optimal action given the prior to output to the subject. This requires  the experts and the mechanism having access to a common bayesian prior, over the joint probabilities of the rewards, true signals, the output action and the response of the subject to a given output of the mechanism. There is a BNE that aggregates all information over $N$ experts, unlike the case in the previous mechanisms in the literature.
+We first focus on a direct efficient mechanism in the style of VCG mechanism. Experts directly report their signals to the mechanism, which then uses them to compute the optimal action given the prior to output to the subject. This requires  the experts and the mechanism having access to a common bayesian prior, over the joint probabilities of the rewards, true signals, the output action and the response of the subject to a given output of the mechanism. There is a BNE that aggregates all information over $N$ experts, unlike the case in the previous mechanisms in the literature.
 We then analyze a simple bid based variation of the mechansim, and provide a sufficient conditions on the signal structures where information can be fully aggregated; we further show that these conditions are sufficient to make truthfulness dominant incentive compatible.  
+
 
 
 
@@ -26,7 +26,6 @@ The subject observes the action chosen by the mechanism $\hat{c}$, and takes a (
 An experts $i$ report is truthful when $\hat{s}_i=s_i$. A mechanism is incentive compatible when truthful reports maximize the payment experts receive and this holds for all experts. This can be in dominant strategies or in a bayesian nash equilibrium.  We seek efficient mechanisms, that is $c^{*} = \hat{c}$ for all posible signals.
 
 
-
 \section{A Simple Reward Sharing Mechanism}
 
 Here we explore a set of mechanisms based around the idea of sharing the rewards from the taken action with the experts.
@@ -35,7 +34,6 @@ Let us first consider a very basic direct mechanism, which will help us understa
 A simple mechanism that is strictly incentive compatible (in equilibrium) for an expert to reveal their signal when subjects are utility maximizers is to give all experts a share of the reward. Equivalently (in expectation) run a lottery after the reports are submitted that assigns a share of the reward to the expert that wins. 
 
 In this case the signals may be arbitrary, the payment rule is invariant to them, and defined as $\pi_i  = (\alpha / N ) r $ with $\alpha < 1$. Note that we are not defining the payment rule to be conditional on the subjects actual action in any way. %In particular, it might naively seem appropiate to only give the share when the chosen action is the actual action carried out. 
-
 
 \subsubsection{Limitations}
 This mechanism is problematic in a number of ways
@@ -71,8 +69,6 @@ This can be somewhat relaxed, since the needed property it implies is that the m
 $$E[ ^{*}|c_i]  \geq E[ r^{*}|c_j] \text{ if }E[ ^{*}|a_i]  \geq E[ r^{*}|a_j]  \forall j \neq i \in K$$
 Note that under this assumption existing mechanisms for the many expert setting are not incentive compatible unless subjects can credibly commit to using a randomized strategy which places positive mass on dominated action (i.e. there are no ex-post incntive compatible mechanisms based on proper scoring rules and voiding given a no defiers assumption):
 
-
-
 There is some extra flexibility more than no defiers which we should use, for example differential compliance rates for different actions, the mechanisms selects the action that most raises the reward not the one who has the highest reward (for example an action that has the second highest reward but 1\% noncompliance might be chosen instead of one  that has 99\% noncompliance and the highest reward. No defiers buys us the extra part that chosen is the highest reward action, so makes life easier for the subject (if the noncompliance depended on the signals the expert receives a utility maximizing decision maker would have to consider other decision markets noncomplaince characteristics in the prior before deciding how to interpret the chosen action; this removes such ambiguities and doesn't seem to loose too much generality)
 
 
@@ -100,7 +96,6 @@ If a subject is free to either maximize their expected utility at decision time,
 We now consider a VCG style mechanism for the optimal decision elicitation problem. The sense in which it is VCG is that it is efficient (always chooses the action whose choice maximizes rewards, note this can be different form the actual action which if carried out with perfect compliance would do so).  
 
 All agents know a common prior that gives a proper prior probability distribution of rewards over all posible signals, chosen actions and actual actions.
-
 
 \begin{mech}[Efficient VCG style Mechanism]
 For each expert $i$, compute the optimal action to choose without using that experts report (i.e. marginalizing over the prior on signal $i$ signal), denote this action $\hat{c}_{-i}$ and it's expected reward 
@@ -148,7 +143,6 @@ This is inmidiate from how the payment rule and useless experts are defined, sin
 
 \subsection{Incentive Compatibility and Efficient}
 
-
 \begin{defn}[Bayes-Nash Incentive Compatibility]
 	A BNE where all experts truthfully report their signals.
 \end{defn}
@@ -175,7 +169,6 @@ thus the only thing his report will affect in his payment is $r(a)$ via the choi
 
 Payments can be more than the improvement in the reward the mechanism creates \NDP{This is standard of VCG style stuff; we are getting efficiency and truthfulness, so the payments dont work out or the mechanism isnt voluentary}. 
 
-
 \begin{eg}[expensive experts]
 	Let there be two experts, two actions ${\alpha,\beta}$ and four equal probability states of the world, ${A,B,C,D}$, with payoffs to the actions correspondingly as ${(0,1),(0,-1),(-1,0),(1,0)}$. Let one expert oberve that they are in either ${A,B}$ or ${C,D}$ and the other ${B,C}$ or ${A,D}$. A uniform random strategy achieves an expected value of 0. An optimal strategy with access to a single expert (either one) achieves a value of 0. Using the signals of both we can achieve reward 1. Thus the VCG payments are $1$ to each, and the mechanism improves the subjects welfare by $1$ while making $2$ in payments, thus $-1$. 
 \end{eg}
@@ -183,10 +176,12 @@ Payments can be more than the improvement in the reward the mechanism creates \N
 
 
 
-\section{Rational Entry}
+\section{Scaling Payments and Rational Entry}
 
-As presented the VCG style direct mechanism might have higher payments than the benefits it provides in terms of higher rewards (if there are states of the world with sufficiently high reward differentials and a sufficiently large number of experts with complementary signals). Thus the subject might be better off not participating a priori. Here we introduce a variation on the mechanism that re-scales payments using the prior so a subject a priori wishes to parcitipate in the mechanism.
+As presented the VCG style direct mechanism can have higher payments than the benefits it provides in terms of higher rewards (if there are states of the world with sufficiently high reward differentials and a sufficiently large number of experts with complementary signals). Thus the subject might be better off not participating a priori. Here we introduce a variation on the mechanism that re-scales payments using the prior so a subject a priori wishes to parcitipate in the mechanism. The trick is that to set $\alpha$ prior to receiving signals from experts based on the prior \emph{and} that the experts don't care about the chosen action beyond how it affects their payments. The latter is not the case in standard VCG mechanisms: if they cared about the eaction then you need to compensating them exactly for their extenrality. While this doesn't make an explciit appearance on the proof it is the reason why we can scale the payments to alter the budget in a way that VCG mechanisms can't, a change in the allocation that leaves payments unchanged alters the utility of agents in the VCG setting but not here, so the payments in the VCG setting have to move to counter balance this precisely, limiting the freedom with which we can choose them.
 
+\NDP{Explain relation to the  Clarke pivot rule. With the Clarke pivot rule, the total amount paid by the player is: (social welfare of others if i were absent) - (social welfare of others when i is present).
+This is exactly the externality of player  i}
 
 
 Let $E[r|c(s)]$ denote the expected reward obtained from choosing the optimal action using all signals if they where reported truthfully, and $E[r|c(P)] $ the expetec treward from picking the action using only the prior and no singals. Thus $E[r|c(S)] - E[r|c(P)] $ is the expected surplus from using the information in the truthful equilibrium of the mechanism relative to using only the priors. For a efficient mechanism to be rational apriori for the subject to implement it must be that $E[r|c(S)] - E[r|c(P)] > E[\sum \pi]$ where $\pi$ is either the result of a nash equilibrium or in dominant strategy (i.e. we set all elements of $\hat{s}$ jointly to maximize $\sum \pi$, even ifthis does not result in a equilirium for the experts).
@@ -243,6 +238,10 @@ Since a truthful signal cannot lower (if all other signals are being reported tr
 inmidiate from the two previous lemmas, since the subject and experts are all the agents involved.
 \end{proof}
 
+
+
+
+
 \section{Dominant Mechanisms}
 
 \begin{defn}[Dominant Strategy Truthfulness]
@@ -255,25 +254,31 @@ The incentive compatibility here is only in one nash equilibrium, and not in dom
 	Consider a setting with a reward maximizing subject with probability 1, two possible actions, where two experts know with certainty that the rewards are $1,2$ and one of them reports $1,0$. A truthful report would lead to choosing the first action (the average of the two reports) with rewards of $1$ while a report of $0,2$ would cause the max to select the seccond action and obtain a reward of $2$.
 \end{eg}
 
-Also note that the payout to the in this example to the expert is positive it can triviall be made negative, so the expert does not make the countervailing report as it wouldnt maximize their payment; for example if the untruthful agent reports was $3,0$.
-
 \begin{con}
 	No mechanism can get around this (intuition; we are tyring to get as close to vcg as possible, and i dont see a way to get closer).
 \end{con}
 \DBA{proving a negative is hard; e.g. this paper is circumventing Chen's negative result}
+\NDP{Chen et al negative is about Score and Void mechanisms, we are showing a different class of mechanisms.I think it is doable; in the two expert situation with two actions with subject freedom, the bandit nature means you always have to not observe the lower of the outcomes if the subject is doing the max decision rule, so then if one of the expert gives what is a bad report, a countervailing good report that raises the observed outcome can't be punished without also punishing the honest reports (since in both what you observe is identical) }
 
 \subsection{A sufficient condition for dominat truthfulness in reports}
 
-in general the mechanism is not dominant truthful, since a trickster agent who inverts their reporrts would make the other agents try to compensate if possible, as seen above.
-If the action chosen depends only on the signal of the highest type, (the type whose signal without using he other signals implies the highest reward for the optimaly chosen action) 
+In general the mechanism is not dominant truthful, since a trickster agent who inverts their reporrts would make the other agents try to compensate if possible, as seen above.
+
+Consider a experts \emph{unilateral value}, the expected value of pickign the optimal action conditional only on their signal. 
+
+
+If the action chosen depends only on the signal of the highest type, (the agent whose signal without using he other signals implies the highest reward for the optimaly chosen action) 
 
 To see this, note that bidding the valuation conditional on their signal and winning is domminant strategy in the 
+
+
+
 
 \subsection{Noncompliance and Incentive Compatibility}
 
 For the same reassonsas before there is no dominant strategy incentive compatibility. 
 
-A interesting question that arrises is how to handle the case where the action that is optimal given the reports is not the actual chosen action. Three natural strategies are:
+A interesting question that arrises is how to handle the case where the action that is optimal given the reports (the chosen action) is not the actual action taken by the subject. This is the equivalent to noncompliance in the compliance aware setting. Three natural strategies are:
 
 \begin{itemize}
 \item make payments irrespective. \DBA{I realized here that you're using (1) received payoff instead of (3) expected payoff. This seems problematic. E.g. if noncompliance leads to lower reward (which is presumably to be expected if experts know more than subject) then experts' payouts take a hit based on subject's capriciousness. This is especially problematic if payouts are negative due to subject's noncompliance.}
@@ -294,11 +299,7 @@ If we void the payment completely this can have the oposite effect, biasing expe
 
 
 
-\section{The signal reporting vcg mechanism can work even when utilities are not part of the common prior}
 
-the mechanism, but not necesarily the experts, needs access to the utility function of the decision maker and the prior over which expectations are taken 
-
-\DBA{does the utility function of the decision maker (along with prior) ``explain'' its noncompliance? This is somehow a conceptual question, not sure if it makes a difference to the meat of the paper. }
 
 for a cancer example; the chemiotherapy specialist might explain the likely side effects conditional on their knowledge of the specifics of the patient (the rapidly dropping cost of sequencing a genome means this) without needing to understand the relative value the patient places on discomfort relative to life lengthening, while the surgeon might explain the (again subject tot he specific characteristics of the subject) risks he foresees in the surgury (in contrast to the baseline risks of the populatin that gets the procude which is what cna be observed, a reasoable prior) for that patient, without needing to udnerstand the risk aversion of the patient which would be necesary for calculating their utility.
 
@@ -307,7 +308,7 @@ the subject (oracle style) can then be queried for their chosen action and expec
 contrast the information structure in the cancer example and its non separability 
 
 
-\section{A bidding mehcnaism }
+\section{A bidding mechanism }
 
 In many practical applications of interest, it might be that the signals can't be practically reported. For example, because while the expert knows something when they see it, they do not have a vocabulary to unambigously express it. 
 
@@ -345,9 +346,4 @@ if each expert knows the value of a action the MSR and Void mechanism in the sty
 
 \section{Tradeoff between Dominant Strategy Incentive Compatible and Expressivity}
 
-
-
-\subsection{A sufficient condition}
-
-when the expert who won the auction selects and action, particularly in the early rounds she might be doing it becuase he wishes to explore, and thus the incentives 
-
+We saw a sufficient condition for efficiency with 
