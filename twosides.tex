@@ -1,15 +1,73 @@
 %!TEX root = main.tex
 
 
- A sequence of subjects choosing each choosing from the same fixed set of action which only affect them directly, as in bandits with compliance awareness, while eliciting advice for those subjects from a fixed set of experts, as in elicitation of information to enable optimal decisions. 
+We consider a sequence of subjects each eliciting advice from a fixed set of experts and choosing an action which only affect themselves directly. This combines the central aspects of bandits with compliance awareness (a sequence of choices and learning from past experience, including noncompliance) and elicitation of information form experts to enable optimal decisions without the advice being bounding. 
 
+Bounded regret algorithms with compliance awareness can be seen as addressing the special case where the experts signals are known apriori to be uninformative, and thus only the experience can be learned from. Our one-decision mechanism is the special case for $T={1}$, thus there is no role for exploration, since there are no future decisions  to help inform.
 \section{Model}
 
-The game occurs over $T$ steps, at each step: a subject $t$ arrives, $N$ experts recieve each receive a $s_{t,i}$ signal, each expert $i$ reports to the mechanism $\hat{s}_{t,i}$, the subject observes the action chosen by the mechanisms $c_t$, picks an action $a_t$ that is actually carried out and receives a reward $r_t$.
+The game occurs over $T$ steps, at each step: a subject $t$ arrives, $N$ experts recieve each receive a $s_{t,i}$ signal, each expert $i$ reports send a to the mechanism $\hat{s}_{t,i}$, the subject observes the action chosen by the mechanisms $c_t$, picks an action $a_t$ that is actually carried out and receives a reward $r_t$.
+At the end of the final period the mechanism makes payments to the experts $pi_i( \cup \hat{s}_t,c_t,r_t,a_t \forall t \in T)$.
+
+\section{A sequence of one shot mechanisms is not efficient}
+
+Attempting to run the single action elicitation mechanism repeatedly, that is allocating according to the max posterior reward and using the payment rule:
+
+\[
+    \pi_i = \sum_1^T \pi_{i,t} 
+\]
+
+where 
+\[
+    \pi_{i,t} =
+\begin{cases}
+    r - E[\hat{r}_{t,-i}] ,& \text{if } \hat{c}_{t,-i} \neq c_t\\
+    0,              & \text{otherwise}
+\end{cases}
+\]
+
+ at each period with payments that simply summed over all periods does not preserve efficiency.
+
+This is because the single shot mechanism creates incentives that are equivalent to a greedy policy, it only incentivizes exploitation and not exploration: by picking at each step the optimal 
+Attempting to fix this by only revealing the outcome to the winning bidder, while internalizing the benefits of explorations, means the other experts signals are wasted in the learning. \NDP{Formalie what we mean exactly by wasted}
+If we reveal the outcome of the round to all experts,  no agent can internalize the information revelation benefits that comes from the choice of an apriori in expectation suboptimal reward action. On the other hand, if we only allow the winner of the bidding on a given round to have access to the subject's outcome, then the mechanism can extremely data-inefficient, in that non-winning experts cannot conttribute to the learning.
 
 
-Bounded regret algorithms from the compliance awareness can be seen as addressing the special case where the experts signals are known apriori to not be informative, and thus only the experience can be learned from. Our one-decision mechanism is the special case for T=1, thus there is no role for exploration, since there are no future decisions in the game.
+TODO: less hand wavy
+\begin{eg}[Exploration ineficiency with full revelation]
+let everyone have the same prior, then upon observing the outcome, everyone has the same posterior, and thus any discovery of a higher value action will be priced in on future rounds, denying the benefits form having risked a ex-ante suboptmal action to those who take it. 
+\end{eg}
+
+\begin{eg}[Data ineficiency of selective revelation]
+one agent knows which action has high reward this period, we need them to win for efficiency, the other agent has a signal which is complementary to the outocme of the first action when the ifrst action is high value, and reveals a even higher value action. We need agent 1 to win (the bidding) in the first period (and thus only they see the signal), but we need agent 2 to see the first signal to achieve efficiency in the seccond.
+\end{eg}
+
+\section{A Practical Bid Based Mechanism which internatilizes exploration}
+
+%\NDP{This is problematic, the BNE is not well defined }
+%We first relax our notion of efficiency, as the optimal exploration policy is not in general precisely known (rather we have policies that match the best lower bounds up to TODO factors). 
+%A direct efficient mechanism in the revealing BNE can be recovered, however, by a mechanism that instead of awarding based on the present reward, does it over the sequence of all future rewards. 
+
+We use a sequentially shared payment rule that generalizes the bidding mechanism for the one shot case ( when $T=1$ it is equivalent) by instead of a share of a single periods payoff, we give a share of all future periods payoffs.  Unlike the repeated one shot mechanism, the mechanism auctions for the right to choose and  share the reward to \emph{all subsequent periods}, with a reserve price set by the previous winner of the auction. The winner of a periods 
+
+Further, we link the different periods, by having the winner of the previous period set a reserve price for the share of the future periods at the begining of each period. We again define the final reward as a sum over per period rewards $\pi_i = \sum pi_{t,i}$
+
+\[
+pi_{t,i} =
+\begin{cases}
+    \alpha \sum_t^T (r_t - E[\hat{r}_{t,-i}] ) ,& \text{if } b_{i,t} > b_{-i,t} \forall -i in $N$\\
+    0,              & \text{otherwise}
+\end{cases}
+\]
+
+
+Here $E[\hat{r}_{t,-i}]$ is the expected we
+
+
+\section{A bid based variation}
 The compliance-aware algorithm can be used for initial rounds where a reserve price has not been met.
+
+
 
 The mechanism consists of a seccond price auction of the right to select the sequence of chosen actions for all remaning periods, and a share of the resulting rewards.
 
@@ -21,14 +79,7 @@ While existing results for bayesian incentive compatible exploration and its lim
 %  Kremer et. al. [9] introduce http://arxiv.org/pdf/1507.07191.pdf . In our main result we provide a tight bound on how many other agents can each agent observe and still have an incentive-compatible algorithm and asymptotically optimal outcome.
 
 
-\section{A sequence of one shot mechanisms does not explore}
 
-Attempting to run the single action elicitation mechanism at the start of each period does not preserve its incentive compatibility or its efficiency.
-The single shot mechanism creates incentives that are equivalent to a greedy policy that only exploits and does not exploit. If we reveal the outcome of the round to all experts,  no agent can internalize the information revelation that comes from the outcome of a action. On the other hand, if we only allow the winner of the bidding on a given round to have access to the subject's outcome, then the mechanism is extremely data-inefficient.
-
-\section{A Direct Mechanism with Strong Common knowledge}
-
-We use the bidding rules of the direct mechanism from chapter 2 but we add a reserve price and instead of the rights to a share of the periods payoff, you are buying the right to a share of all future periods payoffs (when there is only one period left the two coincide). The rights are chained so the reserve price is set by the winner of previous period, and if no sale then the 
 
 \section{A Practical Bid Based Mechanism}
 
