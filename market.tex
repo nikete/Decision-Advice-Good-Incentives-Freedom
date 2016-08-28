@@ -159,6 +159,8 @@ The second term is explicitly constructed so as not to use the report by expert 
 This is inmidiate from how the payment rule and useless experts are defined, since by definiion there is no information that can be reported to raise $r$ and that is all that can lead to higher rewards.
 \end{proof}
 
+%TODO pin down useless more formally still
+
 \subsection{Incentive Compatibility and Efficient}
 
 \begin{defn}[Bayes-Nash Incentive Compatibility]
@@ -174,18 +176,18 @@ For a given expert $i$ let all other experts report truthfully, then substituing
 \[
     \pi_i = 
 \begin{cases}
-    r(a) -  E[ r| c_{-i}, \bigcup s_j  \forall j \neq i \in N] ,& \text{if } \hat{c}_{-i} \neq c\\
+    r(c) -  E[ r| c_{-i}, \bigcup s_j  \forall j \neq i \in N] ,& \text{if } \hat{c}_{-i} \neq c\\
     0,              & \text{otherwise}
 \end{cases}
 \]
 
-thus the only thing his report will affect in his payment is $r(a)$ via the choice of $a$, given all other experts are truthful then by construction if he is truthful this will select the $a$ that maximizes $r$. Thus truthfulness is a BNE.
+thus the only thing the report will affect  payment is $r(c)$ via the choice of $c$, given all other experts are truthful then by construction if he is truthful this will select the $c$ that maximizes $r$. Thus truthfulness is a BNE.
 
 \end{proof}
 
 \subsection{Potential Negative Expetation for Subject}
 
-Payments can be more than the improvement in the reward the mechanism creates \NDP{This is standard of VCG style stuff; we are getting efficiency and truthfulness, so the payments dont work out or the mechanism isnt voluentary}. 
+Payments can be more than the improvement in the reward the mechanism creates.
 
 \begin{eg}[expensive experts]
 	Let there be two experts, two actions ${\alpha,\beta}$ and four equal probability states of the world, ${A,B,C,D}$, with payoffs to the actions correspondingly as ${(0,1),(0,-1),(-1,0),(1,0)}$. Let one expert oberve that they are in either ${A,B}$ or ${C,D}$ and the other ${B,C}$ or ${A,D}$. A uniform random strategy achieves an expected value of 0. An optimal strategy with access to a single expert (either one) achieves a value of 0. Using the signals of both we can achieve reward 1. Thus the VCG payments are $1$ to each, and the mechanism improves the subjects welfare by $1$ while making $2$ in payments, thus $-1$. 
