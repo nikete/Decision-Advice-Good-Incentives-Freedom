@@ -142,9 +142,11 @@ Note, if you take out the if and reward players no matter what, all you do is in
 There is two parts to the expression $r$, and $E[\hat{r}_{-i}]$. The seccond is explcitly not using any report y expert $i$, while the only effect reports can have on $r$ is via a change of chosen action. 
 \end{proof}
 
-\begin{eg}[redundant experts]
-	If you have two experts and they both observe and report the same signal, they both get payoff zero. 
-\end{eg}
+\begin{lem}[redundant experts]
+	Two experts report the same signal, they both get payoff zero. 
+\end{lem}
+
+
 
 
 \begin{lem}
@@ -158,7 +160,7 @@ This is inmidiate from how the payment rule and useless experts are defined, sin
 \subsection{Incentive Compatibility and Efficient}
 
 \begin{defn}[Bayes-Nash Incentive Compatibility]
-	A BNE where all experts truthfully report their signals.
+	A Bayes Nash Equilibrium exists where all experts truthfully report their signals.
 \end{defn}
 
 There is a  equilibrium where all experts maximize their payment by maximizing the probability that the action with the highest reward is taken; if all other reports are truthful and under a no defiers assumption then this is optimized by being truthful.
