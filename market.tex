@@ -66,7 +66,8 @@ One restriction on subjects freedom that is sufficient to allow (in the single e
 This preserves substantial freedom, in that it is not required the subject known a priori that they will compliers, their realization of the always taker type could come after the mechanism has been run and before the action is taken. 
 
 This can be somewhat relaxed, since the needed property it implies is that the mechanism choosing an action with higher expected reward if actually carried out leads to the expected reward conditional on the chosen action to be higher. Formally the condition that is sufficient (\NDP{necesary?})
-$$E[ ^{*}|c_i]  \geq E[ r^{*}|c_j] \text{ if }E[ ^{*}|a_i]  \geq E[ r^{*}|a_j]  \forall j \neq i \in K$$
+
+%TODO $$E[ ^{*}|c_i]  \geq E[ r^{*}|c_j] \text{ if }E[ ^{*}|a_i]  \geq E[ r^{*}|a_j]  \forall j \neq i \in K$$
 Note that under this assumption existing mechanisms for the many expert setting are not incentive compatible unless subjects can credibly commit to using a randomized strategy which places positive mass on dominated action (i.e. there are no ex-post incntive compatible mechanisms based on proper scoring rules and voiding given a no defiers assumption):
 
 There is some extra flexibility more than no defiers which we should use, for example differential compliance rates for different actions, the mechanisms selects the action that most raises the reward not the one who has the highest reward (for example an action that has the second highest reward but 1\% noncompliance might be chosen instead of one  that has 99\% noncompliance and the highest reward. No defiers buys us the extra part that chosen is the highest reward action, so makes life easier for the subject (if the noncompliance depended on the signals the expert receives a utility maximizing decision maker would have to consider other decision markets noncomplaince characteristics in the prior before deciding how to interpret the chosen action; this removes such ambiguities and doesn't seem to loose too much generality)
@@ -103,8 +104,11 @@ This is especially problematic if payouts are negative due to subject's noncompl
 All agents know a common prior that gives a proper prior probability distribution of rewards over all posible signals, chosen actions and actual actions.
 
 \begin{mech}[Efficient VCG-style Mechanism]
-For each expert $i$, compute the optimal action to choose without using that experts report (i.e. marginalizing over the prior on signal $i$ signal), denote this action $\hat{c}_{-i}$ and it's expected reward 
-$\hat{S}_{-i} = \bigcup \hat{s}_j  \forall j \neq i \in N $ then the expected reward given the others reports is:
+
+
+%$\hat{S}_{-i} = \bigcup \hat{s}_j  \forall j \neq i \in N $ then the expected reward given the others reports is:
+
+For each expert $i$, compute the optimal action to choose without using that experts report (i.e. marginalizing over the prior on signal $i$ signal), denote this action $\hat{c}_{-i}$ and it's expected reward:
 
 $E[\hat{r}_{-i}] = E[ r| \hat{c}_{-i}, \hat{S}_{-i}] $
 
@@ -119,22 +123,27 @@ $E[\hat{r}_{-i}] = E[ r| \hat{c}_{-i}, \hat{S}_{-i}] $
 \end{cases}
 \]
 
+%
+
 Each expert reports their signal, the mechanism calculates the action that maximizes the reward $c$, and chooses it. After observing the actual action taken $a$ and its reward $r$, the corresponding payments are made, this concludes the mechansim.
 
 Note that conditional on the action taken and the payments do not depend on the reported signal of agent $i$ if we hold fixed the chosen action. 
 
 \end{mech}
 
+Note, if you take out the if and reward players no matter what, all you do is increase the variance but dont change the expectation. The  mechanism and its properties still hold under risk neutral expert,  this is because the expected reward when using all signals and when using only the other agents signals has to be the smae if the same action is being taken. 
+
+
 \begin{lem}
 	the only way a experts reports affects their payments is via the chosen action.
 \end{lem}
 
 \begin{proof}
-\NDP{can we formalize the above lemma argument into a proof? It is that the derivative of $\pi_i $ wrt to the singal $s_i$ is zero if we hold $c$ fixed, but ofcourse signals are discrete so derivatives are not hte right thing.}
+There is two parts to the expression $r$, and $E[\hat{r}_{-i}]$. The seccond is explcitly not using any report y expert $i$, while the only effect reports can have on $r$ is via a change of chosen action. 
 \end{proof}
 
 \begin{eg}[redundant experts]
-	If you have two experts and they both observe and report the same signal, they both get outcome zero. 
+	If you have two experts and they both observe and report the same signal, they both get payoff zero. 
 \end{eg}
 
 
