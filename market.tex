@@ -161,14 +161,14 @@ This is inmidiate from how the payment rule and useless experts are defined, sin
 
 \subsection{Incentive Compatibility and Efficient}
 
-\begin{defn}[Bayes-Nash Incentive Compatibility]
+\begin{thm}[Bayes-Nash Incentive Compatibility]
 	A Bayes Nash Equilibrium exists where all experts truthfully report their signals.
-\end{defn}
+\end{thm}
 
 There is an equilibrium where all experts maximize their payment by maximizing the probability that the action with the highest reward is taken; if all other reports are truthful, and under a no-defiers assumption, then this is optimized by being truthful.
 
 \begin{proof}
-For a given expert $i$, let all other experts truthfully report their signals. By Lemma~\ref{lem:affect}, the only effect an expert has on their payment is via their effect on the chosen action $c$. Given all other experts are truthful, it follows by the definition of Mechanism~\ref{mech:vcg-style} that if expert $i$ is also truthful then the mechanism will select the $c$ that maximizes $r$, thus maximizing the expert $i$'s reward. Truthfulness is therefore a Bayesian Nash equilibrium.
+For a given expert $i$, let all other experts truthfully report their signals. By Lemma~\ref{lem:affect}, the only effect an expert has on their payment is via their effect on the chosen action $c$. Given all other experts are truthful, it follows by the definition of Mechanism~\ref{mech:vcg-style} that if expert $i$ is also truthful then the mechanism will select the $c$ that maximizes the expected $r$, thus maximizing the expert $i$'s reward. Truthfulness is therefore a Bayesian Nash equilibrium.
 \end{proof}
 
 \subsection{Potential Negative Expetation for Subject}
