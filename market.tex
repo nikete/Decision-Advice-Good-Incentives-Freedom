@@ -200,14 +200,15 @@ Let $E[r|c(s)]$ denote the expected reward obtained from choosing the optimal ac
 Note that a constant afine transformation of the rewards preserves the incentives. Denote by $\alpha$ that scales the payment.
 
 \begin{mech}[Cheap and Efficient Mechanism]
-
-The value of $\alpha$ can be chosen \emph{a priori} based on $P$ such that: $ E[\sum \rho_i] < E[r|c(s,P)] - E[r|c(P)] $. 
+Set
+\[
+  \rho_i  := \alpha \pi_i
+\]
+The rescaling parameter $\alpha>0$ can be chosen \emph{a priori} based on $P$ such that: $ E[\sum \rho_i] < E[r|c(s,P)] - E[r|c(P)] $. 
 
 %\NDP{TODO spell out how. This seems like it should be just algebra, for exmaple if aprior I expect 10 complementary signals which combined produce a expected surplus of 1 then i want to have $g = \alpha pi$ and $\alpha < 1/10$. How can we make this procedure generic? }
 
-\[
-  \rho_i  = \alpha \pi_i
-\]
+
 
 \end{mech}
 
@@ -219,7 +220,7 @@ The value of $\alpha$ can be chosen \emph{a priori} based on $P$ such that: $ E[
 \end{lem}
 
 \begin{proof}
-	As they are set apriori based on expectations only, $\alpha$ is invariant to any reports the experts make. Since the transformation is afine, whatever report maximizes payoffs remains unchanged. Since 
+	As they are set \emph{a priori} based on expectations only, $\alpha$ is invariant to any reports the experts make. Since the transformation is a positive rescaling, whichever report maximizes payoffs remains unchanged. Since 
 \end{proof}
 
 
@@ -228,7 +229,7 @@ The value of $\alpha$ can be chosen \emph{a priori} based on $P$ such that: $ E[
 \end{lem}
 
 \begin{proof}
-  By construction$ \alpha $ is picked such that $E[\sum \rho_i] < E[r|c(s,P)] - E[r|c(P)]$
+  By construction $\alpha$ is chosen so that $E[\sum \rho_i] < E[r|c(s,P)] - E[r|c(P)]$
 \end{proof}
 
 
