@@ -149,8 +149,6 @@ The second term is explicitly constructed so as not to use the report by expert 
 \end{lem}
 
 
-
-
 \begin{lem}
 	Useless experts cannot profit from participation
 \end{lem}
@@ -170,17 +168,7 @@ This is inmidiate from how the payment rule and useless experts are defined, sin
 There is an equilibrium where all experts maximize their payment by maximizing the probability that the action with the highest reward is taken; if all other reports are truthful, and under a no-defiers assumption, then this is optimized by being truthful.
 
 \begin{proof}
-For a given expert $i$ let all other experts report truthfully. Then, substituting the true signals into the reports the expert faces yields
-
-\[
-    \pi_i = 
-\begin{cases}
-    r(c) -  E[ r| c_{-i}, \bigcup s_j  \forall j \neq i \in N] ,& \text{if } \hat{c}_{-i} \neq c\\
-    0,              & \text{otherwise}
-\end{cases}
-\]
-
-thus the only thing the report will affect  payment is $r(c)$ via the choice of $c$, given all other experts are truthful then by construction if he is truthful this will select the $c$ that maximizes $r$. Thus truthfulness is a BNE.
+For a given expert $i$ let all other experts report truthfully their signals. By the previos lemma the only effect a expert has on their payment is via their effect on the chosen action  $c$. Given all other experts are truthful then by the construction of the mechanism if the $i$ expert is also truthful the mechanism will select the $c$ that maximizes $r$, thus maximizing the experts $i$ reward. Thus truthfulness is a BNE.
 
 \end{proof}
 
