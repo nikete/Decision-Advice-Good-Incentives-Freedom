@@ -97,7 +97,7 @@ We now consider a VCG style mechanism for the optimal decision elicitation probl
 
 Our use of received payoff instead of expected payoff avoids the use of counterfactual. This seems problematic. For example, if noncompliance leads to lower reward (which is presumably to be expected if experts know more than subject) then experts' payouts is reduced due to a subject's capriciousness. 
 
-This is especially problematic if payouts are negative due to subject's noncompliance.}
+This is especially problematic if payouts are negative due to subject's noncompliance.
 \NDP{I initially tried setting to void market if action nto followed, but this creates perverse incentives, where the subject might not follow the advice and receive a lower payoff to avoid payment. While your statements abotu the experts are true they (A) the prior taking into account noncompliance makes these expectations workable, you take into account the fact that some advice might not be followed with higher probability. (B) the \emph{no defiers} (terrible name, sinc eit is even stronger than that, uniform noncompliance might be a better term), is a sufficient condition to rule this out.}
 
 All agents know a common prior that gives a proper prior probability distribution of rewards over all posible signals, chosen actions and actual actions.
@@ -200,7 +200,7 @@ Note that a constant afine transformation of the rewards preserves the incentive
 
 Choose value of $\alpha$ can be chosen apriori based on $P$ such that: $ E[\sum \rho_i] < E[r|c(s,P)] - E[r|c(P)] $. 
 
-\NDP{TODO spell out how. This seems like it should be just algebra, for exmaple if aprior I expect 10 complementary signals which combined produce a expected surplus of 1 then i want to have $g = \alpha pi$ and \alpha < 1/10. How can we make this procedure generic? }
+%\NDP{TODO spell out how. This seems like it should be just algebra, for exmaple if aprior I expect 10 complementary signals which combined produce a expected surplus of 1 then i want to have $g = \alpha pi$ and $\alpha < 1/10$. How can we make this procedure generic? }
 
 \[
   \rho_i  = \alpha \pi_i
@@ -225,7 +225,7 @@ Choose value of $\alpha$ can be chosen apriori based on $P$ such that: $ E[\sum 
 \end{lem}
 
 \begin{proof}
-  By construction \alpha is picked such that $E[\sum \rho_i] < E[r|c(s,P)] - E[r|c(P)]$
+  By construction$ \alpha $ is picked such that $E[\sum \rho_i] < E[r|c(s,P)] - E[r|c(P)]$
 \end{proof}
 
 

@@ -6,7 +6,7 @@ We consider a sequence of subjects each eliciting advice from a fixed set of exp
 Bounded regret algorithms with compliance awareness can be seen as addressing the special case where the experts signals are known apriori to be uninformative, and thus only the experience can be learned from. Our one-decision mechanism is the special case for $T={1}$, thus there is no role for exploration, since there are no future decisions  to help inform.
 \section{Model}
 
-The game occurs over $T$ steps, at each step: a subject $t$ arrives, $N$ experts recieve each receive a $s_{t,i}$ signal, each expert $i$ reports send a to the mechanism $\hat{s}_{t,i}$, the subject observes the action chosen by the mechanisms $c_t$, picks an action $a_t$ that is actually carried out and receives a reward $r_t$.
+The game occurs over $T$ steps, at each step: a subject $t$ arrives, $N$ experts recieve each receive a $s_{t,i}$ signal, each expert $i$ reports send a to the mechanism $\hat{s}_{t,i}$, the subject observes the action chosen by the mechanism $c_t$, picks an action $a_t$ that is actually carried out and receives a reward $r_t$.
 At the end of the final period the mechanism makes payments to the experts $pi_i( \cup \hat{s}_t,c_t,r_t,a_t \forall t \in T)$.
 
 \section{A sequence of one shot mechanisms is not efficient}
@@ -42,20 +42,25 @@ let everyone have the same prior, then upon observing the outcome, everyone has 
 one agent knows which action has high reward this period, we need them to win for efficiency, the other agent has a signal which is complementary to the outocme of the first action when the ifrst action is high value, and reveals a even higher value action. We need agent 1 to win (the bidding) in the first period (and thus only they see the signal), but we need agent 2 to see the first signal to achieve efficiency in the seccond.
 \end{eg}
 
+
+%\section{A Direct Mechanism which internatilizes exploration}
+% TODO ? you  have to take the expected value of the future rewards with the others signals but without exploration as the baseline which to reward?
+
+
 \section{A Practical Bid Based Mechanism which internatilizes exploration}
 
 %\NDP{This is problematic, the BNE is not well defined }
 %We first relax our notion of efficiency, as the optimal exploration policy is not in general precisely known (rather we have policies that match the best lower bounds up to TODO factors). 
 %A direct efficient mechanism in the revealing BNE can be recovered, however, by a mechanism that instead of awarding based on the present reward, does it over the sequence of all future rewards. 
 
-We use a sequentially shared payment rule that generalizes the bidding mechanism for the one shot case ( when $T=1$ it is equivalent) by instead of a share of a single periods payoff, we give a share of all future periods payoffs.  Unlike the repeated one shot mechanism, the mechanism auctions for the right to choose and  share the reward to \emph{all subsequent periods}, with a reserve price set by the previous winner of the auction. The winner of a periods 
+We use a payment rule that generalizes the seccond price bidding mechanism for the one shot case ( when $T=1$ it is equivalent) by making the payoff a share of all future periods rewards.  Unlike the repeated one shot mechanism, the mechanism auctions for the right to choose and  share the reward to \emph{all subsequent periods}, with a reserve price set by the previous winner of the auction; the seccond price (or reserve) is payed to the previous winner.  
 
-Further, we link the different periods, by having the winner of the previous period set a reserve price for the share of the future periods at the begining of each period. We again define the final reward as a sum over per period rewards $\pi_i = \sum pi_{t,i}$
+Further, we link the different periods, by having the winner of the previous period set a reserve price for the share of the future periods at the begining of each period. We again define the final reward as a sum over per period rewards $\pi_i = \sum pi_{t,i}$. We denote by $b_{-i}$ a bid that is not by a given agent $i$. 
 
 \[
-pi_{t,i} =
+pi_{i} =
 \begin{cases}
-    \alpha \sum_t^T (r_t - E[\hat{r}_{t,-i}] ) ,& \text{if } b_{i,t} > b_{-i,t} \forall -i in $N$\\
+    \alpha \sum_t^T r_t - b_{--i}, & \text{if } b_{i,t} > b_{-i,t+u} \forall -i \forall u \in \{t+1,t+2...T\}\\
     0,              & \text{otherwise}
 \end{cases}
 \]
@@ -64,7 +69,6 @@ pi_{t,i} =
 Here $E[\hat{r}_{t,-i}]$ is the expected we
 
 
-\section{A bid based variation}
 The compliance-aware algorithm can be used for initial rounds where a reserve price has not been met.
 
 
@@ -81,20 +85,16 @@ While existing results for bayesian incentive compatible exploration and its lim
 
 
 
-\section{A Practical Bid Based Mechanism}
-
-instead of reporting signals the experts send bids and actions they would pick if the winning bid. The actions are now plans for all posible contigent periods of chosen or actual action. 
-
-As the mechanism (representing the collective of subjects ideally?  what about the experts welfare footnote) 
-
-
-
 
 \section{Efficiency of the mechanism}
 
 
 
-Bayesian arguments  (?)  bound the best rate at which we could learn if we had accss to the experts signals (i.e. given a correct prior, how fast do we identify the optimal action? how does this vary with the concentration of the prior? , the direct mechanism is equivalent to learning it, for example under Optimally Confident UCB can we give numbers? There is the 79 bounds on the minimax rate in bnadits of gittins, does that work? note dificulty of simulations, since it involves solvng for strategies that might exploit the specific algo we propose as the initiator.
+Bayesian/infotheoric arguments  (?)  bound the best rate at which we could learn if we had direct accss to the experts signals since the situation then reduces those signals to context and a contextual bandit lower boundon regret (TODO ref?) applies. 
+
+So any notion of efficiency is a price of anarchy analysis relative to these lower bounds. 
+
+(i.e. given a correct prior, how fast do we identify the optimal action? how does this vary with the concentration of the prior? , the direct mechanism is equivalent to learning it, for example under Optimally Confident UCB can we give numbers? There is the 79 bounds on the minimax rate in bnadits of gittins, does that work? note dificulty of simulations, since it involves solvng for strategies that might exploit the specific algo we propose as the initiator.
 
 \subsection{One Action per Expert is not enough for incentive compatibility}
 
@@ -111,5 +111,62 @@ if they are not independent one can consider a situation in which if you take my
 
 \section{Incentive Compatibility for Subjects}
 
-One natural question given the bayesian incentive compatible bandit exploration literautre, is wether these mechanisms can work when all subjects are expected utility maximizers. If the experts bring enough information to bear, the answer is yes, and it can be so without hidding past subjects outcomes, if the experts bring sufficient information. Note however,that there are intermediate situations 
+One natural question given the bayesian incentive compatible bandit exploration literautre, is wether these mechanisms can work when all subjects are expected utility maximizers. If the experts bring enough information to bear, the answer is yes, and it can be so without hidding past subjects outcomes. Note however,that there are intermediate situations 
+
+%understand the bounds in http://jmlr.csail.mit.edu/proceedings/papers/v31/agrawal13a.pdf
+
+
+\section{A direct mechanism via regret minimization}
+
+Interestingly the sequential version of the problem opens up aggregation in the repeated version of examples where it is not possible in the one shot case. Consider a setting where the experts submit both their signals plus a bid, 
+
+ keep N+1 overlapping partitions of the signal cross product space, one for each $-i$ plus the one we really use with all the signals. pay agents a share of the difference in estimated payoff between what we did and $-i$.
+
+note that the estimated share doesnt change if we replace the expectation by the realization in the all signals case (dont we we want to start also using partitions without the negative value agents? or at least alter weights in that drection?)
+
+note that using $P$ instead of $-i$ to get us to dominant strategy fails, we still 
+
+bidding the expected amount conditional on winning and revealing the true signal is a NE.
+
+conjecture: regret minimization will take you there, there algorithms that if everyoen is using stil gurantee minimax and will take you there fast when all/most do use them.
+
+Given the complexity of possible information structures,
+Minimax and information aggregation, 
+
+
+%can we make use of http://arxiv.org/pdf/1606.06244v2.pdf
+% log barrier regularization with importance sampling that guarantees fast convergence of O(d log T/ǫ) 
+% note they make no 
+
+
+
+% Efficient Partial Monitoring with Prior Information
+% Hastagiri P Vanchinathan
+% Dept. of Computer Science
+% ETH Zurich, Switzerland ¨
+% hastagiri@inf.ethz.ch
+% Gabor Bart ´ ok´
+% Dept. of Computer Science
+% ETH Zurich, Switzerland ¨
+% bartok@inf.ethz.ch
+% Andreas Krause
+% Dept. of Computer Science
+% ETH Zurich, Switzerland ¨
+% krausea@ethz.ch
+% Abstract
+% Partial monitoring is a general model for online learning with limited feedback: a
+% learner chooses actions in a sequential manner while an opponent chooses outcomes.
+% In every round, the learner suffers some loss and receives some feedback based on
+% the action and the outcome. The goal of the learner is to minimize her cumulative
+% loss. Applications range from dynamic pricing to label-efficient prediction to dueling
+% bandits. In this paper, we assume that we are given some prior information about the
+% distribution based on which the opponent generates the outcomes. We propose BPM, a
+% family of new efficient algorithms whose core is to track the outcome distribution with
+% an ellipsoid centered around the estimated distribution. We show that our algorithm
+% provably enjoys near-optimal regret rate for locally observable partial-monitoring
+% problems against stochastic opponents. As demonstrated with experiments on synthetic
+% as well as real-world data, the algorithm outperforms previous approaches, even for very
+% uninformed priors, with an order of magnitude smaller regret and lower running time.
+
+
 
