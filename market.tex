@@ -135,11 +135,13 @@ Note, if you take out the if and reward players no matter what, all you do is in
 
 
 \begin{lem}
-	the only way a experts reports affects their payments is via the chosen action.
+	The only way an expert's report affects their payments is via the chosen action.
 \end{lem}
 
 \begin{proof}
-There is two parts to the expression $r$, and $E[\hat{r}_{-i}]$. The seccond is explcitly not using any report y expert $i$, while the only effect reports can have on $r$ is via a change of chosen action. 
+There are two terms in the expression for the payment rule $\pi_i$: the received reward $r$ and expected reward $E[\hat{r}_{-i}]$ given the counterfactual that expert $i$ is ignored. 
+The first term is the reward received after executing the chosen action, and therefore clearly only depends on the chosen action. 
+The second term is explicitly constructed so as not to use the report by expert $i$. 
 \end{proof}
 
 \begin{lem}[redundant experts]
