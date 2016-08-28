@@ -103,7 +103,7 @@ This is especially problematic if payouts are negative due to subject's noncompl
 
 All agents know a common prior that gives a proper prior probability distribution of rewards over all posible signals, chosen actions and actual actions.
 
-\begin{mech}[Efficient VCG-style Mechanism]
+\begin{mech}\label{mech:vcg-style}[Efficient VCG-style Mechanism]
 
 
 %$\hat{S}_{-i} = \bigcup \hat{s}_j  \forall j \neq i \in N $ then the expected reward given the others reports is:
@@ -134,7 +134,7 @@ Note that conditional on the action taken and the payments do not depend on the 
 Note, if you take out the if and reward players no matter what, all you do is increase the variance but dont change the expectation. The  mechanism and its properties still hold under risk neutral expert,  this is because the expected reward when using all signals and when using only the other agents signals has to be the smae if the same action is being taken. 
 
 
-\begin{lem}
+\begin{lem}\label{lem:affect}
 	The only way an expert's report affects their payments is via the chosen action.
 \end{lem}
 
@@ -168,8 +168,7 @@ This is inmidiate from how the payment rule and useless experts are defined, sin
 There is an equilibrium where all experts maximize their payment by maximizing the probability that the action with the highest reward is taken; if all other reports are truthful, and under a no-defiers assumption, then this is optimized by being truthful.
 
 \begin{proof}
-For a given expert $i$ let all other experts report truthfully their signals. By the previos lemma the only effect a expert has on their payment is via their effect on the chosen action  $c$. Given all other experts are truthful then by the construction of the mechanism if the $i$ expert is also truthful the mechanism will select the $c$ that maximizes $r$, thus maximizing the experts $i$ reward. Thus truthfulness is a BNE.
-
+For a given expert $i$, let all other experts truthfully report their signals. By Lemma~\ref{lem:affect}, the only effect an expert has on their payment is via their effect on the chosen action $c$. Given all other experts are truthful, it follows by the definition of Mechanism~\ref{mech:vcg-style} that if expert $i$ is also truthful then the mechanism will select the $c$ that maximizes $r$, thus maximizing the expert $i$'s reward. Truthfulness is therefore a Bayesian Nash equilibrium.
 \end{proof}
 
 \subsection{Potential Negative Expetation for Subject}
