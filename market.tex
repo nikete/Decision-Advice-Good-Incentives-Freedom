@@ -195,13 +195,13 @@ In the model we have presented a expert pays no cost when aquiring their signals
 
 
 
-Let $E[r|c(s)]$ denote the expected reward obtained from choosing the optimal action using all signals if they where reported truthfully, and $E[r|c(P)] $ the expetec treward from picking the action using only the prior and no singals. Thus $E[r|c(S)] - E[r|c(P)] $ is the expected surplus from using the information in the truthful equilibrium of the mechanism relative to using only the priors. For a efficient mechanism to be rational apriori for the subject to implement it must be that $E[r|c(S)] - E[r|c(P)] > E[\sum \pi]$ where $\pi$ is either the result of a nash equilibrium or in dominant strategy (i.e. we set all elements of $\hat{s}$ jointly to maximize $\sum \pi$, even if this does not a equilirium for the experts).
+Let $E[r|c(s)]$ denote the expected reward obtained from choosing the optimal action using all signals if they where reported truthfully, and $E[r|c(P)] $ the expected reward from picking the action using only the prior and no signals. Thus $E[r|c(S)] - E[r|c(P)] $ is the expected surplus from using the information in the truthful equilibrium of the mechanism relative to using only the priors. For an efficient mechanism to be rational \emph{a priori} for the subject to implement, it must be that $E[r|c(S)] - E[r|c(P)] > E[\sum \pi]$ where $\pi$ is either the result of a Nash equilibrium or a dominant strategy (i.e. we set all elements of $\hat{s}$ jointly to maximize $\sum \pi$, even if this does not a equilirium for the experts).
 
-Note that a constant afine transformation of the rewards preserves the incentives. Denote by $alpha$ that scales the payment.
+Note that a constant afine transformation of the rewards preserves the incentives. Denote by $\alpha$ that scales the payment.
 
 \begin{mech}[Cheap and Efficient Mechanism]
 
-Choose value of $\alpha$ can be chosen apriori based on $P$ such that: $ E[\sum \rho_i] < E[r|c(s,P)] - E[r|c(P)] $. 
+The value of $\alpha$ can be chosen \emph{a priori} based on $P$ such that: $ E[\sum \rho_i] < E[r|c(s,P)] - E[r|c(P)] $. 
 
 %\NDP{TODO spell out how. This seems like it should be just algebra, for exmaple if aprior I expect 10 complementary signals which combined produce a expected surplus of 1 then i want to have $g = \alpha pi$ and $\alpha < 1/10$. How can we make this procedure generic? }
 
