@@ -193,4 +193,11 @@ Minimax and information aggregation,
 
 
 
-One of the practical 
+tension in the rewards; on the one hand we need a per period reward so we can run some learning algorithm and decide which information to use (and thus how valuable it is, i.e. which are the pathological reports ot get rid off), and otoh we need to incentivize exploration so we want to give the reward as a share of the full futrue stream of rewards which that exploraiton can benefit.
+
+these two decompose nicely in the sense that the agent that is choosing, the winnr of auction, he is the one we want the logn term exploration incentives. the short term reward is internal, we want it so we know what information to stop using, but to actually make payments we can wait until the end of the mechanism.
+
+
+signals reported context to a contextual bandit.
+
+becuase the bandit algirthm randomizing, you have a valid instrument in that randomization, i.e. they can be used to crete an unbiased (but high variance at the edges) estimator of the rewards you would have obtained with some other infromation (i.e. the paralel bandits)
