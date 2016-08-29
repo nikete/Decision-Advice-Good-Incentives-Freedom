@@ -33,7 +33,7 @@ Here we explore a set of mechanisms based around the idea of sharing the rewards
 Let us first consider a very basic direct mechanism, which will help us understand the model and the limitations that subjects freedom imposes. 
 A simple mechanism that is strictly incentive compatible (in equilibrium) for an expert to reveal their signal when subjects are utility maximizers is to give all experts a share of the reward. Equivalently (in expectation) run a lottery after the reports are submitted that assigns a share of the reward to the expert that wins. 
 
-In this case the signals may be arbitrary, the payment rule is invariant to them, and defined as $\pi_i  = (\alpha / N ) r $ with $\alpha < 1$. Note that we are not defining the payment rule to be conditional on the subjects actual action in any way. %In particular, it might naively seem appropiate to only give the share when the chosen action is the actual action carried out. 
+In this case the signals may be arbitrary, the payment rule is invariant to them, and defined as $\pi_i  = (\alpha / N ) r $ with $\alpha < 1$. Note that we are not defining the payment rule to be conditional on the subjects actual action in any way. % In particular, it might naively seem appropiate to only give the share when the chosen action is the actual action carried out. 
 
 \subsubsection{Limitations}
 This mechanism is problematic in a number of ways
@@ -43,35 +43,9 @@ This mechanism is problematic in a number of ways
 \item the entry of useless experts reduces the payment received by valuable ones or the budget needed by the mechanism.
 \end{itemize}
 
-Somewhat more formally we say a expert is useless, if where the expert able to force the action to be his choice, he would not improve the expected reward beyond picking the action that is the max expected utility in the common prior.
-
-This motivates considering the next mechanism.
-
-
-\section{Freedom and Limits to Defiance}
-
-If we consider subjects with potentially unrestricted freedom, i.e. subjects are not necesarily expected reward maximizers, then the mechanism is not necesarily truthful, even for a single expert. 
-
-\begin{eg}[total freedom yields bad incentives for a single expert]
-	For example, consider a subject that has a prejudice in favour of treatment A, and so will take it unless the expected reward of treatment B is more than 10 utils highers. Consider a expert with access to a signal wich is an unbiased estimate of the rewards over both actions, receives a signal  that B reward is higher by 9 utils. The expert is strictly better off reporting that his signal has B as more than 10 better.
-\end{eg}
-
-\begin{eg}[subjects who defy experts yield perverse incentives]
-	More generically we can consider of an agent who does the oposite of what maximizes reward (the min decision rule), this creates incentives for experts to flip the ordering that their signals imply. 
-\end{eg}
-
-Thus, it can be seen that providing unrestricted freedom in the broadest sense to subjects makes the setting hopeless. 
-
-One restriction on subjects freedom that is sufficient to allow (in the single expert setting) dominant strategy truthful mehcanism is \emph{no defiers}: assuming that all subjects are either utility maximizers (compliers) or have some action they will take irrespective of the reports of the experts (always takers or never takers in the binary setting).
-This preserves substantial freedom, in that it is not required the subject known a priori that they will compliers, their realization of the always taker type could come after the mechanism has been run and before the action is taken. 
-
-This can be somewhat relaxed, since the needed property it implies is that the mechanism choosing an action with higher expected reward if actually carried out leads to the expected reward conditional on the chosen action to be higher. Formally the condition that is sufficient (\NDP{necesary?})
-
-%TODO $$E[ ^{*}|c_i]  \geq E[ r^{*}|c_j] \text{ if }E[ ^{*}|a_i]  \geq E[ r^{*}|a_j]  \forall j \neq i \in K$$
-Note that under this assumption existing mechanisms for the many expert setting are not incentive compatible unless subjects can credibly commit to using a randomized strategy which places positive mass on dominated action (i.e. there are no ex-post incntive compatible mechanisms based on proper scoring rules and voiding given a no defiers assumption):
-
-There is some extra flexibility more than no defiers which we should use, for example differential compliance rates for different actions, the mechanisms selects the action that most raises the reward not the one who has the highest reward (for example an action that has the second highest reward but 1\% noncompliance might be chosen instead of one  that has 99\% noncompliance and the highest reward. No defiers buys us the extra part that chosen is the highest reward action, so makes life easier for the subject (if the noncompliance depended on the signals the expert receives a utility maximizing decision maker would have to consider other decision markets noncomplaince characteristics in the prior before deciding how to interpret the chosen action; this removes such ambiguities and doesn't seem to loose too much generality)
-
+% TODO formalize useless
+Somewhat more formally we say a expert is useless if knowing their signal would not change the chosen action for any possible set of other agents signals (including the empty set, i.e. the prior).
+This motivates considering the VCG style mechanisms.
 
 
 \section{Scoring Rule and Void Decision Market Mechanisms}
@@ -159,7 +133,7 @@ This is inmidiate from how the payment rule and useless experts are defined, sin
 
 %TODO pin down useless more formally still
 
-\subsection{Incentive Compatibility and Efficient}
+\subsection{Incentive Compatible and Efficient}
 
 \begin{thm}[Bayes-Nash Incentive Compatibility]
 	A Bayes Nash Equilibrium exists where all experts truthfully report their signals.
@@ -204,23 +178,21 @@ Set
 \[
   \rho_i  := \alpha \pi_i
 \]
-The rescaling parameter $\alpha>0$ can be chosen \emph{a priori} based on $P$ such that: $ E[\sum \rho_i] < E[r|c(s,P)] - E[r|c(P)] $. 
+The rescaling parameter $\alpha>0$ is chosen \emph{a priori} based on $P$ such that: $ E[\sum \rho_i] < E[r|c(s,P)] - E[r|c(P)] $. This can be achieved by setting an alpha such that
 
- $\alpha =    \frac{E[r|c(s,P)] - E[r|c(P)] )}{\sum \pi_i}  $. 
-
-%\NDP{TODO spell out how. This seems like it should be just algebra, for exmaple if aprior I expect 10 complementary signals which combined produce a expected surplus of 2 then i want to have $g = \alpha pi$ and $\alpha < 2/10$. How can we make this procedure generic? }
+ $\alpha >   \frac{E[r|c(s,P)] - E[r|c(P)] )}{\sum E[\pi_i|P] }  $. 
 
 \end{mech}
 
-\NDP{Initiall I tried instead of just a multiplier $< 1$, having a gneeral function $g$ with $g(0) = 0$, and $g$ is monotonically increasing in $p_i$. But this doesnt work if you lower the negatives more than the positive for example you fuck up the payments. Do we prove the scaling has to be a multiplicative, an aditive breaks it (if positive cnat help with budget and if negative can cause it to be irational for experts to enter if expected value of expert is bellow, while non linear transformation instead of linear multipler doesnt preserve the expectations and tus can also break the incentives of the experts to be truthful)
-}
+
+%\NDP{Initiall I tried instead of just a multiplier $< 1$, having a gneeral function $g$ with $g(0) = 0$, and $g$ is monotonically increasing in $p_i$. But this doesnt work if you lower the negatives more than the positive for example you fuck up the payments. Do we prove the scaling has to be a multiplicative, an aditive breaks it (if positive cnat help with budget and if negative can cause it to be irational for experts to enter if expected value of expert is bellow, while non linear transformation instead of linear multipler doesnt preserve the expectations and tus can also break the incentives of the experts to be truthful)}
 
 \begin{lem}
 	The rescaling of the mechanism preserves the incentives of experts
 \end{lem}
 
 \begin{proof}
-	As they are set \emph{a priori} based on expectations only, $\alpha$ is invariant to any reports the experts make. Since the transformation is a positive rescaling, whichever report maximizes payoffs remains unchanged. Since 
+	As they are set \emph{a priori} based on expectations only, $\alpha$ is invariant to any reports the experts make. Since the transformation is a positive rescaling, whichever report maximizes payoffs remains unchanged. 
 \end{proof}
 
 
@@ -303,23 +275,35 @@ Consider a experts \emph{unilateral value}, the expected value of pickign the op
 
 
 
+\section{Freedom and Limits to Defiance}
 
-% \begin{lem}
-% 	necesssary: For truthfulnes to be dominant strategy for an expert, the expert must be unilaterally sufficient.
-% \end{lem}
-% \begin{proof}
-%     By contradiction. If the expert is not unilaterally sufficient there exists signals $\hat{s}_{-i}$ the other experts may report such that $E[r|c_{s_i \cup s_{-i}}] > E[r|c_{i}] $
-%\NDP{ This doesnt work further, since now I need to show there is some other report s_i that makes the expert better off, and there doesnt have to be in general.... so it is not necesary.}
-% \end{proof}
+If we consider subjects with potentially unrestricted freedom, i.e. subjects are not necesarily expected reward maximizers, then the mechanism is not necesarily truthful, even for a single expert. 
+
+\begin{eg}[total freedom yields bad incentives for a single expert]
+	For example, consider a subject that has a prejudice in favour of treatment A, and so will take it unless the expected reward of treatment B is more than 10 utils highers. Consider a expert with access to a signal wich is an unbiased estimate of the rewards over both actions, receives a signal  that B reward is higher by 9 utils. The expert is strictly better off reporting that his signal has B as more than 10 better.
+\end{eg}
+
+\begin{eg}[subjects who defy experts yield perverse incentives]
+	More generically we can consider of an agent who does the oposite of what maximizes reward (the min decision rule), this creates incentives for experts to flip the ordering that their signals imply. 
+\end{eg}
+
+Thus, it can be seen that providing unrestricted freedom in the broadest sense to subjects makes the setting hopeless. 
+
+One restriction on subjects freedom that is sufficient to allow (in the single expert setting) dominant strategy truthful mehcanism is \emph{maximizers or allways takers}: assuming that all subjects are either utility maximizers (compliers under a efficient mechanism) or have some action they will take irrespective of the reports of the experts (always takers or never takers in the binary setting). Note for example that in the canonical two treatment setting this is equivalent to the usual no defiers assumption. 
+This preserves substantial freedom, in that it is not required the subject known a priori that they will compliers, their realization of the always taker type could come after the mechanism has been run and before the action is taken. 
+
+While this is a strong assumption to make, it is still substantially weaker than requiring subjects to follow ex-post dominated strategy with a given positive probability ( and since the payments are depedent on this probability this needs to be followed precisely), which is what is required in the MSR and void type mechanisms.
+
+This condition can be somewhat relaxed, at the cost of a loss of interpretation of the prices in the bidding mechanism, since the needed property it implies is that the mechanism choosing an action with higher expected reward if actually carried out leads to the expected reward conditional on the chosen action to be higher. Formally the condition that is sufficient  is:
+%TODO clean this up
+\[
+E[ ^{*}|c_i]  \geq E[ r^{*}|c_j] \text{ if }E[ ^{*}|a_i]  \geq E[ r^{*}|a_j]  \forall j \neq i \in K
+\]
 
 
-% \begin{thm}
-	
-% \end{thm}
+There is some extra flexibility more than no defiers which we should use, for example differential compliance rates for different actions, the mechanisms selects the action that most raises the reward not the one who has the highest reward (for example an action that has the second highest reward but 1\% noncompliance might be chosen instead of one  that has 99\% noncompliance and the highest reward. No defiers buys us the extra part that chosen is the highest reward action, so makes life easier for the subject (if the noncompliance depended on the signals the expert receives a utility maximizing decision maker would have to consider other decision markets noncomplaince characteristics in the prior before deciding how to interpret the chosen action; this removes such ambiguities and doesn't seem to loose too much generality)
 
-% \begin{proof}
 
-% \end{proof}
 
 
 \subsection{Noncompliance and Incentive Compatibility}
@@ -372,18 +356,95 @@ For other information structures it does not work, for exmaple
 
 %\section{Summary}
 
+
+\section{Freedom and Limits to Defiance}
+
+If we consider subjects with potentially unrestricted freedom, i.e. subjects are not necesarily expected reward maximizers nor alway-takers, then the mechanism is not necesarily truthful, even for a single expert. 
+
+\begin{eg}[total freedom yields bad incentives for a single expert]
+	For example, consider a subject that has a prejudice in favour of treatment A, and so will take it unless the expected reward of treatment B is more than 10 utils highers. Consider a expert with access to a signal wich is an unbiased estimate of the rewards over both actions, receives a signal  that B reward is higher by 9 utils. The expert is strictly better off reporting that his signal has B as more than 10 better.
+\end{eg}
+
+It is clear that such preference structures on the part of the subjects makes attaining both truthfulness and efficiency impossible. That is, in such situations misdirection is required to achieve efficiency. More pathological cases can lead to more severe problems:
+
+\begin{eg}[subjects who defy experts yield perverse incentives]
+	More generically we can consider of an agent who does the oposite of what maximizes reward (the min decision rule), this creates incentives for experts to flip the ordering that their signals imply. 
+\end{eg}
+
+Thus, it appears that providing unrestricted freedom in the broadest sense to subjects makes the setting hopeless. 
+
+One restriction on subjects freedom that is sufficient to allow (in the single expert setting) dominant strategy truthful mehcanism is \emph{maximizers or allways takers}: assuming that all subjects are either utility maximizers (compliers under a efficient mechanism) or have some action they will take irrespective of the reports of the experts (always takers or never takers in the binary setting). Note for example that in the canonical two treatment setting this is equivalent to the usual no defiers assumption. 
+This preserves substantial freedom, in that it is not required the subject known a priori that they will compliers, their realization of the always taker type could come after the mechanism has been run and before the action is taken. 
+
+While this is a strong assumption to make, it is still substantially weaker than requiring subjects to follow ex-post dominated strategy with a given positive probability ( and since the payments are depedent on this probability this needs to be followed precisely), which is what is required in the MSR and void type mechanisms.
+
+This condition can be somewhat relaxed, at the cost of a loss of interpretation of the prices in the bidding mechanism, since the needed property it implies is that the mechanism choosing an action with higher expected reward if actually carried out leads to the expected reward conditional on the chosen action to be higher. Formally the condition that is sufficient  is:
+%TODO clean this up
+\[
+E[ ^{*}|c_i]  \geq E[ r^{*}|c_j] \text{ if }E[ ^{*}|a_i]  \geq E[ r^{*}|a_j]  \forall j \neq i \in K
+\]
+
+
+%There is some extra flexibility more than no defiers which we should use, for example differential compliance rates for different actions, the mechanisms selects the action that most raises the reward not the one who has the highest reward (for example an action that has the second highest reward but 1\% noncompliance might be chosen instead of one  that has 99\% noncompliance and the highest reward. No defiers buys us the extra part that chosen is the highest reward action, so makes life easier for the subject (if the noncompliance depended on the signals the expert receives a utility maximizing decision maker would have to consider other decision markets noncomplaince characteristics in the prior before deciding how to interpret the chosen action; this removes such ambiguities and doesn't seem to loose too much generality)
+
+
+
+
 \subsection{Interpreting bids}
 
-the bids reflect the expected value of the mechanism choosing a particular action, not of that action being taken. \DBA{I'm confused. In previous section, ``each expert knows the exact outcome conditonal on one action'', and now its conditional on action being chosen, not taken. These sentences sentences seem to be at odds.} Example: if half are allways takers, the bid effectively waters down the true effect by half.
+%The bids reflect the expected value of the mechanism choosing a particular action, not of that action being taken. \DBA{I'm confused. In previous section, ``each expert knows the exact outcome conditonal on one action'', and now its conditional on action being chosen, not taken. These sentences sentences seem to be at odds.} Example: if half are allways takers, the bid effectively waters down the true effect by half.
+
 \DBA{So the bids made by experts depend on the expert's model of the subject's behavior?}
+\NDP{correct, is this clear now form the text?}
+%further, due to the winners curse, it is the expected effect conditional on having won the auction. 
+%\DBA{can you write down how expected conditional on having won is computed?}
 
-further, due to the winners curse, it is the expected effect conditional on having won the auction. 
-\DBA{can you write down how expected conditional on having won is computed?}
+%\DBA{At this point, the interpretation of the bid has been qualified twice, and I'm lost}
 
-\DBA{At this point, the interpretation of the bid has been qualified twice, and I'm lost}
+%\subsection{A sufficient separability condition for efficiency}
 
-\subsection{A sufficient separability condition for efficiency}
+%if each expert knows the value of a action the MSR and Void mechanism in the style of Hanson fail to be myopically incentive compatible when agents always follow the action whose price is maximal in the market (\cite{othman2010decision})
 
-if each expert knows the value of a action the MSR and Void mechanism in the style of Hanson fail to be myopically incentive compatible when agents always follow the action whose price is maximal in the market (\cite{othman2010decision})
+
+
+
+\section{A Bid and Signal Report Mechanism without Common Priors}
+
+We now combine the bid based and direct mechanisms to reduce the requirement on the common prior, and in particular that the mechanism have access to it. While formally to analize the BNE we still require the experts to have access to the prior, the mechanism can aggregate even in the absence of this to the degree that the signals still be informative accross experts. 
+
+The idea is that evenin the abscense of common priors, it may still be possible for experts to convey to each otherthrough their signals (even if it is not possible for the mechanism to evaluate the value of such signals) and that there is sufficient degrees of freedom in the scaled mechanism to add a simple modification that accounts for this.
+
+The key change is to add to all payments a further share of the reward of the mechanism while displaying their reported signals to the winner of the auction before they select their action. That is we replace the 0 payments to agents that do not make a report that alters the chosen action with a  share of the gains of the mechanism.
+
+Denote by $b_i$ the bid part of agents $i$ report, and by $\hat{s_i}$ the signal part of their report, by $b_{\hat{1}}$ the highest bid and by $b_{\hat{2}}$ the seccond highest bid. If multiple bids are tied for highest, we  randomize which one is treated as the highest and which one is considered the seccond highest.
+
+\begin{mech}
+The mechanism receives bids and signal reports from all experts, reveals the signal reports and bids to the winner of a seccond price auction for a share of the reward and allows them to select a chosen action, this chosen action $c$ is announced to the subject, who picks and actual action $a$ after which the reward $r$ is revealed and payments made according to:
+
+
+\[
+    \pi_i = 
+\begin{cases}
+    \zeta (r - b_{\hat{2}} ) ,& \text{if } b_i = b_{\hat{1}}\\
+    \eta r,              & \text{otherwise}
+\end{cases}
+\]
+
+\end{mech}
+
+Thus a experts optimal strategy is to bid the expected value of the reward conditional on their signal and the posterior over the other agents signals conditional on having the highest bid. If the expert wins their signal report becomes irrelavant, as they already know their true signal.
+
+This mechanism does have the same problem as the sharing mechanism in that useless experts entry is costly to the mechanism or to other experts. Note since we are attempting to avoid the use of a prior by the mechanismand we are in the one shot setting there is no way to estimate if a given signal is worthless. This will be however mostly avoidable in the repeated setting.  
+
+Note that this analysis is strongly depedent on notions of equilibrium. For the same reason that experts do not have dominat strategies in the direct mechansim with their signal reports, they also do not have them here (instead of offsetting a non-truthful report with another non-truthful report in the mechanism the problem isnot this offsetting situation can happen )
+
+%TODO hint at the value in the repeated setting of dropout type tricks to try to limit conspiracies.
+
+Where as before $\alpha$ and $\beta$ are set so as to limit expected payments to be lower than the expected gain form the mechanism. 
+
+%While this mechanism is somewhat convoluted and implausible in the one shot setting, it is useful conceptually in building up a practical mechanism for the sequential case in the next chapter. 
+To the best of our knowledge, the use of such over-represented signals spaces in mechanism design (that is using a report space that is strictly bigger than the signal type space) is novel, through the literature is vast, so we are not certain. The closest to our knownledge is in 
+
+
 
 

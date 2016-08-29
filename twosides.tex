@@ -1,9 +1,28 @@
 %!TEX root = main.tex
 
 
+While the previous chapter addressed a question that emerges from the academic literature: are there efficient, budget constrained mechanisms that efficiently aggregate information to aid a decision maker, without forcing the decision makers hand to obtain good incentives for experts. It does so using tools which are relatively standard in that literature (Bayes Nash Equilibria of a one shot game), the heavy use of common priors makes them impractical. It is hard to imagine many situations in which the experts would agree on a prior and a signal space in the current moment (through in the future for decisions that are largely based on analysis of biomedical images and samples that are allready digitalized this might become feasable). 
+
+Further, the natural world scenarios that motivate the mechanism are much more naturally cast not as one shot interactions, but as repeated games with a sequence of subjects who seek advice. Ideally we would like the pool of avaialble experts to also be changing (through to obtain nontrivial bounds beyond the repeated setting it must be that this change is sufficiently slow). We follow some early work in this direction, but instead of searching for fairly generic bounds on the perforrmance of such mechanisms, we seek a practical mechanism for the particular case of advice under subject freedom.
+
 We consider a sequence of subjects each eliciting advice from a fixed set of experts and choosing an action which only affect themselves directly. This combines the central aspects of bandits with compliance awareness (a sequence of choices and learning from past experience, including noncompliance) and elicitation of information form experts to enable optimal decisions without the advice being bounding. 
 
 Bounded regret algorithms with compliance awareness can be seen as addressing the special case where the experts signals are known apriori to be uninformative, and thus only the experience can be learned from. Our one-decision mechanism is the special case for $T={1}$, thus there is no role for exploration, since there are no future decisions  to help inform.
+
+The key conceptual insight is to link the benefits of exploration to the payoffs of the experts that choose actions that carry it out, by linking the payments the experts receive to the rewards of all future periods.
+We further describe a instatiation of this mechanisms where experts use a combination of bids and signals, that may be able to 
+
+On a more speculative note, we present a plausibly practical mechanism for the repeated setting that is asymptotically efficient and truthfull.
+
+%Lykouris, http://arxiv.org/pdf/1505.00391.pdf
+% The current best adaptive learning algorithm is a natural adaptation of the classical Hedge
+% algorithm, AdaNormalHedge, due to Luo and Schapire (2015). With this framework in mind, we
+% ask the following main question:
+% How much rate of change can a system admit to sustain approximate efficiency, when its
+% participants are adaptive learners?
+
+
+
 \section{Model}
 
 The game occurs over $T$ steps, at each step: a subject $t$ arrives, $N$ experts recieve each receive a $s_{t,i}$ signal, each expert $i$ reports send a to the mechanism $\hat{s}_{t,i}$, the subject observes the action chosen by the mechanism $c_t$, picks an action $a_t$ that is actually carried out and receives a reward $r_t$.
@@ -29,11 +48,9 @@ where
  at each period with payments that simply summed over all periods does not preserve efficiency.
 
 This is because the single shot mechanism creates incentives that are equivalent to a greedy policy, it only incentivizes exploitation and not exploration: by picking at each step the optimal 
-Attempting to fix this by only revealing the outcome to the winning bidder, while internalizing the benefits of explorations, means the other experts signals are wasted in the learning. \NDP{Formalie what we mean exactly by wasted}
-If we reveal the outcome of the round to all experts,  no agent can internalize the information revelation benefits that comes from the choice of an apriori in expectation suboptimal reward action. On the other hand, if we only allow the winner of the bidding on a given round to have access to the subject's outcome, then the mechanism can extremely data-inefficient, in that non-winning experts cannot conttribute to the learning.
+On the one hand, attempting to fix this by only revealing the outcome to the winning bidder, while internalizing the benefits of explorations, means the other experts signals are cannot be used for learning.
+On the other hand, if we reveal the outcome of the round to all experts,  no agent can internalize the information revelation benefits that comes from the choice of an apriori in expectation suboptimal reward action. 
 
-
-TODO: less hand wavy
 \begin{eg}[Exploration ineficiency with full revelation]
 let everyone have the same prior, then upon observing the outcome, everyone has the same posterior, and thus any discovery of a higher value action will be priced in on future rounds, denying the benefits form having risked a ex-ante suboptmal action to those who take it. 
 \end{eg}
@@ -116,11 +133,17 @@ One natural question given the bayesian incentive compatible bandit exploration 
 %understand the bounds in http://jmlr.csail.mit.edu/proceedings/papers/v31/agrawal13a.pdf
 
 
-\section{A direct mechanism via regret minimization}
+\section{A bid and signal mechanism via regret minimization}
 
-Interestingly the sequential version of the problem opens up aggregation in the repeated version of examples where it is not possible in the one shot case. Consider a setting where the experts submit both their signals plus a bid, 
+Interestingly the sequential version of the problem opens up aggregation in the repeated version of examples where it is not possible in the one shot case. Consider a setting where the experts submit both their signals plus a bid, as in the final mechanism proposed in the previous chapter. While we saw that there was a revelating equilibrium, the mechanism failed the property of paying for useless experts. Further, there where many other equilibria where revelation does not occur. 
 
- keep N+1 overlapping partitions of the signal cross product space, one for each $-i$ plus the one we really use with all the signals. pay agents a share of the difference in estimated payoff between what we did and $-i$.
+By learning which signals to use, we can create mechanisms that provide more intensive incentives for exerts, further we can limit the payments to useless experts, at least asymptotically. 
+
+
+The basic idea is to keep track of N+1 overlapping partitions of the signal cross product space, one for each $-i$ plus the one we really use with all the signals. Pay agents a share of the difference in estimated payoff between what we did and $-i$.
+
+Note that now the winning bid agent doesnt need to have particularly good signals, but rather has to be good at aggregating the others signals; i.e. he can be the only one with access to the prior for example.
+
 
 note that the estimated share doesnt change if we replace the expectation by the realization in the all signals case (dont we we want to start also using partitions without the negative value agents? or at least alter weights in that drection?)
 
@@ -170,3 +193,4 @@ Minimax and information aggregation,
 
 
 
+One of the practical 
