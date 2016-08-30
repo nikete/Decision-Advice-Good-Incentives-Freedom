@@ -10,13 +10,20 @@ The guiding design criterion in this work is to restrict as little as possible t
 We first focus on a direct efficient mechanism in the style of VCG mechanism. Experts directly report their signals to the mechanism, which then uses them to compute the optimal action given the prior to output to the subject. This requires  the experts and the mechanism having access to a common bayesian prior, over the joint probabilities of the rewards, true signals, the output action and the response of the subject to a given output of the mechanism. There is a BNE that aggregates all information over $N$ experts, unlike the case in the previous mechanisms in the literature.
 We then analyze a simple bid based variation of the mechansim, and provide a sufficient conditions on the signal structures where information can be fully aggregated; we further show that these conditions are sufficient to make truthfulness dominant incentive compatible.  
 
-To clarify the role of noncompliance, 
 
 \section{Model}
 
 We consider a single subject with access to $K$ possible choices, and access to a set of $N$ experts, each of whom have access to some signal $s_i$ which are potentially informative about $\expec[r|a,c,S]$, where use $S$ to denote the vector containing all experts signals.  $P$ denotes the apriori joint probability distribution over $(r,a,c,S) $ which is common knowledge. 
 
-\NDP{is this notation for sensible?}
+Thus given a mechanism $M$, and denoting unobservable characteristics (the latent state) as $u$
+
+
+%\begin{figure*}[t]
+%	\centering	
+%	\include{ICEBDAG}
+%	\caption{Bandit with Compliance Awareness DAG}
+%\end{figure*}
+
 
 To map to the mechanism design literature the $P$ would be over states of the world in $\Omega$ and each state of the world consists of a agent type (complier probability and action outcome and the value a utility functin placed on it, which equates to rewards in our notation) and the signals of each expert in that state of the world.
 
