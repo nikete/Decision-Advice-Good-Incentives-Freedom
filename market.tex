@@ -10,6 +10,7 @@ The guiding design criterion in this work is to restrict as little as possible t
 We first focus on a direct efficient mechanism in the style of VCG mechanism. Experts directly report their signals to the mechanism, which then uses them to compute the optimal action given the prior to output to the subject. This requires  the experts and the mechanism having access to a common bayesian prior, over the joint probabilities of the rewards, true signals, the output action and the response of the subject to a given output of the mechanism. There is a BNE that aggregates all information over $N$ experts, unlike the case in the previous mechanisms in the literature.
 We then analyze a simple bid based variation of the mechansim, and provide a sufficient conditions on the signal structures where information can be fully aggregated; we further show that these conditions are sufficient to make truthfulness dominant incentive compatible.  
 
+To clarify the role of noncompliance, 
 
 \section{Model}
 
@@ -34,12 +35,20 @@ Consider the following adaptation of the classic complemetary knowledge example 
 \end{eg}
 
 In the example, by construction, it is common knowledge that each player’s expectation of the value of the reward conditional on either action is zero, even though it is also common knowledge that the realized value of the reward conditional on either action is not zero, and that the traders’ pooled information would be sufficient to determine the optimal arm. Thus, even if the traders repeatedly and truthfully announce their posteriors, as in \cite{geanakoplos1982we}, they will never learn the true optimal arm. 
+Thus, there is a fundamental limit to the information that can be aggregated by market like mechanisms that rely on prices for information transmition (indirect mechanisms) relative to what could be known if the signals themselves where aggregated. 
 
-Thus there is a fundamental limit to the information that can be aggregated by market like mechanisms that rely on prices for information transmition (a indirect mechanism). As ilustrated above, the equilibrium reached by an indirect communication is not necesarily a direct communication equilibrium (proposition 3 in  \cite{geanakoplos1982we}). 
 %At a fundamental level, if the price space is smaller than the intrinsic dimensionality 
-%\NDP{this cant be totaly right, one could do some Z curve type encoding of any finite signals space into the price line}
+%\NDP{this cant be totaly right, one could do some Z curve type encoding of any finite signals space into the price line, but this feels very artificial, and cerainly would open horible things in a price line with arbitrage, but it seems counter some more evidence monotonically raises probability requirement}
 
-
+%While some, such as \cite{} argue that the above situation is artificial, \cite{ostrovsky2012information}
+% DEFINITION 2: Security X is non-separable under partition structure Π if there exist distribution P on the underlying state space Ω and value v ∈ R such that:
+% (i) P(ω) is positive on at least one state ω in which X(ω) ̸= v; (ii) For every player i and every state ω with P(ω) > 0,
+% 􏰕
+% P(ω′)X(ω′)
+% EP X|Πi(ω) ≡ 􏰕 P(ω′) =v􏰷
+% 􏰥 􏰦 ω′∈Πi(ω)
+% ω′ ∈Πi (ω)
+% ￼Otherwise, security X is separable.
 \subsection{A Simple Direct Reward Sharing Mechanism}
 
 
@@ -63,7 +72,7 @@ A corrolary of this is that the entry of useless experts reduces the payment rec
 A somewhat more complicated mechanism is to attempt to use the machine of sequential proper scoring rule based market makers to predict the rewards contigent on choosing each possible action. The market for the chosen action can then be settled in the standard manner, and the other markets voided. 
 We term these Scoring-rule and Void Decision Market Mechanisms (SVDM). The basic idea is to use a sequentially shared proper socring rule to run a prediction market for the value of the reward conditional each possible action, and to void the markets for the non-chosen actions.  
 
-
+%TODO
 %\begin{eg}[With a utitlity maximizing subject an expert can benefit from exaggerating the success probability of a suboptimal action]
 	from \cite{othman2010decision}
 %\end{eg}
@@ -71,14 +80,14 @@ We term these Scoring-rule and Void Decision Market Mechanisms (SVDM). The basic
 
 THEOREM 1. There does not exist any strictly proper scoring rule/deterministic decision rule pair.
 
+More generally, an immediate corollary to a theorem X of \cite{chen2014eliciting} states that Randomized decision rules with full support are necesary for incentive compatible SVDM mechanisms.
+Note that this implies all the problems of the max decision rule apply for example to a Thompson style randomized decision rule, since they can still be manipulated not to have full support over the action by a sufficiently bad report.
 
-An immediate corollary to a theorem X of \cite{chen2014eliciting} states that Randomized decision rules with full support are necesary for incentive compatible SVDM mechanisms.
+
 
 If a subject is free to either maximize their expected utility at decision time (and lacks a credible commitment device beforehand, or wishes to mantain its freedom) then a SRDM is not Incentive Compatible for them. Further, the cost of making the probabilities of dominated actions small is to make the payments contigent on when they are taking place conmesurably large.
 
 A further limitation of such methods is inherited from the prediction markets and more generally from posterior anoucement games analized in \cite{ostrovsky2012information}: fully complemetary signals between two experts are not aggregated. 
-
-
 
 
 
@@ -117,9 +126,11 @@ $E[\hat{r}_{-i}] = E[ r| \hat{c}_{-i}, \hat{S}_{-i}] $
 
 Each expert reports their signal, the mechanism calculates the action that maximizes the reward $c$, and chooses it. After observing the actual action taken $a$ and its reward $r$, the corresponding payments are made, this concludes the mechansim.
 
-Note that conditional on the action taken and the payments do not depend on the reported signal of agent $i$ if we hold fixed the chosen action. 
 
 \end{mech}
+
+
+Note that conditional on the action taken and the payments do not depend on the reported signal of agent $i$ if we hold fixed the chosen action. 
 
 Note, if you take out the if and reward players no matter what, all you do is increase the variance but dont change the expectation. The  mechanism and its properties still hold under risk neutral expert,  this is because the expected reward when using all signals and when using only the other agents signals has to be the smae if the same action is being taken. 
 
@@ -134,10 +145,15 @@ The first term is the reward received after executing the chosen action, and the
 The second term is explicitly constructed so as not to use the report by expert $i$. 
 \end{proof}
 
+
+%TODO: be more precise about what we mean by same signal
 \begin{lem}[redundant experts]
-	Two experts report the same signal, they both get payoff zero. 
+	When two or more experts report the same signal, they all get payoff zero. 
 \end{lem}
 
+\begin{proof}
+	Given the other experts reports, it is not possible for the same signal
+\end{proof}
 
 \begin{lem}
 	Useless experts cannot profit from participation
@@ -314,7 +330,7 @@ contrast the information structure in the cancer example and its non separabilit
 
 \section{A bidding mechanism }
 
-In many practical applications of interest, it might be that the signals can't be practically reported. For example, because while the expert knows something when they see it, they do not have a vocabulary to unambigously express it. 
+In many practical applications of interest, direct signal mechanisms might be impractical. It might be that the signals can't be practically reported: for example, because while the expert knows something when they see it, they do not have a vocabulary to unambigously express it. The experts may disagree about the prior probabilities and thus the signals can't be unambigously aggregated, or the mechanism doesn't have access to the prior.
 
 
 If we replace the reports in the direct mechnaism by bids, and we allow the winner of the auction to pick the action, we have a mechanism that doesnt make any strong assumptions beyond that the agents understand the rules of the game.
@@ -358,24 +374,31 @@ This preserves substantial freedom, in that it is not required the subject known
 
 While this is a strong assumption to make, it is still substantially weaker than requiring subjects to follow ex-post dominated strategy with a given positive probability ( and since the payments are depedent on this probability this needs to be followed precisely), which is what is required in the MSR and void type mechanisms.
 
-This condition can be somewhat relaxed, at the cost of a loss of interpretation of the prices in the bidding mechanism, since the needed property it implies is that the mechanism choosing an action with higher expected reward if actually carried out leads to the expected reward conditional on the chosen action to be higher. Formally the condition that is sufficient  is:
-%TODO clean this up
+This condition can be somewhat relaxed,  since the needed property it implies is that the mechanism choosing an action with higher expected reward if actually carried out leads to the expected reward conditional on the chosen action to be higher. Formally a sufficient condition is:
+%at the cost of a loss of interpretation of the prices in the bidding mechanism,
+
 \[
 E[ ^{*}|c_i]  \geq E[ r^{*}|c_j] \text{ if }E[ ^{*}|a_i]  \geq E[ r^{*}|a_j]  \forall j \neq i \in K
 \]
 
-
+%TODO
 %There is some extra flexibility more than no defiers which we should use, for example differential compliance rates for different actions, the mechanisms selects the action that most raises the reward not the one who has the highest reward (for example an action that has the second highest reward but 1\% noncompliance might be chosen instead of one  that has 99\% noncompliance and the highest reward. No defiers buys us the extra part that chosen is the highest reward action, so makes life easier for the subject (if the noncompliance depended on the signals the expert receives a utility maximizing decision maker would have to consider other decision markets noncomplaince characteristics in the prior before deciding how to interpret the chosen action; this removes such ambiguities and doesn't seem to loose too much generality)
 
 
 
 
-\subsection{Interpreting bids}
+%\subsection{Interpreting bids}
 
-%The bids reflect the expected value of the mechanism choosing a particular action, not of that action being taken. \DBA{I'm confused. In previous section, ``each expert knows the exact outcome conditonal on one action'', and now its conditional on action being chosen, not taken. These sentences sentences seem to be at odds.} Example: if half are allways takers, the bid effectively waters down the true effect by half.
 
-\DBA{So the bids made by experts depend on the expert's model of the subject's behavior?}
-\NDP{correct, is this clear now form the text?}
+% TODO:
+% \begin{eg}[IID signals for experts]\label{eg:iid-ex}
+% 	Let there be two experts, two actions ${\text{treatment},\text{control}}$ each which rewards with abernoulli draws with probabilities either $\alpha,1-\alpha$ or  $1-\alpha,\alpha$. Let the prior over $\alpha$ be a beta distribution
+% \end{eg}
+
+% %The bids reflect the expected value of the mechanism choosing a particular action, not of that action being taken. \DBA{I'm confused. In previous section, ``each expert knows the exact outcome conditonal on one action'', and now its conditional on action being chosen, not taken. These sentences sentences seem to be at odds.} Example: if half are allways takers, the bid effectively waters down the true effect by half.
+
+% \DBA{So the bids made by experts depend on the expert's model of the subject's behavior?}
+% \NDP{correct, is this clear now form the text?}
 %further, due to the winners curse, it is the expected effect conditional on having won the auction. 
 %\DBA{can you write down how expected conditional on having won is computed?}
 
@@ -424,7 +447,6 @@ Where as before $\alpha$ and $\beta$ are set so as to limit expected payments to
 
 %While this mechanism is somewhat convoluted and implausible in the one shot setting, it is useful conceptually in building up a practical mechanism for the sequential case in the next chapter. 
 To the best of our knowledge, the use of such over-represented signals spaces in mechanism design (that is using a report space that is strictly bigger than the signal type space) is novel, through the literature is vast, so we are not certain. The closest to our knownledge is in 
-
 
 
 
