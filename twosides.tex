@@ -1,7 +1,7 @@
 %!TEX root = main.tex
 
 
-While the previous chapter addressed a question that emerges from the academic literature: are there efficient, budget constrained mechanisms that efficiently aggregate information to aid a decision maker, without forcing the decision makers hand to obtain good incentives for experts? It does so using tools which are relatively standard in that literature (the Bayes Nash Equilibria of a one shot game under a correct common prior), the heavy use of common priors makes them impractical. It is hard to imagine many situations in which the experts would agree on a prior and a signal space \footnote{In the future for decisions that are largely based on analysis of biomedical images and lab results this might become feasable.}
+While the previous chapter addressed a question that emerges from the academic literature: are there efficient, budget constrained mechanisms that aggregate information to aid a decision maker, without forcing the decision makers hand to obtain good incentives for experts? It does so using tools which are relatively standard in that literature (the Bayes Nash Equilibria of a one shot game under a correct common prior), the heavy use of common priors makes them impractical. It is hard to imagine many situations in which the experts would agree on a prior and a signal space \footnote{In the future for decisions that are largely based on analysis of biomedical images and lab results this might become feasable.}
 
 Further, the natural world scenarios that motivate the mechanism are much more naturally cast not as one shot interactions, but as repeated games with a sequence of subjects who seek advice before making some common decision. 
 %Ideally we would like the pool of avaialble experts to also be changing (through to obtain nontrivial bounds beyond the repeated setting it must be that this change is sufficiently slow).
@@ -11,7 +11,16 @@ We consider a sequence of subjects each eliciting advice from a fixed set of exp
 Bounded regret algorithms with compliance awareness can be seen as addressing the special case where the experts signals are known apriori to be uninformative, and thus only the experience can be learned from. Our one-decision mechanism is the special case for $T={1}$, thus there is no role for exploration or learning from experience, since there are no future decisions  to help inform.
 
 
-To create the right incentives for motivating exploratory choices, we show that the choice of action must be linked not just to the reward on the period it is taken, but to the full stream of future rewards after it. While this is sufficient to provide a generalization under a common prior of the one shot mechanisms explored preivously, we also show that the the dynamic setting allows for the mechanism 
+To create the right incentives for motivating exploratory choices, we show that the choice of action must be linked not just to the reward on the period it is taken, but to the full stream of future rewards after it. While this is sufficient to provide a generalization under a common prior of the one shot mechanisms explored preivously, we also show that the the dynamic setting allows for the mechanism to do without the prior, and can use in fact incentivize the efficient aggregation o the signals form the expert population.  
+
+
+Problem: in the dynamic setting it you might be tempted to be strategic about what you reveal as reports in the signals auction to try and trick participants in the choice auction. 
+but can this happen the other way? we can just hold the choice auction once? 
+
+This can be side steps by dividing (endogenously) the set of experts into two, and not allowing cross bidding. Open question: is there a more elegant mechanism that does this without the separation? one naural way to do the separation is to allow the experts to see the first signal, then have them self-select into the signal or aggregation pools (they go where their return is higher, we can allow them to see where others went) .
+
+
+there seems to be a further reursion step, we are basically trying to ask the other traders how much we should pay for a given signal, but if we dnt pay then we dont get the signal, so there is some partial feedbackk? or no, it is simpler, just the full supervised setting, as long as he mechanism can commit to not using the signal for the choice but keeping it for the record?
 
 % note if ou depedent on someone else info to show yours is useful, it si nto possible for strict dominant strategy for you (since when they report at random with the prior, you cant possibly do better than randomizing, no matter how many rounds we observe). 
 % OTOH 
@@ -20,7 +29,7 @@ To create the right incentives for motivating exploratory choices, we show that 
 
 
 
-On a more speculative note, we present a plausibly practical mechanism for the repeated setting that is  efficient and truthfull.
+% On a more speculative note, we present a plausibly practical mechanism for the repeated setting that is  efficient and truthfull.
 %this is going to need a condition along the line of the 
 
 %Lykouris, http://arxiv.org/pdf/1505.00391.pdf

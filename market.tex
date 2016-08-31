@@ -90,20 +90,18 @@ THEOREM 1. There does not exist any strictly proper scoring rule/deterministic d
 More generally, an immediate corollary to a theorem X of \cite{chen2014eliciting} states that Randomized decision rules with full support are necesary for incentive compatible SVDM mechanisms.
 Note that this implies all the problems of the max decision rule apply for example to a Thompson style randomized decision rule, since they can still be manipulated not to have full support over the action by a sufficiently bad report.
 
-
-
 If a subject is free to either maximize their expected utility at decision time (and lacks a credible commitment device beforehand, or wishes to mantain its freedom) then a SRDM is not Incentive Compatible for them. Further, the cost of making the probabilities of dominated actions small is to make the payments contigent on when they are taking place conmesurably large.
+
+Beyond the reduction in freedom fromthe pre-commitment to randomiation with full support, it also rules out \emph{efficiency}, since by definition if actions known to be dominated are played with positive probability, the mechanism is not efficient in it's allocation of the choice of action. 
 
 A further limitation of such methods is inherited from the prediction markets and more generally from posterior anoucement games analized in \cite{ostrovsky2012information}: fully complemetary signals between two experts are not aggregated. 
 
-
-
-\section{A Direct Mechanism for Efficient Optimal Choice Elicitation with Freedom}
+\section{A Direct Mechanism for Efficient Optimal Choice Elicitation}
 
 We now consider a VCG style mechanism for the optimal decision elicitation problem. The sense in which it is VCG is that it is efficient (always chooses the action whose choice maximizes rewards, note this can be different form the actual action which if carried out with perfect compliance would do so) and we compensate subjects for the extenrality their signal imposes; since truthful reports cannot by definitiion lower the expected value of the optimal action relative to having chosen the action without using the extra signal, these are strictly positive when all reports are truthful. 
 
-%Our use of received payoff instead of expected payoff avoids the use of counterfactual. This seems problematic. For example, if noncompliance leads to lower reward (which is presumably to be expected if experts know more than subject) then experts' payouts is reduced due to a subject's capriciousness. 
-
+Our use of received payoff instead of expected payoff avoids the use of counterfactual that use the signal reported by the agent itself, which enables the mechanisms to be turthful in equilibrium.
+% This seems problematic. For example, if noncompliance leads to lower reward (which is presumably to be expected if experts know more than subject) then experts' payouts is reduced due to a subject's capriciousness.
 %This is especially problematic if payouts are negative due to subject's noncompliance.
 %\NDP{I initially tried setting to void market if action nto followed, but this creates perverse incentives, where the subject might not follow the advice and receive a lower payoff to avoid payment. While your statements abotu the experts are true they (A) the prior taking into account noncompliance makes these expectations workable, you take into account the fact that some advice might not be followed with higher probability. (B) the \emph{no defiers} (terrible name, sinc eit is even stronger than that, uniform noncompliance might be a better term), is a sufficient condition to rule this out.}
 
@@ -114,12 +112,10 @@ All agents know a common prior that gives a proper prior probability distributio
 
 %$\hat{S}_{-i} = \bigcup \hat{s}_j  \forall j \neq i \in N $ then the expected reward given the others reports is:
 
-For each expert $i$, compute the optimal action to choose without using that experts report (i.e. marginalizing over the prior on signal $i$ signal), denote this action $\hat{c}_{-i}$ and it's expected reward:
-
-$E[\hat{r}_{-i}] = E[ r| \hat{c}_{-i}, \hat{S}_{-i}] $
+For each expert $i$, compute the optimal action to choose without using that experts report (i.e. marginalizing over the prior on signal $i$ signal), denote this action $\hat{c}_{-i}$ and it's expected reward: $E[\hat{r}_{-i}] = E[ r| \hat{c}_{-i}, \hat{S}_{-i}] $
 
 
- The payment rule is announced as follows:
+The payment rule is announced as follows:
 
 \[
     \pi_i = 
@@ -133,13 +129,11 @@ $E[\hat{r}_{-i}] = E[ r| \hat{c}_{-i}, \hat{S}_{-i}] $
 
 Each expert reports their signal, the mechanism calculates the action that maximizes the reward $c$, and chooses it. After observing the actual action taken $a$ and its reward $r$, the corresponding payments are made, this concludes the mechansim.
 
-
 \end{mech}
 
 
-Note that conditional on the action taken and the payments do not depend on the reported signal of agent $i$ if we hold fixed the chosen action. 
-
-Note, if you take out the if and reward players no matter what, all you do is increase the variance but dont change the expectation. The  mechanism and its properties still hold under risk neutral expert,  this is because the expected reward when using all signals and when using only the other agents signals has to be the smae if the same action is being taken. 
+Conditional on the action taken the payments do not depend on the reported signal of agent $i$. That is $i$ only affects their received payments with their report via the choice of action. 
+Note, if you take out the if and reward players no matter what, all you do is increase the variance but dont change the expectation, since if the action is unchanged and under the assumption the prior is correct, it's expected reward must be zero as $E[\hat{r}_{-i}] = E[r|P,c]$. The  mechanism and its properties still hold under risk neutral expert,  this is because the expected reward when using all signals and when using only the other agents signals has to be the smae if the same action is being taken. 
 
 
 \begin{lem}\label{lem:affect}
