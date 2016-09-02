@@ -85,7 +85,7 @@ We term these Scoring-rule and Void Decision Market Mechanisms (SVDM). The basic
 %\end{eg}
 
 
-THEOREM 1. There does not exist any strictly proper scoring rule/deterministic decision rule pair.
+Othman Sandholm THEOREM 1. There does not exist any strictly proper scoring rule/deterministic decision rule pair.
 
 More generally, an immediate corollary to a theorem X of \cite{chen2014eliciting} states that Randomized decision rules with full support are necesary for incentive compatible SVDM mechanisms.
 Note that this implies all the problems of the max decision rule apply for example to a Thompson style randomized decision rule, since they can still be manipulated not to have full support over the action by a sufficiently bad report.
@@ -333,7 +333,6 @@ contrast the information structure in the cancer example and its non separabilit
 
 In many practical applications of interest, direct signal mechanisms might be impractical. It might be that the signals can't be practically reported: for example, because while the expert knows something when they see it, they do not have a vocabulary to unambigously express it. The experts may disagree about the prior probabilities and thus the signals can't be unambigously aggregated, or the mechanism doesn't have access to the prior.
 
-
 If we replace the reports in the direct mechnaism by bids, and we allow the winner of the auction to pick the action, we have a mechanism that doesnt make any strong assumptions beyond that the agents understand the rules of the game.
 
 For some information structures this still aggregates information well, for example:
@@ -350,6 +349,74 @@ For other information structures it does not work, for exmaple
 \end{eg}
 
 %\section{Summary}
+
+
+
+
+
+%\subsection{Interpreting bids}
+
+
+% TODO:
+% \begin{eg}[IID signals for experts]\label{eg:iid-ex}
+% 	Let there be two experts, two actions ${\text{treatment},\text{control}}$ each which rewards with abernoulli draws with probabilities either $\alpha,1-\alpha$ or  $1-\alpha,\alpha$. Let the prior over $\alpha$ be a beta distribution
+% \end{eg}
+
+% %The bids reflect the expected value of the mechanism choosing a particular action, not of that action being taken. \DBA{I'm confused. In previous section, ``each expert knows the exact outcome conditonal on one action'', and now its conditional on action being chosen, not taken. These sentences sentences seem to be at odds.} Example: if half are allways takers, the bid effectively waters down the true effect by half.
+
+% \DBA{So the bids made by experts depend on the expert's model of the subject's behavior?}
+% \NDP{correct, is this clear now form the text?}
+%further, due to the winners curse, it is the expected effect conditional on having won the auction. 
+%\DBA{can you write down how expected conditional on having won is computed?}
+
+%\DBA{At this point, the interpretation of the bid has been qualified twice, and I'm lost}
+
+%\subsection{A sufficient separability condition for efficiency}
+
+%if each expert knows the value of a action the MSR and Void mechanism in the style of Hanson fail to be myopically incentive compatible when agents always follow the action whose price is maximal in the market (\cite{othman2010decision})
+
+
+
+
+\section{A Bid and Signal Report Mechanism without Common Priors}
+
+We now combine the bid based and direct mechanisms to reduce the requirement on the common prior, and in particular that the mechanism have access to it. While formally to analize the BNE we still require the experts to have access to the prior, the mechanism can aggregate even in the absence of this to the degree that the signals still be informative to the expert that wins the auctions. 
+
+The idea is that evenin the abscense of common priors, it may still be possible for experts to convey to each other through their signals (even if it is not possible for the mechanism to evaluate the value of such signals) and that there is sufficient degrees of freedom in the scaled mechanism to add a simple modification that accounts for this.
+One passible change is to add to all payments a further share of the reward of the mechanism while displaying their reported signals to the winner of the auction before they select their action. That is we replace the 0 payments to agents that do not make a report that alters the chosen action with a  share of the gains of the mechanism.
+
+Denote by $b_i$ the bid part of agents $i$ report, and by $\hat{s_i}$ the signal part of their report, by $b_{\hat{1}}$ the highest bid and by $b_{\hat{2}}$ the seccond highest bid. If multiple bids are tied for highest, we  randomize which one is treated as the highest and which one is considered the seccond highest.
+
+\begin{mech}
+The mechanism receives bids and signal reports from all experts, reveals the signal reports and bids to the winner of a seccond price auction for a share of the reward and allows them to select a chosen action, this chosen action $c$ is announced to the subject, who picks and actual action $a$ after which the reward $r$ is revealed and payments made according to:
+
+
+\[
+    \pi_i = 
+\begin{cases}
+    \zeta (r - b_{\hat{2}} ) ,& \text{if } b_i = b_{\hat{1}}\\
+    \eta r,              & \text{otherwise}
+\end{cases}
+\]
+
+\end{mech}
+
+Thus a experts optimal strategy is to bid the expected value of the reward conditional on their signal and on having the highest bid. If the expert wins their signal report becomes irrelavant, as they already know their true signal. 
+
+This mechanism does have the same problem as the sharing mechanism in that useless experts entry is costly to the mechanism or to other experts. Since we are attempting to avoid the use of a prior by the mechanismand we are in the one shot setting there is no way to estimate if a given signal is worthless. 
+
+% Is this avoidable in the repeated setting? In particular we can use a empirical estimator of 
+
+
+This analysis is strongly depedent on notions of equilibrium. 
+% For the same reason that experts do not have dominat strategies in the direct mechansim with their signal reports, they also do not have them here (instead of offsetting a non-truthful report with another non-truthful report in the mechanism the problem isnot this offsetting situation can happen )
+
+%TODO hint at the value in the repeated setting of dropout type tricks to try to limit conspiracies.
+
+As before $\zeta$ and $\eta$ are set a priori so as to limit expected payments to be lower than the expected gain form the mechanism. 
+
+%While this mechanism is somewhat convoluted and implausible in the one shot setting, it is useful conceptually in building up a practical mechanism for the sequential case in the next chapter. 
+To the best of our knowledge, the use of such over-represented signals spaces in mechanism design (that is using a report space that is strictly bigger than the signal type space) is novel, through the literature is vast, so we are not certain. The closest to our knownledge is in 
 
 
 
@@ -384,70 +451,6 @@ E[ ^{*}|c_i]  \geq E[ r^{*}|c_j] \text{ if }E[ ^{*}|a_i]  \geq E[ r^{*}|a_j]  \f
 
 %TODO
 %There is some extra flexibility more than no defiers which we should use, for example differential compliance rates for different actions, the mechanisms selects the action that most raises the reward not the one who has the highest reward (for example an action that has the second highest reward but 1\% noncompliance might be chosen instead of one  that has 99\% noncompliance and the highest reward. No defiers buys us the extra part that chosen is the highest reward action, so makes life easier for the subject (if the noncompliance depended on the signals the expert receives a utility maximizing decision maker would have to consider other decision markets noncomplaince characteristics in the prior before deciding how to interpret the chosen action; this removes such ambiguities and doesn't seem to loose too much generality)
-
-
-
-
-%\subsection{Interpreting bids}
-
-
-% TODO:
-% \begin{eg}[IID signals for experts]\label{eg:iid-ex}
-% 	Let there be two experts, two actions ${\text{treatment},\text{control}}$ each which rewards with abernoulli draws with probabilities either $\alpha,1-\alpha$ or  $1-\alpha,\alpha$. Let the prior over $\alpha$ be a beta distribution
-% \end{eg}
-
-% %The bids reflect the expected value of the mechanism choosing a particular action, not of that action being taken. \DBA{I'm confused. In previous section, ``each expert knows the exact outcome conditonal on one action'', and now its conditional on action being chosen, not taken. These sentences sentences seem to be at odds.} Example: if half are allways takers, the bid effectively waters down the true effect by half.
-
-% \DBA{So the bids made by experts depend on the expert's model of the subject's behavior?}
-% \NDP{correct, is this clear now form the text?}
-%further, due to the winners curse, it is the expected effect conditional on having won the auction. 
-%\DBA{can you write down how expected conditional on having won is computed?}
-
-%\DBA{At this point, the interpretation of the bid has been qualified twice, and I'm lost}
-
-%\subsection{A sufficient separability condition for efficiency}
-
-%if each expert knows the value of a action the MSR and Void mechanism in the style of Hanson fail to be myopically incentive compatible when agents always follow the action whose price is maximal in the market (\cite{othman2010decision})
-
-
-
-
-\section{A Bid and Signal Report Mechanism without Common Priors}
-
-We now combine the bid based and direct mechanisms to reduce the requirement on the common prior, and in particular that the mechanism have access to it. While formally to analize the BNE we still require the experts to have access to the prior, the mechanism can aggregate even in the absence of this to the degree that the signals still be informative accross experts. 
-
-The idea is that evenin the abscense of common priors, it may still be possible for experts to convey to each otherthrough their signals (even if it is not possible for the mechanism to evaluate the value of such signals) and that there is sufficient degrees of freedom in the scaled mechanism to add a simple modification that accounts for this.
-
-The key change is to add to all payments a further share of the reward of the mechanism while displaying their reported signals to the winner of the auction before they select their action. That is we replace the 0 payments to agents that do not make a report that alters the chosen action with a  share of the gains of the mechanism.
-
-Denote by $b_i$ the bid part of agents $i$ report, and by $\hat{s_i}$ the signal part of their report, by $b_{\hat{1}}$ the highest bid and by $b_{\hat{2}}$ the seccond highest bid. If multiple bids are tied for highest, we  randomize which one is treated as the highest and which one is considered the seccond highest.
-
-\begin{mech}
-The mechanism receives bids and signal reports from all experts, reveals the signal reports and bids to the winner of a seccond price auction for a share of the reward and allows them to select a chosen action, this chosen action $c$ is announced to the subject, who picks and actual action $a$ after which the reward $r$ is revealed and payments made according to:
-
-
-\[
-    \pi_i = 
-\begin{cases}
-    \zeta (r - b_{\hat{2}} ) ,& \text{if } b_i = b_{\hat{1}}\\
-    \eta r,              & \text{otherwise}
-\end{cases}
-\]
-
-\end{mech}
-
-Thus a experts optimal strategy is to bid the expected value of the reward conditional on their signal and the posterior over the other agents signals conditional on having the highest bid. If the expert wins their signal report becomes irrelavant, as they already know their true signal.
-
-This mechanism does have the same problem as the sharing mechanism in that useless experts entry is costly to the mechanism or to other experts. Note since we are attempting to avoid the use of a prior by the mechanismand we are in the one shot setting there is no way to estimate if a given signal is worthless. This will be however mostly avoidable in the repeated setting.  
-
-Note that this analysis is strongly depedent on notions of equilibrium. For the same reason that experts do not have dominat strategies in the direct mechansim with their signal reports, they also do not have them here (instead of offsetting a non-truthful report with another non-truthful report in the mechanism the problem isnot this offsetting situation can happen )
-
-%TODO hint at the value in the repeated setting of dropout type tricks to try to limit conspiracies.
-
-Where as before $\alpha$ and $\beta$ are set so as to limit expected payments to be lower than the expected gain form the mechanism. 
-
-%While this mechanism is somewhat convoluted and implausible in the one shot setting, it is useful conceptually in building up a practical mechanism for the sequential case in the next chapter. 
-To the best of our knowledge, the use of such over-represented signals spaces in mechanism design (that is using a report space that is strictly bigger than the signal type space) is novel, through the literature is vast, so we are not certain. The closest to our knownledge is in 
 
 
 
