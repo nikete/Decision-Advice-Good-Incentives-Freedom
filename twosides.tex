@@ -178,7 +178,7 @@ Interestingly the sequential version of the problem opens up aggregation in the 
 The reason why we need the prior in the one shot case to be able to evaluate the contribution the signal makes to picking an action with good rewards; since we observe a single action there is no way to estimate this without using a prior. 
 
 We now consider a setting where the experts submit their signals, however, unlike in the .
- While we saw that there was a revelating equilibrium, the mechanism failed the property of paying for useless experts. We show that the repeated nature of the problem can be used to overcome payments to useless experts. \DBA{I wonder vaguely about whether there is some tradeoff between simple mechanisms that overpay and complicated mechanisms (with other potential problems) that don't}
+ While we saw that there was a revelating equilibrium, the mechanism failed the property of paying for useless experts. We show that the repeated nature of the problem can be used to overcome payments to useless experts. 
 
 We do this in two parts; by reducing the problem to a contextual bandit algorithm where the context is determined by the signals reported by all experts, and then using the randomization used by such algorithms to construct unbiased estimators of the gain in rewards brough about by a given agents signals, and making their reward proportional to this. \DBA{you need to insert a mini-survey of the contextual bandit literature. As I understand it, it's only recently (Langford's last few papers) that we've gotten to the point where contextual bandits are fully usable}
 
