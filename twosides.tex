@@ -193,7 +193,7 @@ After the end of the last time period, for each expert $i$, estimate the loss th
 Thus payment rule is announced as follows:
 
 \[
-    \pi_i =  \alpha \sum_1^T r_t -  -E[\sum_1^T \hat{r}_{-i,t}]
+    \pi_i =  \alpha \sum_1^T r_t -  E[\sum_1^T \hat{r}_{-i,t}]
 \]
 
 Where alpha is again set a priori. Given we are attempting not to use the prior, using some $\alpha < 1/N$ might be the best we can do.
@@ -220,11 +220,6 @@ While a truthful report is not guaranteed to be strictly truthful, the bound on 
 
 
 
-
-
-
-
-
 \subsection{Limitations}
 
 
@@ -245,3 +240,60 @@ How to incorporate this apears as a fruitful avenue for future research; that is
 
 
 %Nasty way to solve signal manipulation for future auctins This can be side steps by dividing (endogenously) the set of experts into two, and not allowing cross bidding. Open question: is there a more elegant mechanism that does this without the separation? one naural way to do the separation is to allow the experts to see the first signal, then have them self-select into the signal or aggregation pools (they go where their return is higher, we can allow them to see where others went) .
+
+
+\section{A bid and signal mechanism without priors}
+
+
+
+%The limitation of the one shot case, of having to pay for
+The above signal only mechanism can be potentially ineficient when there are experts who know how to map the signals to optimal mechanisms. More broadly, experts can have extra information relative to the mechanisms that helps them aggregate the signals better but requires signals by other experts to be reported to them. 
+
+In the previous chapter on the one shot setting, we saw that payments for  signals without a common prior that allows us to evaluate the coutnerfactual are problematic, in that we cannot reward useful experts more than useless ones. In the previous mechanism of this chapter, we saw that in the repeated setting this is not the case. We can use a unbiased estimator of what the rewards of a contextual bandit algoithm that didn't use a given agents signal could be used to fill in this counterfactual without requiring a prior.
+
+This mechanism is the composition of the bid mechanism and signal mechanism.
+
+
+\begin{mech}\label{mech:bidbandit}[]
+
+
+%$\hat{S}_{-i} = \bigcup \hat{s}_j  \forall j \neq i \in N $ then the expected reward given the others reports is:
+
+The payment rule is announced. In each period: all agents report signals and bids to the mechanism, the mechanism displays the other experts signals to the winner of the bidding, the winner selects the chosen action $c_t$, this is displayed to the subject, who takes action $a_t$ and receives reward $r_t$.
+
+After the end of the last time period, for each expert $i$, estimate the loss that would be obtained by a no regret algorithm without using that experts report in it's context, and use this as $E[\sum_1^T \hat{r}_{-i,t}]$ in the payments. The choice part of the payments is identical to the bidding.
+
+
+Thus payment rule thus is:
+
+
+\[
+    \pi_i =  \sum_1^T
+\begin{cases}
+    \zeta r_t ,& \text{if } o_{i,t} = 1\\
+     0,              & \text{otherwise}
+\end{cases}
++
+\sum_1^T
+\begin{cases}
+     - b_{\hat{2},t} ,& \text{if } o_{i,t} = 0 \land o_{i,t+1} = 1\\
+      b_{\hat{2},t} ,& \text{if } o_{i,t}= 1 \land o_{i,t+1} = 0 \\
+		0,              & \text{otherwise}
+\end{cases}
+
+  +  \eta \sum_1^T r_t -  E[\sum_1^T \hat{r}_{-i,t}]
+\]
+
+ 
+
+Where $\zeta$ and $\eta$ are again set a priori. Given we are attempting not to use a prior distribution, using  constants such that  $\zeta + \eta < 1/2N$ .
+
+\end{mech}
+
+
+\begin{lem}[Ration Entry]
+
+\end{lem}
+
+
+ A major concern is that a expert would not reveal their signal turthfully and loose out on that part of the reward, if they can benefit more from being the \emph{owner} and by widtholding their signal they can supress bids of othe experts, this is a particular conceern since the other experts may be able to achieve higher rewards.  
