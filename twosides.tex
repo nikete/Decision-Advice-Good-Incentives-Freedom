@@ -75,17 +75,20 @@ where
  at each period with payments that simply summed over all periods does not preserve efficiency.
 
 This is because the single shot mechanism creates incentives that are equivalent to a greedy policy, it only incentivizes exploitation and not exploration: by picking at each step the optimal 
-On the one hand, attempting to fix this by only revealing the outcome to the winning bidder, while internalizing the benefits of explorations, means the other experts signals are cannot be used for learning.
+On the one hand, attempting to fix this by only revealing the outcome to the winning bidder, while internalizing the benefits of explorations, means the other experts signals are cannot be used for learning. 
 On the other hand, if we reveal the outcome of the round to all experts,  no agent can internalize the information revelation benefits that comes from the choice of an apriori in expectation suboptimal reward action. 
 
 \begin{eg}[Exploration ineficiency with full revelation]
-let everyone have the same prior, then upon observing the outcome, everyone has the same posterior, and thus any discovery of a higher value action will be priced in on future rounds, denying the benefits form having risked a ex-ante suboptmal action to those who take it. 
+let everyone have the same prior, then upon observing the outcome, everyone has the same posterior, and thus any discovery of a higher value action will be priced in on future rounds, denying the benefits form having risked a ex-ante suboptmal action to those who take it. \DBA{more formalism}
 \end{eg}
+
+\DBA{this result (that price mechanisms can discourage exploration unless ``intellectual property'' is built in) is very nice. I imagine there's some kind of literature about this, but have no idea what formalism the IP guys would use.}
 
 \begin{eg}[Data ineficiency of selective revelation]
 One agent knows which action has high reward this period, we need them to win for efficiency, the other agent has a signal which is complementary to the outocme of the first action when the ifrst action is high value, and reveals a even higher value action. We need agent 1 to win (the bidding) in the first period (and thus only they see the signal), but we need agent 2 to see the first signal to achieve efficiency in the seccond.
 \end{eg}
 
+\DBA{same as above: more formalism; how do people who care about IP think and write about this?}
 
 %\section{A Direct Mechanism which internatilizes exploration}
 % TODO ? you  have to take the expected value of the future rewards with the others signals but without exploration as the baseline which to reward?
@@ -150,10 +153,11 @@ The first part of payments sums over the rewards for all periods during which an
 
 
  \begin{lem}
- Expert signals only informative about one action at one time period (and this is common knowledge)
+ Expert signals only informative about one action at one time period (and this is common knowledge) \DBA{is this a lemma or an assumption?}
  \end{lem}
 
- Note that if a signal is informative about other acions, then it allready fails at $T=1$, as we saw in the previous chapter. The basic reason for this that there is no way for the mechanism to conbine signals of different experts beyond their projection to the price space, and cmplementary signals cannot be revealed in this manner. 
+
+ Note that if a signal is informative about other acions, then it allready fails at $T=1$, as we saw in the previous chapter. The basic reason for this that there is no way for the mechanism to conbine signals of different experts beyond their projection to the price space, and cmplementary signals cannot be revealed in this manner. \DBA{citation or formal explanation}
 
  Notice that if the signal is informative of a single action, but that information carries through to future periods, the agent if there is some probability of not winning this period, . Thus for efficiency in thi mechanism the signal has to be local to the patient.
 
@@ -176,7 +180,7 @@ The reason why we need the prior in the one shot case to be able to evaluate the
 We now consider a setting where the experts submit their signals, however, unlike in the .
  While we saw that there was a revelating equilibrium, the mechanism failed the property of paying for useless experts. We show that the repeated nature of the problem can be used to overcome payments to useless experts.
 
-We do this in two parts; by reducing the problem to a contextual bandit algorithm where the context is determined by the signals reported by all experts, and then using the randomization used by such algorithms to construct unbiased estimators of the gain in rewards brough about by a given agents signals, and making their reward proportional to this. 
+We do this in two parts; by reducing the problem to a contextual bandit algorithm where the context is determined by the signals reported by all experts, and then using the randomization used by such algorithms to construct unbiased estimators of the gain in rewards brough about by a given agents signals, and making their reward proportional to this. \DBA{you need to insert a mini-survey of the contextual bandit literature. As I understand it, it's only recently (Langford's last few papers) that we've gotten to the point where contextual bandits are fully usable}
 
 Assume that the subjects arrive IID. Use an unbiased contextual bandit algorithm evlauation strategy such as \cite{li2011unbiased}  Algorithm 2. %http://arxiv.org/pdf/1003.5956.pdf 
 We then evalute algorithms that do not use a given agents signal and plug those in as estimates of 
@@ -187,7 +191,7 @@ We then evalute algorithms that do not use a given agents signal and plug those 
 
 %$\hat{S}_{-i} = \bigcup \hat{s}_j  \forall j \neq i \in N $ then the expected reward given the others reports is:
 
-After the end of the last time period, for each expert $i$, estimate the loss that would be obtained by our algorithm A without using that experts report in it's context. Since this is unbiased we can plug it in place of the seccon term $\expec[\sum_1^T \hat{r}_{-i,t}]$ in the payments.
+After the end of the last time period, for each expert $i$, estimate the loss that would be obtained by our algorithm A without using that experts report in it's context. Since this is unbiased we can plug it in place of the seccon term $\expec[\sum_1^T \hat{r}_{-i,t}]$ in the payments. \DBA{can you say anything about controlling variance of estimates and rewards?}
 
 
 Thus payment rule is announced as follows:
@@ -196,14 +200,14 @@ Thus payment rule is announced as follows:
     \pi_i =  \alpha \sum_1^T r_t -  \expec[\sum_1^T \hat{r}_{-i,t}]
 \]
 
-Where alpha is again set a priori. Given we are attempting not to use the prior, using some $\alpha < 1/N$ might be the best we can do.
+Where alpha is again set a priori. Given we are attempting not to use the prior, using some $\alpha < 1/N$ might be the best we can do. \DBA{rephrase: setting $\alpha<1/N$, which we can always do, has the following consequences..}
 
 \end{mech}
 
 
 Note when a agent $i$ doesnt change the exploration policy (in expectation) then , $ \expec[r_t] - \expec[\hat{r}_{-i,t}] =0  $. 
 
-While a truthful report is not guaranteed to be strictly truthful, the bound on the bias of the plugin payent does bound how much a deviation can benefit  and this goes to zero. More practically, it appears imposible for a uninformed agent to obtain profits, and it seems very hard for a informed agent to find a strategy other than truthfulness that has higher expected reward.
+While a truthful report is not guaranteed to be strictly truthful, the bound on the bias of the plugin payent does bound how much a deviation can benefit  and this goes to zero. More practically, it appears imposible for a uninformed agent to obtain profits, and it seems very hard for a informed agent to find a strategy other than truthfulness that has higher expected reward \DBA{this is very loose}.
 
 
 %what happened to the exploration incentives and summing over all futures? the exploraiton is taken into account by the bandit reduction, what we incentivize are reporting of signals in the form that are useful to said learner in learning the policy. 
@@ -223,7 +227,7 @@ While a truthful report is not guaranteed to be strictly truthful, the bound on 
 \subsection{Limitations}
 
 
-Note exploration implies learning how to interpret the signals, this, especially in the precence of multiple experts with conflicting priors, appears like the most practical application. I.e. not too woried about what we loose from having to randomize a little the choice, since this is needed for learing.
+Note exploration implies learning how to interpret the signals, this, especially in the precence of multiple experts with conflicting priors, appears like the most practical application. I.e. not too woried about what we loose from having to randomize a little the choice, since this is needed for learing. \DBA{this is very loose. Quantify tradeoffs if possible}
 This is the generalization of contextual bandits to contextual variables (signals) provided by self-interested experts who have no ingerent interest in the outcome or action, but need t be incentivated to be truthful. 
 To the degree the experts know how to interpret the (full set) learning to do it is ineficient. 
 How to incorporate this apears as a fruitful avenue for future research; that is how can a prior over the joint set of signals be elicited? 
