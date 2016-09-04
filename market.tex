@@ -83,7 +83,7 @@ We say a expert is useless if knowing their signal would not change the optimal 
 A particular concern with a mechanism that attracts entry by useless experts, is that useless experts is that while there is no possible upside to them, misreport can still lower reports.
 
 \begin{defn}[Harmless Expert]\label{defn:harmless}
-	An expert $i$ is \emph{harmless} if $\forall s \in S \and \forall \hat{s}_i s c^{*}_{s_{-i}} = c^{*}{s_{-i} \cup \hat{s}_i}$.
+	An expert $i$ is \emph{harmless} if $\forall s \in S \text{ and }\forall \hat{s}_i s c^{*}_{s_{-i}} = c^{*}{s_{-i} \cup \hat{s}_i}$.
 \end{defn}
 
 While all \emph{harmless} experts are \emph{useless}, the converse is not the case. To see an intution for it, consider a signal that implis no change to the prior, and a expert who only observes sucha signal, but this is not known a priori. While the expert is cleary \emph{useless}, if he reports truthfully he never adds information, he is not \emph{harmless} in that a misreport could potentially lead to a change in the posterior that changes the chosen action away from the optimal.
@@ -123,7 +123,7 @@ More generally, an immediate corollary to a theorem X of \cite{chen2014eliciting
 Note that this implies all the problems of the max decision rule apply for example to a thompson style randomized decision rule, since they can still be manipulated not to have full support over the action by a sufficiently bad report.
 
 If a subject is free to either maximize their expected utility at decision time (and lacks a credible commitment device beforehand, or wishes to mantain its freedom) then a SRDM is not Incentive Compatible for them. Further, the cost of making the probabilities of dominated actions small is to make the payments contigent on when they are taken conmesurably large.
-Beyond the reduction in freedom fromthe pre-commitment to randomiation with full support, it also rules out \emph{efficiency}, since by definition if actions known to be dominated are played with positive probability, the mechanism is not maximizing reward with it's choice of action. 
+Beyond the reduction in freedom fromthe pre-commitment to randomiation with full support, it also rules out \emph{efficiency}, since by definition if actions known to be dominated are played with positive probability, the mechanism is not maximizing reward with it's choice of action. \DBA{i guess you can get as close as you like to maximizing \emph{expected} reward, but nevertheless deviate by arbitrarily large amounts from the best reward, with low probability. Worth talking a bit about rewards in expectation and rewards with high probability and rewards with (whatever measure is appropriate here).}
 
 
 A further limitation of such methods is inherited from the prediction markets and more generally from posterior anoucement games and their generalizations as analized in \cite{ostrovsky2012information}: fully complemetary signals between two experts are not aggregated. In particular, for such mechanisms to aggregate information in the full supervision case, the information structures must result in the traded asset satisfying a full separability condition. This is not satisfied even in the full supervision version of complementary signals, nor in our bandit supervision adaptation of it in Example~
