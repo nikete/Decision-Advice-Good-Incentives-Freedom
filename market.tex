@@ -90,6 +90,10 @@ While all \emph{harmless} experts are \emph{useless}, the converse is not the ca
 The robustness of a mechanism that attracts entry (by having positive expectation) of \emph{useless} but not necesarily \emph{harmless}  experts, is doubtful.
 
 
+\begin{def}[pivotal experts reports]\label{defn:pivotal}
+Given a mechanism and reports $\hat{s}_{-i}$, we say an expert $i$ is \emph{pivotal} if their report $\hat{s}_i$ can change the chosen action $c$.
+\end{def}
+
 
 \subsection{A Simple Direct Reward Sharing Mechanism}
 
@@ -180,7 +184,7 @@ The second term is explicitly constructed so as not to use the report by expert 
 
 %TODO: be more precise about what we mean by same signal
 \begin{lem}[redundant experts]
-	When two or more experts report the same signal, in in the revelation equilibrim they both receive payoff zero. 
+	When two or more experts report the same signal, in the revelation BNE they both receive payoff zero. 
 \end{lem}
 
 \begin{proof}
@@ -380,7 +384,7 @@ This mechanism has several problems, for example, a natural stylized setting is:
 
 
 \begin{eg}[Two Experts and Actions with IID Signals]\label{eg:two-iid-signals}
-	Let there be two experts. Two actions ${\text{treatment},\text{control}}$, each of which has rewards drawn indepdently from a Bernoulli distributio with Jeffreys prior. Each experts signal consists of one draw from each of the two distributions.
+	Let there be two experts. Two actions ${\text{treatment},\text{control}}$, each of which has rewards drawn indepdently from a corresponding Bernoulli distributio with Jeffreys prior. Each experts signal consists of one draw from each of the two distributions.
 \end{eg}
 
 A BNE exists where each agent bids the posterior expected value of the arm with the highest reward conditional on having won the bidding.
@@ -388,9 +392,9 @@ Given being the owner of the choice and observing the bids of the other agent, i
 The winner, after observing the bid of the other agent, can deduce if the other agent observed 0,1, or 2 positive draws. For the 0 and 2 positive draws, the agents optimal choice and the efficient choice are both selected by selecting the arm the agent had a positive draw from (if both or neither, then either arm is equal to the efficient choice). 
 However, in the situation where both agents observe exactly one positive draw, the efficient outcome in the bidding mechanism is selected less than in the efficient direct mechanism.
 
-\NDP{Is there any value in cranking out the arithmetic here? should I abstract the numbers more instead and crank it in algebra?}
+\NDP{Is there any value in cranking out the arithmetic here? should I abstract the numbers instead and crank it in algebra?}
 
-For some information structures the bidding mechanism still aggregates information well, for example:
+For some information structures the bidding mechanism still aggregates information efficiently, for example:
 
 \begin{defn}[Full set of specialist experts]
 	If each expert knows the expected outcome conditonal on one action and knows he doesnt know what happens under other actions, and there is at least one expert that is informed about each action.
