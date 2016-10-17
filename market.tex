@@ -1,7 +1,21 @@
+% http://arxiv.org/pdf/1609.01037.pdf
+% and even allow over-specification (a.k.a. improper learning), in the sense
+% that we allow the learning algorithm to output a predictor which is possibly larger and more complex than
+% the target function (this technique increases the power of the learner, and was shown to make the learning
+% problem easier in theory and in practice [17, 20, 21]). Even under such favorable conditions, we show the
+% following
+% [17] Roi Livni, Shai Shalev-Shwartz, and Ohad Shamir. On the computational efficiency of training neural
+% networks. In Advances in Neural Information Processing Systems, pages 855–863, 2014.
+% 20 Itay Safran and Ohad Shamir. On the quality of the initial basin in overspecified neural networks. In
+% ICML, 2016.
+% 21 Daniel Soudry and Yair Carmon. No bad local minima: Data independent training error guarantees for
+% multilayer neural networks. arXiv preprint arXiv:1605.08361, 2016.
+
+
 %!TEX root = main.tex
 % optimal decision elicitiation algorithm
 
-Consider a setting with multiple experts providing advice to a subject, who wishes to incentivize them to inform them of which of a set of available actions maximize the reward.
+Consider a subject facing a decision, who wishes to incentivize multiple experts in providing advice so as to pick a decision that mximizes the rewards the subject receives.
 Experts do not have intrinsic interest in the action that is chosen or actually taken, nor do they face any costs in aquiring their signals.
 
 One natural way to attempt to do is by applying the machinery of prediction markets based on sequentially shared proper scoring rules to the expected reward conditional on the action. 
@@ -229,7 +243,10 @@ Note that this implies all the problems of the max decision rule apply for examp
 
 If a subject is free to either maximize their expected utility at decision time (and lacks a credible commitment device beforehand, or wishes to maintain its freedom) then a SRDM is not Incentive Compatible for them. Further, the cost of making the probabilities of dominated actions small is to make the payments contingent on when they are taken proportionally larger.
 Beyond the reduction in freedom from the pre-commitment to randomization with full support, it also rules out \emph{efficiency}, since by definition if actions known to be dominated are played with positive probability, the mechanism is not maximizing reward with it's choice of action.
+ 
  \DBA{i guess you can get as close as you like to maximizing \emph{expected} reward, but nevertheless deviate by arbitrarily large amounts from the best reward, with low probability. Worth talking a bit about rewards in expectation and rewards with high probability and rewards with (whatever measure is appropriate here).}
+\NDP{As you make the deviation from optimality go to zero the budget needed for a risk neutral agent to participate goes to infinity and even allmost risk neutral agents will drop out. The reason for this is that the multiplier on the suboptimal action has to increase to compensate for its lower probability.  }
+
 
 
 A further limitation of such methods is inherited from the prediction markets and more generally from posterior announcement games and their generalizations as analyzed in \cite{ostrovsky2012information}: fully complementary signals between two experts are not aggregated. In particular, for such mechanisms to aggregate information in the full supervision case, the information structures must result in the traded asset satisfying a full separability condition. This is not satisfied even in the full supervision version of complementary signals, nor in our bandit supervision adaptation of it in Example~
@@ -290,18 +307,18 @@ The second term is explicitly constructed so as not to use the report by expert 
 
 
 %TODO: be more precise about what we mean by same signal
-\begin{lem}[redundant experts]
+\begin{prop}[redundant experts]
 	When two or more experts report the same signal, in the revelation BNE they both receive payoff zero. 
-\end{lem}
+\end{prop}
 
 \begin{proof}
 	Given the other experts reports, it is not possible for the same signal to cause different actions, so we always end up in the 0 payment case.
 \end{proof}
 
 
-\begin{lem}
+\begin{prop}
 	A \emph{useless} expert cannot profit from participation in a VCG-style Mechanism.
-\end{lem}
+\end{prop}
 
 \begin{proof}
 This is intimidate from how the payment rule and useless experts are defined. Since there is no report $\hat{s}_i$ that leads to a choice of $c$ which improves the expected value of $r$ and that is all that can lead to expected positive payoffs.
@@ -335,7 +352,9 @@ As presented the VCG style direct mechanism can have higher payments than the be
 The second observation does not hold in standard VCG mechanisms: if they cared about the action then you need to compensate them exactly for their externality. While this doesn't make an explicit appearance in the proof it is the reason why we can scale the payments to alter the budget in a way that VCG mechanisms cannot: a change in the allocation that leaves payments unchanged alters the utility of agents in the VCG setting but not here, so the payments in the VCG setting have to move to counter-balance this precisely, limiting the freedom with which we can choose them.
 
 \NDP{Explain relation to the  Clarke pivot rule. With the Clarke pivot rule, the total amount paid by the player is: (social welfare of others if i were absent) - (social welfare of others when i is present).
-This is exactly the externality of player  i}
+This is exactly the externality of player  i. 
+
+Since the expert can always send a blank report and thus cause no externality, while sending a useful signal in expectation, raises the expected payoff, the experts participation is weakly profitable in expectation. This requires not scaling the payments, in a model where experts signals are costly to the experts, it would lead (in some situations ) to the optimal signlas being raised byt he experts, this is beyond the scope.  }
 
 In the model we have presented a expert pays no cost when acquiring their signals, and so in the single agent case the payment made by the subject for signals can in principle be arbitrarily close to zero while still incentivizing truthful reports (for example the share of the reward mechanisms achieves this). We now study when payments rules can be scaled to create ex-ante in expectation arbitrarily small expected payments to the experts. As usual, we assume risk neutral experts. 
 % loosing garrett here, dont make the thing point to the proof.
@@ -544,6 +563,10 @@ As before $\alpha$ and $\beta$ are set ex ante so as to limit expected payments 
 
 
 Thus a experts optimal strategy is to bid the expected value of the reward conditional on their signal and on having the highest bid.
+
+%TODO add argmax show in proof
+
+
 If the expert has the highest bid, then their signal report becomes irrelevant, as they already know their true signal. % soo.... ???
 
 This mechanism does have the same problem as the sharing mechanism in that useless experts entry is costly to the mechanism or to other experts.
