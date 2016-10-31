@@ -5,7 +5,7 @@
 % problem easier in theory and in practice [17, 20, 21]). Even under such favorable conditions, we show the
 % following
 % [17] Roi Livni, Shai Shalev-Shwartz, and Ohad Shamir. On the computational efficiency of training neural
-% networks. In Advances in Neural Information Processing Systems, pages 855–863, 2014.
+% networks. In Advances in Neural Information Processing Systems, pages 855â863, 2014.
 % 20 Itay Safran and Ohad Shamir. On the quality of the initial basin in overspecified neural networks. In
 % ICML, 2016.
 % 21 Daniel Soudry and Yair Carmon. No bad local minima: Data independent training error guarantees for
@@ -15,61 +15,62 @@
 %!TEX root = main.tex
 % optimal decision elicitiation algorithm
 
-Consider a subject facing a decision, who wishes to incentivize multiple experts in providing advice so as to pick a decision that mximizes the rewards the subject receives.
-Experts do not have intrinsic interest in the action that is chosen or actually taken, nor do they face any costs in aquiring their signals.
+Consider a subject facing a decision, who wishes to incentivise multiple experts in providing advice so as to pick a decision that maximizes the rewards the subject receives.
+Experts do not have intrinsic interest in the action the subject chooses or actually takes, nor do they face any costs in aquiring their signals.
 
-One natural way to attempt to do is by applying the machinery of prediction markets based on sequentially shared proper scoring rules to the expected reward conditional on the action. 
-A challenge that presents itself is how to settle the markets for the reward conditional on the action not taken.
-One natural approach is to void the trades in the markets for these actions, and this was the originally proposed mechanism in this line of work \cite{hanson2002decision}, and only settling the markets where actions are taken.
+One natural way to attempt to do is by applying the machinery of prediction markets based on sequentially shared proper scoring rules to the expected reward, conditional on the action. 
+A challenge that presents itself is how to settle the markets for the reward conditional on the action which is not taken.
+One natural approach is to void the trades in the markets for these actions, this being the originally proposed mechanism in this line of work \cite{hanson2002decision}, and only settling the markets where actions are taken.
 While natural, this is not incentive compatible, even in the weakest myopic sense \cite{othman2010decision}. 
-More generally, any sequential proper scoring rule based mechanism that is incentive compatible for the experts is incompatible with maintaining the subjects freedom to select the action that appears optimal ex-post \cite{othman2010decision,  chen2014eliciting}, that is using the max decision rule (in the decision markets literature nonmeclature, and ex-post incentive compatible in the mechanism design literature). 
+More generally, any sequential proper scoring rule based mechanism that is incentive compatible for the experts is incompatible with maintaining the subject's freedom to select the action that appears optimal ex-post \cite{othman2010decision,  chen2014eliciting}, that is using the max decision rule (in the decision markets literature nomenclature, and ex-post incentive compatible in the mechanism design literature). 
 
 %TODO: garrett says more clear explanation. make explicit pointer to background section, and make paragraph of sentence.
-The core of the problem with using the machinery of prediction markets in the decision setting is that at the point where the mechanism has correct belief over the optimal action but not the other action, a expert  can profit by changing expected rewards to make optimal action appear worse than an action for which the conditional expected reward can be corrected. Thus, failing even myopic incentive compatibility (as this holds for the last expert to interact with the market maker).
+The core of the problem which emerges upon using the machinery of prediction markets in the decision setting is that at the point where the mechanism has a correct belief over the optimal action but not the other action, a expert can profit by changing expected rewards to make the optimal action appear worse than an action for which the conditional expected reward can be corrected, thus failing even myopic incentive compatibility (as this holds for the last expert to interact with the market maker).
 The guiding design criterion in this work is to restrict as little as possible the decision that the subject must take (maximizing their freedom) while still providing good incentives to the experts. No previous mechanisms analyzed in the literature truthfully aggregate arbitrary signals over many experts in BNE. 
 
-We first focus on a direct efficient mechanism in the style of VCG mechanism. Experts directly report their signals to the mechanism, which then uses them to compute the optimal action given the prior to output to the subject. This requires  the experts and the mechanism having access to a common prior, over the joint probabilities of the rewards, true signals, the output action and the response of the subject to a given output of the mechanism. There is an efficient BNE that aggregates all information over $N$ experts, unlike the case in the previous mechanisms in the literature.
-We then analyze a simple bid based variation of the mechanism, and provide a sufficient conditions on the signal structures where information can be fully aggregated; we further show that these conditions are sufficient to make truthfulness dominant incentive compatible.  
-We finalize the chapter considering mechanisms that do not make use of a common prior (we still need to assume the common prior for the agents to have well defined BNE, but we seek mechanisms that need not use it). We show that natural mechanisms to do this in the one shot case have the undesirable property of rewarding experts who do not bring valuable information to the decision.
+We first focus on a direct efficient mechanism in the style of the VCG mechanism. Experts directly report their signals to the mechanism, which then uses them to compute the optimal action given the prior output to the subject. This requires the experts and the mechanism having access to a common prior, over the joint probabilities of the rewards, true signals, the output action and the response of the subject to a given output of the mechanism. There is an efficient BNE that aggregates all information over $N$ experts, unlike the case in previous mechanisms in the literature.
+We then analyze a simple bid based variation of the mechanism, and provide sufficient conditions on the signal structures where information can be fully aggregated; we further show that these conditions are sufficient to make truthfulness dominant incentive compatible.  
+We end the chapter by considering mechanisms that do not make use of a common prior (we still need to assume the common prior for the agents to have well defined BNE, but we seek mechanisms that need not use it). We show that natural mechanisms to do this in the one shot case have the undesirable property of rewarding experts who do not bring valuable information to the decision.
 
 \section{Model}
 
 
 % define a and c and r beforehand, pointer to notation section
-As before $c$ is the action chosen by the mechanism, $a$ is the action that the subject actually carries out, and $r$ is the reward received by the subject, which is in ${0,1}$. An expert $i$ receives signal $s_i$, we refer to $s$ as a given et of signal for all experts, and we denote by $S$ the set of all possible experts signals.
+As before $c$ is the action chosen by the mechanism, $a$ is the action that the subject actually carries out, and $r$ is the reward received by the subject, which is in ${0,1}$. An expert $i$ receives signal $s_i$, we refer to $s$ as a given set of signal for all experts, and we denote by $S$ the set of all possible experts' signals.
 We use $P$ to denote the a priori joint probability distribution over $(r,a,c,s)$, and expectations are taken in relation to said prior.
 We use $Pr$ to denote the probability of a given event.
 \NDP{Does this make sense? should i just use Pr for both?}
-We consider a single subject with access to $K$ possible choices, and to $N$ experts. We denote a generic expert by $i$, and each have access to some signal $s_i$ which are potentially informative about $\expec[r|a,c,s]$. The set of possible signals and actions are both finite.
+We consider a single subject with access to $K$ possible choices, and to $N$ experts. We denote a generic expert by $i$, and each have access to some signals $s_i$ which are potentially informative about $\expec[r|a,c,s]$. The set of possible signals and actions are both finite.
 
 %TODO note limit of this that agent isnt considering what the mechanism is in deciding how to map c to a.
 
-When notating expectation in the mechanisms with common priors we suppress the variables that are being marginalized over in general, so for example $\expec[r|c,s]$ is the expected reward conditional on a given set of signals to the experts and choice of action by the mechanism, where we  marginalize over the actually taken action $a$:
+When notating expectation in the mechanisms with common priors, we suppress the variables that are being marginalized over in general, so for example $\expec[r|c,s]$ is the expected reward conditional on a given set of signals to the experts and choice of action by the mechanism, where we marginalize over the actually taken action $a$:
 
 \[
 \expec[r|c,s] = \sum_{a \in A} Pr(r|c,a,s) \times P(a|c,s) 
 \]
 
 
-To map to the mechanism design literature the $P$ would be over states of the world in $\Omega$ and each state of the world consists of a agent type (complier probability and action outcome and the value a utility functin placed on it, which equates to rewards in our notation) and the signals of each expert in that state of the world.
+To map to the mechanism design literature the $P$ would be over states of the world in $\Omega$ and each state of the world consists of an agent type and the signals of each expert in that state of the world. The agent type consists of a complier probability and action outcome, which equates to rewards in our notation.
+
 %TODO either pin the Omega
 
-% DEFINITION 2: Security X is non-separable under partition structure Π if there exist distribution P on the underlying state space Ω and value v ∈ R such that:
-% (i) P(ω) is positive on at least one state ω in which X(ω) ̸= v; (ii) For every player i and every state ω with P(ω) > 0,
-% 􏰕
-% P(ω′)X(ω′)
-% EP X|Πi(ω) ≡ 􏰕 P(ω′) =v􏰷
-% 􏰥 􏰦 ω′∈Πi(ω)
-% ω′ ∈Πi (ω)
-% ￼Otherwise, security X is separable.
+% DEFINITION 2: Security X is non-separable under partition structure Î  if there exist distribution P on the underlying state space Î© and value v â R such that:
+% (i) P(Ï) is positive on at least one state Ï in which X(Ï) Ìž= v; (ii) For every player i and every state Ï with P(Ï) > 0,
+% ô°
+% P(Ïâ²)X(Ïâ²)
+% EP X|Î i(Ï) â¡ ô° P(Ïâ²) =vô°·
+% ô°¥ ô°Š Ïâ²âÎ i(Ï)
+% Ïâ² âÎ i (Ï)
+% ï¿ŒOtherwise, security X is separable.
 
 
 A direct mechanism announces a payment rule $p_i(\hat{s}, c,a,r)$, with $p_i$ being the payment to expert $i$, with $\hat{s}$ being the reported signals. 
-Each expert $i$ receives their signals $s_i$, make a reports $\hat{s}_i$ to the mechanism, which then outputs a chosen action based on those reports.
+Each expert $i$ receives their signals $s_i$ and makes a report $\hat{s}_i$ to the mechanism, which then outputs a chosen action based on those reports.
 The subject observes the action chosen by the mechanism $c$, and takes a (potentially different) action $a$. A reward $r$ is observed, and the mechanism makes the corresponding payments.
 
 We denote by $c^{*}_s$ the reward maximizing choice given the true signals $s$.
-An experts $i$ report is truthful when $\hat{s}_i=s_i$. A mechanism is incentive compatible when truthful reports maximize the payment experts receive and this holds for all experts. This can be in dominant strategies or in a Bayesian Nash Equilibrium (BNE).  We seek truthful and efficient mechanisms, that is $c^{*} = \hat{c}$ for all possible signals.
+An expert $i$'s report is truthful when $\hat{s}_i=s_i$. A mechanism is incentive compatible when truthful reports maximize the payment experts receive and this holds for all experts. This can occur in dominant strategies or in a Bayesian Nash Equilibrium (BNE).  We seek truthful and efficient mechanisms, that is $c^{*} = \hat{c}$ for all possible signals.
 
 
 
@@ -78,10 +79,10 @@ An experts $i$ report is truthful when $\hat{s}_i=s_i$. A mechanism is incentive
 
 \subsection{Freedom and Limits to Defiance}
 
-If we consider subjects with potentially unrestricted freedom, i.e. subjects are not necessarily expected reward maximizers nor alway-takers, then the mechanism is not necessarily truthful, even for a single expert. 
+If we consider subjects with potentially unrestricted freedom, i.e. subjects are not necessarily expected reward maximizers nor always-takers, then the mechanism is not necessarily truthful, even for a single expert. 
 
 \begin{eg}[Total freedom yields bad incentives for a single expert]
-	Consider a subject that has a prejudice in favor of treatment A, and so will take it unless the expected reward of treatment B is more than 10 utils highers. Consider a expert with access to a signal which is an unbiased estimate of the rewards over both actions, receives a signal  that B reward is higher by 9 utils. The expert is strictly better off reporting that his signal has B as more than 10 better.
+	Consider a subject that has a prejudice in favor of treatment A, and so will take it unless the expected reward of treatment B is more than 10 utils higher. Consider an expert with access to a signal which is an unbiased estimate of the rewards over both actions, who receives a signal that B reward is higher by 9 utils. The expert is strictly better off reporting that his signal has B as more than 10 better.
 \end{eg}
 
 % That is, in such situations misdirection is required to achieve efficiency. More pathological cases can lead to more severe problems:% \begin{eg}[subjects who defy experts yield perverse incentives]
@@ -90,15 +91,15 @@ If we consider subjects with potentially unrestricted freedom, i.e. subjects are
 
 
 It is clear that such preference structures on the part of the subjects makes attaining both truthfulness and efficiency impossible. 
-Thus, it appears that providing unrestricted freedom in the broadest sense to subjects makes efficient incentive compatible mechanism unattainable in general.
-One restriction on subjects freedom that is sufficient to allow truthful mechanisms is 
+Thus, it appears that providing unrestricted freedom in the broadest sense to subjects makes efficient incentive compatible mechanisms unattainable in general.
+One restriction on subjects freedom that is sufficient to allow truthful mechanisms is: 
 
 \begin{defn}[maximizers or always takers]: assuming that all subjects are either utility maximizers (compliers under a efficient mechanism) or have some action they will take irrespective of the reports of the experts (always takers or never takers in the binary setting). 
 \end{defn}
 
 Note for example that in the canonical two treatment setting this is equivalent to the usual no defiers assumption.
-This preserves substantial freedom, it is not required the subject known ex ante that they will compliers, their realization of the always taker type could come after the mechanism has been run and before the action is taken. 
-While this is a strong assumption to make, it is still substantially weaker than requiring subjects to follow ex post dominated action with a given positive probability (and since the payments are dependent on this probability this needs to be followed precisely), which is what is required in the MSR and void type mechanisms.
+This preserves substantial freedom; it is not required of the subject to know ex ante that they will comply, their realization of the always taker type could come after the mechanism has been run and before the action is taken. 
+While this is a strong assumption to make, it is still substantially weaker than requiring subjects to follow ex post dominated actions with a given positive probability (and since the payments are dependent on this probability this needs to be followed precisely), which is what is required in the MSR and void type mechanisms.
 
 
 % This condition can be somewhat relaxed,  since the needed property it implies is that the mechanism choosing an action with higher expected reward if actually carried out leads to the expected reward conditional on the chosen action to be higher. Formally a sufficient condition is:
@@ -182,29 +183,29 @@ While this is a strong assumption to make, it is still substantially weaker than
 Consider the following adaptation of the classic complementary knowledge example from the full supervised setting, which originates in \cite{geanakoplos1982we}, to the bandit setting:
 
 \begin{eg}[Fully Complementary Experts]\label{eg:comp-ex}
-	Let there be two experts, two actions ${\text{treatment},\text{control}}$ and four equal probability states of the world, ${A,B,C,D}$, with payoffs to the actions correspondingly as ${(0,5,1),(0.5,0),(0,0.5),(1,0.5)}$. Let one expert observe that they are in either ${A,B}$ or ${C,D}$ and the other ${B,C}$ or ${A,D}$. A uniform random strategy achieves an expected value of $0.5$. An optimal strategy with access to a single experts signal (either one) also achieves a value of $0.5$. Using both signals a optimal strategy achieves reward of $1$. Thus the VCG payments are $0.5$ to each expert when they both truthfully report and this is an equilibrium. and the mechanism improves the subjects welfare by $0.5$ while making $1$ in total payments to the experts. 
+	Let there be two experts, two actions ${\text{treatment},\text{control}}$ and four equal probability states of the world, ${A,B,C,D}$, with payoffs to the actions correspondingly as ${(0,5,1),(0.5,0),(0,0.5),(1,0.5)}$. Let one expert observe that they are in either ${A,B}$ or ${C,D}$ and the other ${B,C}$ or ${A,D}$. A uniform random strategy achieves an expected value of $0.5$. An optimal strategy with access to a single expert's signal (either one) also achieves a value of $0.5$. Using both signals an optimal strategy achieves reward of $1$. Thus the VCG payments are $0.5$ to each expert when they both truthfully report, and this is an equilibrium. The mechanism improves the subject's welfare by $0.5$ while making $1$ in total payments to the experts. 
 \end{eg}
 
-In the example, by construction, it is common knowledge that each players expectation of the value of the reward conditional on either action is $0.5$, even though it is also common knowledge that the realized value of the reward conditional on one of the actions is not $0.5$, and that the traders pooled information would be sufficient to determine the optimal action. 
+In the example, by construction, it is common knowledge that each player's expectation of the value of the reward conditional on either action is $0.5$, even though it is also common knowledge that the realized value of the reward conditional on one of the actions is not $0.5$, and that the traders' pooled information would be sufficient to determine the optimal action. 
 Thus, even if the traders repeatedly and truthfully announce their posteriors, as in \cite{geanakoplos1982we}, they will never learn the true optimal arm. 
-This illustrates a fundamental limit to the information that can be aggregated by market like mechanisms that rely on prices for information transmission (indirect mechanisms) relative to what could be known if the signals themselves where aggregated. 
+This illustrates a fundamental limit to the information that can be aggregated by market like mechanisms that rely on prices for information transmission (indirect mechanisms) relative to what could be known if the signals themselves were aggregated. 
 It is worth noting at this point that market scoring rule based mechanisms are one form of such indirect mechanism.
 
 
-We say a expert is useless if knowing their signal would not change the optimal chosen action for any possible set of other agents signals. More formally,
+We say a expert is useless if knowing their signal would not change the optimal chosen action for any possible set of other experts' signals. More formally,
 
 \begin{defn}[Useless Expert]\label{defn:useless}
 	An expert $i$ is \emph{useless} if $\forall s  \in S c^{*}_{s_{-i}} = c^{*}{s}$.
 \end{defn}
 
-A particular concern with a mechanism that attracts entry by useless experts, is that useless experts is that while there is no possible upside to them, misreport can still lower reports.
+A particular concern with a mechanism that attracts entry by useless experts, is that while there is no possible upside to them, misreport can still lower reports.
 
 \begin{defn}[Harmless Expert]\label{defn:harmless}
 	An expert $i$ is \emph{harmless} if $\forall s \in S \text{ and }\forall \hat{s}_i s c^{*}_{s_{-i}} = c^{*}{s_{-i} \cup \hat{s}_i}$.
 \end{defn}
 
-While all \emph{harmless} experts are \emph{useless}, the converse is not the case. To see an intuition for it, consider a signal that implies no change to the prior, and a expert who only observes such a signal, but this is not known a priori. While the expert is clearly \emph{useless}, if he reports truthfully he never adds information, he is not \emph{harmless} in that a misreport could potentially lead to a change in the posterior that changes the chosen action away from the optimal.
-The robustness of a mechanism that attracts entry (by having positive expectation) of \emph{useless} but not necessarily \emph{harmless}  experts, is doubtful.
+While all \emph{harmless} experts are \emph{useless}, the converse is not the case. To see an intuition for this, consider a signal that implies no change to the prior, and a expert who only observes such a signal, but this is not known a priori. While the expert is clearly \emph{useless}, if he reports truthfully he never adds information; he is not \emph{harmless} in that a misreport could potentially lead to a change in the posterior that changes the chosen action away from the optimal.
+The robustness of a mechanism that attracts entry (by having positive expectation) of \emph{useless} but not necessarily \emph{harmless} experts is doubtful.
 
 \begin{defn}[pivotal experts reports]\label{defn:pivotal}
 Given a mechanism and reports $\hat{s}_{-i}$, we say an expert $i$ report is \emph{pivotal} if their report $\hat{s}_i$ can change the chosen action $c$.
@@ -215,15 +216,14 @@ Given a mechanism and reports $\hat{s}_{-i}$, we say an expert $i$ report is \em
 
 %structure, mechanism , advantages, disadvantages, maybe a list. deinfe first discuss later
 
-Let us first consider a very basic direct mechanism, which will help us understand the model and the limitations that subjects freedom imposes. 
+Let us first consider a very basic direct mechanism, which will help us understand the model and the limitations that are imposed by the subject's freedom. 
 Perhaps the simplest class of mechanisms is based around the idea of sharing the rewards from the taken action with the experts. For the simple expert case this is mentioned by \cite{othman2010decision}, but the idea also extends to the multiple experts case. 
 
-A simple mechanism that is strictly (if the signal is informative) incentive compatible (in equilibrium) for an expert to reveal their signal when subjects are utility maximizers is to give all experts a share of the reward. Equivalently (in expectation) run a lottery after the reports are submitted that assigns a share of the reward to the expert that wins. 
-In this case the payment rule is invariant to the reports, and defined as $\pi_i  = (\alpha / N ) r $ with $\alpha < 1$. Note that we are not defining the payment rule to be conditional on the subjects actual action in any way. % In particular, it might naively seem appropiate to only give the share when the chosen action is the actual action carried out. 
+A simple mechanism that is strictly (if the signal is informative) incentive compatible (in equilibrium) for an expert to reveal their signal when subjects are utility maximizers is to give all experts a share of the reward. Equivalently (in expectation), run a lottery after the reports are submitted that assigns a share of the reward to the expert that wins.
+In this case the payment rule is invariant to the reports, and defined as $\pi_i  = (\alpha / N ) r $ with $\alpha < 1$. Note that we are not defining the payment rule to be conditional on the subject's actual action in any way. % In particular, it might naively seem appropiate to only give the share when the chosen action is the actual action carried out. 
 
-This reward sharing mechanism is problematic in a pair of ways. It makes positive payouts to  \emph{useless} experts, as corollary of this is, the entry of useless experts reduces the payment received by valuable ones or the budget needed by the mechanism. It also requires that the mechanism have access to common prior, which is for many applications highly unrealistic. 
-As we will see in the next section either of these, through not both, is avoidable in our setting for efficient mechanisms with unrestricted information structures. 
-
+This reward sharing mechanism is problematic in a pair of ways. It makes positive payouts to \emph{useless} experts; a corollary of this is that the entry of useless experts reduces the payment received by valuable ones or the budget needed by the mechanism. It also requires that the mechanism has access to the common prior, which is for many applications highly unrealistic. 
+As we will see in the next section, either of these, through not both, is avoidable in our setting for efficient mechanisms with unrestricted information structures.
 
 
 \subsection{Scoring Rule and Void Decision Market Mechanisms}
@@ -231,44 +231,44 @@ As we will see in the next section either of these, through not both, is avoidab
 %not clear; the literature is way too specific, make the two different problems the mechanism has clearer
 
 A somewhat more complicated mechanism is to attempt to use the machine of sequential proper scoring rule based market makers to predict the rewards contingent on choosing each possible action. The market for the chosen action can then be settled in the standard manner, and the other markets voided. 
-We term these Scoring-rule and Void Decision Market Mechanisms (SVDM). The basic idea is to use a sequentially shared proper scoring rule to run a prediction market for the value of the reward conditional each possible action, and to void the markets for the non-chosen actions.  
+We term these Scoring-rule and Void Decision Market Mechanisms (SVDM). The basic idea is to use a sequentially shared proper scoring rule to run a prediction market for the value of the reward conditional on each possible action, and to void the markets for the non-chosen actions.  
 
 Theorem 1 of \cite{othman2010decision} states: there does not exist any strictly proper scoring rule/deterministic decision rule pair.
-Since in general maximizing the subjects utility requires a deterministic decision rule from a set of reports to the chosen action, this rules out efficient mechanisms based on strictly proper scoring rules. 
-It is worth noting that the above holds for even a single expert, precisely the setting under full supervision for which strictly proper scoring rules where introduced. 
-For example if the starting price of the optimal actions market is correct initially but for a suboptimal action is not, the expert profits by lowering the optimal actions price (thus forcing the deterministic decision rule to not pick it) while raising the price to the correct value of the suboptimal choice. 
+Since in general maximizing the subject's utility requires a deterministic decision rule from a set of reports to the chosen action, this rules out efficient mechanisms based on strictly proper scoring rules. 
+It is worth noting that the above holds for even a single expert, precisely the setting under full supervision for which strictly proper scoring rules were introduced. 
+For example if the starting price of the optimal actions market is correct initially but for a suboptimal action is not, the expert profits by lowering the optimal action's price (thus forcing the deterministic decision rule to not pick it) while raising the price to the correct value of the suboptimal choice. 
 
 More generally, an immediate corollary to a theorem X of \cite{chen2014eliciting} states that randomized decision rules with full support are necessary for incentive compatible SVDM mechanisms.
-Note that this implies all the problems of the max decision rule apply for example to a Thompson style randomized decision rule, since they can still be manipulated not to have full support over the action by a sufficiently bad report.
+Note that this implies all the problems of the max decision rule apply, for example, to a Thompson style randomized decision rule, since they can still be manipulated not to have full support over the action by a sufficiently bad report.
 
-If a subject is free to either maximize their expected utility at decision time (and lacks a credible commitment device beforehand, or wishes to maintain its freedom) then a SRDM is not Incentive Compatible for them. Further, the cost of making the probabilities of dominated actions small is to make the payments contingent on when they are taken proportionally larger.
-Beyond the reduction in freedom from the pre-commitment to randomization with full support, it also rules out \emph{efficiency}, since by definition if actions known to be dominated are played with positive probability, the mechanism is not maximizing reward with it's choice of action.
+If a subject is free to either maximize their expected utility at decision time (and lacks a credible commitment device beforehand, or wishes to maintain its freedom) then a SRDM is not Incentive Compatible for them. Further, the cost of making the probabilities of dominated actions small is to make the payments that are contingent on when they are taken proportionally larger.
+Beyond the reduction in freedom from the pre-commitment to randomization with full support, this also rules out \emph{efficiency}, since by definition, if actions known to be dominated are played with positive probability, the mechanism is not maximizing reward with its choice of action.
  
  \DBA{i guess you can get as close as you like to maximizing \emph{expected} reward, but nevertheless deviate by arbitrarily large amounts from the best reward, with low probability. Worth talking a bit about rewards in expectation and rewards with high probability and rewards with (whatever measure is appropriate here).}
 \NDP{As you make the deviation from optimality go to zero the budget needed for a risk neutral agent to participate goes to infinity and even allmost risk neutral agents will drop out. The reason for this is that the multiplier on the suboptimal action has to increase to compensate for its lower probability.  }
 
 
 
-A further limitation of such methods is inherited from the prediction markets and more generally from posterior announcement games and their generalizations as analyzed in \cite{ostrovsky2012information}: fully complementary signals between two experts are not aggregated. In particular, for such mechanisms to aggregate information in the full supervision case, the information structures must result in the traded asset satisfying a full separability condition. This is not satisfied even in the full supervision version of complementary signals, nor in our bandit supervision adaptation of it in Example~
+A further limitation of such methods is inherited from the prediction markets and more generally from posterior announcement games and their generalizations as analyzed in \cite{ostrovsky2012information}: fully complementary signals between two experts are not aggregated. In particular, for such mechanisms to aggregate information in the full supervision case, the information structures must result in the traded asset satisfying a full separability condition. The latter is not satisfied even in the full supervision version of complementary signals, nor in our bandit supervision adaptation of this in Example~
 
 
 
 \section{A Direct Mechanism for Efficient Optimal Choice Elicitation}
 
-Consider a VCG style mechanism for the optimal decision elicitation problem. 
-To the best of our knowledge this is first proposed  mechanism for one shot optimal decision elicitation that achieves efficiency and does not require payments to useless experts.
+Consider a VCG-style mechanism for the optimal decision elicitation problem. 
+To the best of our knowledge, this is the first proposed mechanism for one shot optimal decision elicitation that achieves efficiency and does not require payments to useless experts.
 %Edit the longass thing into coherent.
-The sense in which it is VCG style is that it is direct, efficient, and compensates subjects for the externality their signal has on the other agents.
-On the other hand, since the agents do not have private values over the choice, it is not a VCG mechanism, this will prove important in the next section.
-Our use of received payoff instead of expected payoff avoids the use of counterfactual that use the signal reported by the agent itself, which enables the mechanisms to be truthful in equilibrium.
-All agents and the mechanism have a common prior that gives a proper prior probability distribution of rewards over all possible signals, chosen actions and actual actions.
+This mechanism is VCG-style as it is direct, efficient, and compensates subjects for the externality their signal has on the other agents.
+On the other hand, since the agents do not have private values over the choice, it is not a VCG mechanism, which will prove important in the next section.
+Our use of received payoff instead of expected payoff avoids the use of counterfactuals that use the signal reported by the agent itself, which enables the mechanisms to be truthful in equilibrium.
+All agents and the mechanism have a common prior that gives a proper prior probability distribution of rewards over all possible signals, chosen actions, and actual actions.
 
 \begin{mech}\label{mech:vcg-style}[VCG-style Mechanism]
 
 
 %$\hat{S}_{-i} = \bigcup \hat{s}_j  \forall j \neq i \in N $ then the expected reward given the others reports is:
 
-For each expert $i$, compute the optimal action to choose without using that experts report (i.e. marginalizing over the prior on experts $i$ signal), denote this action $\hat{c}_{-i}$ and it's expected reward: $\expec[\hat{r}_{-i}] = \expec[ r| \hat{c}_{-i}, \hat{s}_{-i}] $
+For each expert $i$, compute the optimal action to choose without using that expert's report (i.e. marginalizing over the prior on expert $i$'s signal); denote this action $\hat{c}_{-i}$ and its expected reward as: $\expec[\hat{r}_{-i}] = \expec[ r| \hat{c}_{-i}, \hat{s}_{-i}] $
 
 
 The payment rule is announced as follows:
@@ -283,16 +283,16 @@ The payment rule is announced as follows:
 
 %
 
-Each expert reports their signal, the mechanism calculates the action that maximizes the reward $c$, and chooses it. After observing the actual action taken $a$ and its reward $r$, the corresponding payments are made, this concludes the mechanism.
+Each expert reports their signal, the mechanism calculates the action that maximizes the reward $c$, and chooses it. After observing the actual action taken $a$ and its reward $r$, the corresponding payments are made; this concludes the mechanism.
 
 \end{mech}
 
 
-Conditional on the action taken the payments do not depend on the reported signal of agent $i$.
-That is $i$ only affects their received payments with their report via the choice of action. 
-Note, if you removing the if and rewarding players unconditionally results in an increase in the variance of payments but does not change the expectation, since if the action is unchanged and under the assumption the prior is correct, it's expected reward must be zero as $\expec[\hat{r}_{-i}] = \expec[r|P,c]$. 
-The expected reward when using all signals and when using only the other agents signals have to be equal if the same action is being taken in both, that is the agent report is not pivotal. 
-Thus  mechanism and its properties still hold under, given risk neutral experts. 
+Conditional on the action taken, the payments do not depend on the reported signal of agent $i$.
+That is, $i$ only affects their received payments with their report via the choice of action. 
+Note, if you removing the if and rewarding players unconditionally results in an increase in the variance of payments but does not change the expectation, since if the action is unchanged and under the assumption the prior is correct, its expected reward must be zero as $\expec[\hat{r}_{-i}] = \expec[r|P,c]$. 
+The expected reward in the case when all signals are used and in the case when only the other agents' signals are used has to be equal if the same action is being taken in both: that is, the agent report is not pivotal. 
+Thus the mechanism and its properties still hold under, given risk neutral experts. 
 
 
 \begin{lem}\label{lem:affect}
@@ -300,7 +300,7 @@ Thus  mechanism and its properties still hold under, given risk neutral experts.
 \end{lem}
 
 \begin{proof}
-There are two terms in the expression for the payment rule $\pi_i$: the received reward $r$ and expected reward $\expec[\hat{r}_{-i}]$ given the counterfactual that expert $i$ is ignored. 
+There are two terms in the expression for the payment rule $\pi_i$: the received reward $r$ and expected reward $\expec[\hat{r}_{-i}]$, given the counterfactual that expert $i$ is ignored. 
 The first term is the reward received after executing the chosen action, and therefore clearly only depends on the chosen action. 
 The second term is explicitly constructed so as not to use the report by expert $i$. 
 \end{proof}
@@ -312,16 +312,16 @@ The second term is explicitly constructed so as not to use the report by expert 
 \end{prop}
 
 \begin{proof}
-	Given the other experts reports, it is not possible for the same signal to cause different actions, so we always end up in the 0 payment case.
+	Given the other expert's reports, it is not possible for the same signal to cause different actions, so we always end up in the 0 payment case.
 \end{proof}
 
 
 \begin{prop}
-	A \emph{useless} expert cannot profit from participation in a VCG-style Mechanism.
+	An \emph{useless} expert cannot profit from participation in a VCG-style Mechanism.
 \end{prop}
 
 \begin{proof}
-This is intimidate from how the payment rule and useless experts are defined. Since there is no report $\hat{s}_i$ that leads to a choice of $c$ which improves the expected value of $r$ and that is all that can lead to expected positive payoffs.
+	This is immediate from how the payment rule and useless experts are defined, since there is no report $\hat{s}_i$ that leads to a choice of $c$ which improves the expected value of $r$, and that is all that can lead to expected positive payoffs.
 \end{proof}
 
 %TODO pin down useless more formally still
@@ -342,27 +342,27 @@ For a given expert $i$, let all other experts truthfully report their signals. B
 
 \subsection{Scaling Payments and Rational Entry}
 
-The mechanism is however potentially negative expectation if subjects are to compensate the experts via the mechanism.  
-That is the payments can be more than the improvement in the reward the mechanism creates. For example in Example~\ref{eg:comp-ex} the payments are double the payments. In these situations it is not rational for the subject to enter the mechanism.
+The mechanism however leads to a potentially negative expectation if subjects are to compensate the experts via the mechanism.  
+That is, the payments can be more than the value of the improvement in the reward that the mechanism creates. For example, in Example~\ref{eg:comp-ex} the payments are double the payments. In these situations it is not rational for the subject to enter the mechanism.
 
 %EXPLAIN that VCG mechanism gets an extra degree of freedom, define alpha first
 
-As presented the VCG style direct mechanism can have higher payments than the benefits it provides in terms of higher rewards (if there are states of the world with sufficiently high reward differentials and a sufficiently large number of experts with complementary signals). Hence, the subject might be better off not participating \emph{a priori}. Here we introduce a variation on the mechanism that re-scales payments using the prior so a subject \emph{a priori} wishes to participate in the mechanism. The mechanism takes advantage of two observations. Firstly, one can set $\alpha$ prior to receiving signals from experts based on the prior. Secondly, by Lemma~\ref{lem:affect} experts do not care about the chosen action beyond how it affects their payments. 
+As presented, the VCG-style direct mechanism can have higher payments than the benefits it provides in terms of higher rewards (if there are states of the world with sufficiently high reward differentials and a sufficiently large number of experts with complementary signals). Hence, the subject might be better off not participating \emph{a priori}. Here we introduce a variation on the mechanism that re-scales payments using the prior so a subject \emph{a priori} wishes to participate in the mechanism. The mechanism takes advantage of two observations. Firstly, one can set $\alpha$ prior to receiving signals from experts based on the prior. Secondly, by Lemma~\ref{lem:affect} experts do not care about the chosen action beyond how it affects their payments. 
 
-The second observation does not hold in standard VCG mechanisms: if they cared about the action then you need to compensate them exactly for their externality. While this doesn't make an explicit appearance in the proof it is the reason why we can scale the payments to alter the budget in a way that VCG mechanisms cannot: a change in the allocation that leaves payments unchanged alters the utility of agents in the VCG setting but not here, so the payments in the VCG setting have to move to counter-balance this precisely, limiting the freedom with which we can choose them.
+The second observation does not hold in standard VCG mechanisms: if experts cared about the action, they would need to be compensated exactly for their externality. While this doesn't make an explicit appearance in the proof, it is the reason why we can scale the payments to alter the budget in a way that VCG mechanisms cannot: a change in the allocation that leaves payments unchanged alters the utility of agents in the VCG setting but not here, so the payments in the VCG setting have to move to counter-balance this precisely, limiting the freedom with which we can choose them.
 
 \NDP{Explain relation to the  Clarke pivot rule. With the Clarke pivot rule, the total amount paid by the player is: (social welfare of others if i were absent) - (social welfare of others when i is present).
 This is exactly the externality of player  i. 
 
 Since the expert can always send a blank report and thus cause no externality, while sending a useful signal in expectation, raises the expected payoff, the experts participation is weakly profitable in expectation. This requires not scaling the payments, in a model where experts signals are costly to the experts, it would lead (in some situations ) to the optimal signlas being raised byt he experts, this is beyond the scope.  }
 
-In the model we have presented a expert pays no cost when acquiring their signals, and so in the single agent case the payment made by the subject for signals can in principle be arbitrarily close to zero while still incentivizing truthful reports (for example the share of the reward mechanisms achieves this). We now study when payments rules can be scaled to create ex-ante in expectation arbitrarily small expected payments to the experts. As usual, we assume risk neutral experts. 
+In the model we have presented, an expert pays no cost when acquiring their signals, and so in the single agent case the payment made by the subject for signals can in principle be arbitrarily close to zero while still incentivizing truthful reports (for example the share of the reward mechanisms achieves this). We now study when payments rules can be scaled to create ex-ante in expectation arbitrarily small expected payments to the experts. As usual, we assume risk neutral experts. 
 % loosing garrett here, dont make the thing point to the proof.
 
 
-Let $\expec[r|c(s)]$ denote the expected reward obtained from choosing the optimal action using all signals if they where reported truthfully, and $\expec[r|c(P)] $ the expected reward from picking the action using only the prior and no signals. Thus $\expec[r|c(S)] - \expec[r|c(P)] $ is the expected surplus from using the information in the truthful equilibrium of the mechanism relative to using only the priors. For an efficient mechanism to be rational \emph{a priori} for the subject to implement, it must be that $\expec[r|c(S)] - \expec[r|c(P)] > \expec[\sum \pi]$ where $\pi$ is either the result of a Nash equilibrium or a dominant strategy (i.e. we set all elements of $\hat{s}$ jointly to maximize $\sum \pi$, even if this does not a equilibrium for the experts).
+Let $\expec[r|c(s)]$ denote the expected reward obtained from choosing the optimal action using all signals if they where reported truthfully, and $\expec[r|c(P)] $ be the expected reward from picking the action using only the prior and no signals. Thus $\expec[r|c(S)] - \expec[r|c(P)] $ is the expected surplus from using the information in the truthful equilibrium of the mechanism relative to using only the priors. For an efficient mechanism to be rational \emph{a priori} for the subject to implement, it must be that $\expec[r|c(S)] - \expec[r|c(P)] > \expec[\sum \pi]$ where $\pi$ is either the result of a Nash equilibrium or a dominant strategy (i.e. we set all elements of $\hat{s}$ jointly to maximize $\sum \pi$, even if this does not a equilibrium for the experts).
 
-Note that a multiplicative transformation of the rewards preserves the incentives. Denote by $\alpha$ that scales the payment.
+Note that a multiplicative transformation of the rewards preserves the incentives. We denote the multiplicative constant that scales the payments by $\alpha$.
 
 \begin{mech}[Cheap and Efficient Direct Mechanism]
 Set
@@ -407,7 +407,7 @@ The rescaling parameter $\alpha>0$ is chosen ex ante based on $P$ such that: $ \
 \end{lem}
 
 \begin{proof}
-Since a truthful signal cannot lower (if all other signals are being reported truthfully) the expected reward of the optimal chosen action and the transformation of the payoff is linear, and the expert always has the option of reporting their true signal, the expected return in the revealing BNE of entering is weakly positive.
+In a case where all other signals are being reported truthfully, since a truthful signal cannot lower the expected reward of the optimal chosen action and the transformation of the payoff is linear, and the expert always has the option of reporting their true signal, the expected return in the revealing BNE of entering is weakly positive.
 \end{proof}
 
 
@@ -416,10 +416,10 @@ Since a truthful signal cannot lower (if all other signals are being reported tr
 \end{thm}
 
 \begin{proof}
-Inmidiate from the two previous lemmas, since the subject and experts are all the agents involved.
+Immediate from the two previous lemmas, since the subject and experts are all the agents involved.
 \end{proof}
 
-One natural concern is that there are potentially other equilibria beyond the full revelation one in these mechanisms. This is particularly clear in the case when there is complementarity between signals: if the other experts reports are not truthful it is not in general optimal to be truthful.
+One natural concern is that there are potentially other equilibria beyond the full revelation equilibrium in these mechanisms. This is particularly clear in the case when there is complementarity between signals: if the other expert's reports are not truthful, it is not in general optimal to be truthful.
 
 
 \subsection{Dominant Mechanisms}
@@ -428,7 +428,7 @@ One natural concern is that there are potentially other equilibria beyond the fu
 	A Mechanism and prior distribution are \emph{Dominant Strategy Truthful} for an expert if reporting their true signal maximizes their expected payoff for any set of reports by the other agents. 
 \end{defn}
 
-The incentive compatibility in the VCG-style Mechanisms is only a Bayes Nash Equilibrium, and not a dominant strategies. For example, if another expert does not report their signal truthfully, an expert might maximize the reward by making a countervailing report that is not truthful, to cancel out the other untruthful expert. 
+The incentive compatibility in the VCG-style Mechanism is only a Bayes Nash Equilibrium, and not a dominant strategy. For example, if another expert does not report their signal truthfully, an expert might maximize the reward by making a countervailing report that is not truthful, to cancel out the other untruthful expert. 
 
 
 %start using subject without introducing it,  
@@ -440,14 +440,14 @@ The incentive compatibility in the VCG-style Mechanisms is only a Bayes Nash Equ
 
 \subsection{A sufficient condition for dominant truthfulness of an expert in efficient mechanisms}
 
-In general the efficient\footnote{Mechanisms that are not efficient are trivial to make weakly dominant strategy truthful. For example disregarding reports always picking an arbitrary action.} mechanism is not dominant strategy incentive compatible, since (for example) a expert agent who inverts their reports would make the other experts also misreport try to compensate if possible, as seen in the example above.
+In general the efficient\footnote{Mechanisms that are not efficient are trivial to make weakly dominant strategy truthful, for example by disregarding reports and always picking an arbitrary action.} mechanism is not dominant strategy incentive compatible, since, for example, an expert agent who inverts their reports would make the other experts also misreport to try to compensate if possible, as seen in the example above.
 
-Consider a experts \emph{unilateral value}, the expected value of selecting the optimal action conditional only on their signal, which we denote by  $\expec[ r| c_{i}]$. A \emph{unilaterally sufficient expert} is one where $\expec[r|c_{i}] \geq \expec[r|c_{s_i \cup s_{-i}}] \forall s_{-i} \forall s_{i}$, that is the experts signal pins down a choice of action that obtains expected optimal rewards irrespective of any other possible signal received by the other experts.
+Consider a expert's \emph{unilateral value}, the expected value of selecting the optimal action conditional only on their signal, which we denote by  $\expec[ r| c_{i}]$. A \emph{unilaterally sufficient expert} is one where $\expec[r|c_{i}] \geq \expec[r|c_{s_i \cup s_{-i}}] \forall s_{-i} \forall s_{i}$, that is, the expert's signal pins down a choice of action that obtains expected optimal rewards irrespective of any other possible signal received by the other experts.
 
 
 
 \begin{lem}
-	In the presence of a unilaterally sufficient expert our vcg-style mechanism and its scalings pay no other experts.
+	In the presence of a unilaterally sufficient expert our VCG-style Mechanism and its scalings pay no other experts.
 \end{lem}
 
 \begin{proof}
@@ -456,11 +456,11 @@ Consider a experts \emph{unilateral value}, the expected value of selecting the 
 
 
 \begin{lem}
-	A unilaterally sufficient expert has truthfulness as a dominant strategy in a VCG style mechanism.
+	A unilaterally sufficient expert has truthfulness as a dominant strategy in a VCG-style mechanism.
 \end{lem}
 
 \begin{proof}
-    By the definition of efficient the mechanism it maximizes the reward given the reports, by the definition of sufficiency the experts report being truthful is all that is requited for this.
+    By the definition of efficient the mechanism maximizes the reward given the reports; by the definition of sufficiency the expert's report being truthful is all that is required for this.
 \end{proof}
 
 % \begin{lem}[necesary]
@@ -486,16 +486,16 @@ Consider a experts \emph{unilateral value}, the expected value of selecting the 
 \section{A Bidding Mechanism}
 
 In many practical applications of interest, direct signal mechanisms might be impractical. It might be that the signals can't be practically reported: for example, because while the expert knows something when they see it, they do not have a vocabulary to unambiguously express it. It can also be because the mechanism may not have access to the prior  probability distribution and thus the signals can't be unambiguously aggregated. 
-If we replace the reports in the direct mechanism by bids, and we allow the winner of the auction to pick the action (after observing the loosing bids), we have a mechanism that doesnt' make any strong assumptions beyond that the agents understand the mechanism are are profit driven.
+If we replace the reports in the direct mechanism by bids, and we allow the winner of the auction to pick the action (after observing the losing bids), we obtain a mechanism that doesn't make any strong assumptions beyond that the agents understand the mechanism and are profit driven.
 
 
 
 \begin{mech}[Bidding Mechanism]
 
 Each agent observes their signal and report a bid $b_i$.
-The agent with the highest bid in the auction, the \emph{owner} of the choice, observes the full set of bids and then chooses an action $c$, the subject the selects the action $a$ and the reward $r$ is received. 
+The agent with the highest bid in the auction, the \emph{owner} of the choice, observes the full set of bids and then chooses an action $c$; the subject then selects the action $a$ and the reward $r$ is received. 
 
-Denote by $o_{i}$ a indicator variable encoding with a value of $1$ if the agent $i$ was  \emph{owner} of the choice, and let $b_{\hat{2}}$ denote the value of the second highest  bid. If both agents bids are equal  select the owner between them uniformly at random.
+Denote by $o_{i}$ a indicator variable encoding with a value of $1$ if the agent $i$ was  \emph{owner} of the choice, and let $b_{\hat{2}}$ denote the value of the second highest  bid. If both agents' bids are equal, select the owner between them uniformly at random.
 
 \[
     \pi_i =  
@@ -511,23 +511,23 @@ This mechanism has several problems, for example, a natural stylized setting is:
 
 
 \begin{eg}[Two Experts and Actions with IID Signals]\label{eg:two-iid-signals}
-	Let there be two experts. Two actions ${\text{treatment},\text{control}}$, each of which has rewards drawn independently from a corresponding Bernoulli distribution with Jeffreys prior. Each experts signal consists of one draw from each of the two distributions.
+	Let there be two experts. Two actions ${\text{treatment},\text{control}}$, each of which has rewards drawn independently from a corresponding Bernoulli distribution with Jeffreys prior. Each expert's signal consists of one draw from each of the two distributions.
 \end{eg}
 
 A BNE exists where each agent bids the posterior expected value of the arm with the highest reward conditional on having won the bidding.
 Given being the owner of the choice and observing the bids of the other agent, it is possible to deduce 
-The winner, after observing the bid of the other agent, can deduce if the other agent observed 0,1, or 2 positive draws. For the 0 and 2 positive draws, the agents optimal choice and the efficient choice are both selected by selecting the arm the agent had a positive draw from (if both or neither, then either arm is equal to the efficient choice). 
+The winner, after observing the bid of the other agent, can deduce if the other agent observed 0, 1, or 2 positive draws. For the 0 and 2 positive draws, the agent's optimal choice and the efficient choice are both selected by selecting the arm the agent had a positive draw from (if both or neither, then either arm is equal to the efficient choice). 
 However, in the situation where both agents observe exactly one positive draw, the efficient outcome in the bidding mechanism is selected less than in the efficient direct mechanism.
 
-\NDP{Is there any value in cranking out the arithmetic here? should I abstract the numbers instead and crank it in algebra?}
 
 For some information structures the bidding mechanism still aggregates information efficiently, for example:
 
-\begin{defn}[Full set of specialist experts]
-	If each expert knows the expected outcome conditional on one action and knows he doesn't know what happens under other actions, and there is at least one expert that is informed about each action.
+\begin{defn}[Full set of specialist experts]\label{defn:specialists}
+	If each expert knows the expected outcome conditional on one action and knows they don't know what happens under other actions, and there is at least one expert who is informed about each action.
 \end{defn}
 
-Note that this situation fails to satisfy the unilaterally sufficient expert requirement, so the bidding mechanism is able to meaningfully aggregate information in at least some information structures. 
+Note that this situation fails to satisfy the unilaterally sufficient expert requirement. The bidding mechanism is able to meaningfully aggregate information in at least some information structures; note no single expert knows the optimal action.
+
 % Further, by the revelation priciple we can create a direct mechanism that generates this outcome, and for this class of information structures is efficient (through clearly it will not be efficient for other information sturcutres, for example the one in the fully complemetary information example)
 
 
@@ -537,17 +537,17 @@ Note that this situation fails to satisfy the unilaterally sufficient expert req
 
 \section{Bid and Signals Without Priors in the Mechanism}
 
-We now combine the bid based and direct mechanisms to reduce the requirement on the common prior, and in particular that the mechanism have access to it. 
-While formally to analyze the BNE we still require the experts to have access to the prior, the mechanism can aggregate even in the absence of this to the degree that the signals still be informative to the expert that is the highest bidder.
-Note that the incentives are also well aligned, in the sense that is precisely the expert for whom the mechanism makes highest payments. 
+We now combine the bid based and direct mechanisms to reduce the requirement on the common prior, and in particular that the mechanism has access to it. 
+While formally to analyze the BNE we still require the experts to have access to the prior, the mechanism can aggregate even in the absence of this to the degree that the signals be still informative to the expert who is the highest bidder.
+Note that the incentives are also well aligned, in the sense that is precisely the expert for whom the mechanism makes the highest payments. 
 
-Even in the absence of common priors, it may still be possible for experts to convey to each other through their signals (even if it is not possible for the mechanism to evaluate the value of such signals) and that there is sufficient degrees of freedom in the scaled mechanism to add a simple modification that accounts for this.
-One possible change is to add to all payments a further share of the reward of the mechanism while displaying their reported signals to the winner of the auction before they select their action. That is we replace the 0 payments to agents that do not make a report that alters the chosen action with a  share of the gains of the mechanism.
+Even in the absence of common priors, it may still be possible for experts to convey to each other through their signals (even if it is not possible for the mechanism to evaluate the value of such signals) and there are sufficient degrees of freedom in the scaled mechanism to add a simple modification that accounts for this.
+One possible change is to add to all payments a further share of the reward of the mechanism while displaying their reported signals to the winner of the auction before they select their action. That is, we replace the 0 payments to agents that do not make a report that alters the chosen action with a share of the gains of the mechanism.
 
-Denote by $b_i$ the bid part of agents $i$ report, and by $\hat{s_i}$ the signal part of their report, by $b_{\hat{1}}$ the highest bid and by $b_{\hat{2}}$ the second highest bid. If multiple bids are tied for highest, we  randomize which one is treated as the highest and which one is considered the second highest.
+Denote by $b_i$ the bid part of agent $i$'s report, and by $\hat{s_i}$ the signal part of their report, by $b_{\hat{1}}$ the highest bid and by $b_{\hat{2}}$ the second highest bid. If multiple bids are tied for highest, we randomize which one is treated as the highest and which one is considered the second highest.
 
 \begin{mech}
-The mechanism receives bids and signal reports from all experts, reveals the signal reports and bids to the winner of a second price auction for a share of the reward and allows them to select a chosen action, this chosen action $c$ is announced to the subject, who picks and actual action $a$ after which the reward $r$ is revealed and payments made according to:
+The mechanism receives bids and signal reports from all experts, reveals the signal reports and bids to the winner of a second price auction for a share of the reward and allows them to select a chosen action; this chosen action $c$ is announced to the subject, who picks an actual action $a$ after which the reward $r$ is revealed and payments made according to:
 
 \[
     \pi_i = 
@@ -562,20 +562,19 @@ The mechanism receives bids and signal reports from all experts, reveals the sig
 As before $\alpha$ and $\beta$ are set ex ante so as to limit expected payments to be lower than the efficiency gain from the mechanism. This can be achieved by setting them such that $(\alpha + \beta)N < 1$.
 
 
-Thus a experts optimal strategy is to bid the expected value of the reward conditional on their signal and on having the highest bid.
+Thus an expert's optimal strategy is to bid the expected value of the reward conditional on their signal and on having the highest bid.
 
 %TODO add argmax show in proof
 
 
 If the expert has the highest bid, then their signal report becomes irrelevant, as they already know their true signal. % soo.... ???
 
-This mechanism does have the same problem as the sharing mechanism in that useless experts entry is costly to the mechanism or to other experts.
-Since we are attempting to avoid the use of a prior by the mechanism, and we are in the one shot setting there is in general (for arbitrary information structures) no way to estimate if a given signal is worthless, even when it is pivotal, since it involves estimating the reward of the action not taken \cite{della2012crowd,waggoner2014output, witkowski2014robust}.
-A knowledge-free peer prediction mechanism that does not require knowledge of the information structure and
-can truthfully elicit private information for a set of information structures slightly smaller than the maximal set is proposed in \cite{zhang2014elicitability}. 
+This mechanism does have the same problem as the sharing mechanism in that useless experts' entry is costly to the mechanism or to other experts.
+Since we are attempting to avoid the use of a prior by the mechanism, and we are in the one shot setting, there is in general (for arbitrary information structures) no way to estimate if a given signal is worthless, even when it is pivotal, since it involves estimating the reward of the action not taken \cite{della2012crowd,waggoner2014output, witkowski2014robust}.
+A knowledge-free peer prediction mechanism that does not require knowledge of the information structure and can truthfully elicit private information for a set of information structures slightly smaller than the maximal set is proposed in \cite{zhang2014elicitability}. 
 
 
-While this mechanism is somewhat convoluted and practically implausible for open market places, due to the paying of useless experts, it is useful conceptually in understanding the more practical mechanism for the sequential case in the next chapter.
+While this mechanism is somewhat convoluted and practically implausible for open marketplaces, due to the payment of useless experts, it is useful conceptually in understanding the more practical mechanism for the sequential case in the next chapter.
 
 
 
