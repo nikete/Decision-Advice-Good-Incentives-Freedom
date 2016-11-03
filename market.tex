@@ -289,10 +289,11 @@ Each expert reports their signal, the mechanism calculates the action that maxim
 
 
 Conditional on the action taken, the payments do not depend on the reported signal of agent $i$.
-That is, $i$ only affects their received payments with their report via the choice of action. 
-Note, if you removing the if and rewarding players unconditionally results in an increase in the variance of payments but does not change the expectation, since if the action is unchanged and under the assumption the prior is correct, its expected reward must be zero as $\expec[\hat{r}_{-i}] = \expec[r|P,c]$. 
+That is, $i$ only affects experts received payments with their report via the choice of action. 
+
+Removing the if and rewarding experts unconditionally results in an increase in the variance of payments but does not change the expectation, since if the action is unchanged and under the assumption the prior is correct, its expected reward must be zero as $\expec[\hat{r}_{-i}] = \expec[r|P,c]$. 
 The expected reward in the case when all signals are used and in the case when only the other agents' signals are used has to be equal if the same action is being taken in both: that is, the agent report is not pivotal. 
-Thus the mechanism and its properties still hold under, given risk neutral experts. 
+Thus the mechanism and its properties still hold under the siplified mechanism, given risk neutral experts. 
 
 
 \begin{lem}\label{lem:affect}
@@ -560,18 +561,11 @@ The mechanism receives bids and signal reports from all experts, reveals the sig
 \end{mech}
 
 As before $\alpha$ and $\beta$ are set ex ante so as to limit expected payments to be lower than the efficiency gain from the mechanism. This can be achieved by setting them such that $(\alpha + \beta)N < 1$.
-
-
-Thus an expert's optimal strategy is to bid the expected value of the reward conditional on their signal and on having the highest bid.
-
-%TODO add argmax show in proof
-
-
-If the expert has the highest bid, then their signal report becomes irrelevant, as they already know their true signal. % soo.... ???
+Thus, an expert's optimal strategy is to bid the expected value of the reward conditional on their signal and on having the highest bid.
 
 This mechanism does have the same problem as the sharing mechanism in that useless experts' entry is costly to the mechanism or to other experts.
-Since we are attempting to avoid the use of a prior by the mechanism, and we are in the one shot setting, there is in general (for arbitrary information structures) no way to estimate if a given signal is worthless, even when it is pivotal, since it involves estimating the reward of the action not taken \cite{della2012crowd,waggoner2014output, witkowski2014robust}.
-A knowledge-free peer prediction mechanism that does not require knowledge of the information structure and can truthfully elicit private information for a set of information structures slightly smaller than the maximal set is proposed in \cite{zhang2014elicitability}. 
+Since we are attempting to avoid the use of a prior by the mechanism, and we are in the one shot setting, there is in general (for arbitrary information structures) no generic way to estimate if a given signal is worthless, even when it is pivotal, since it involves estimating the reward of the action not taken \cite{della2012crowd,waggoner2014output, witkowski2014robust}.
+
 
 
 While this mechanism is somewhat convoluted and practically implausible for open marketplaces, due to the payment of useless experts, it is useful conceptually in understanding the more practical mechanism for the sequential case in the next chapter.

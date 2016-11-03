@@ -358,11 +358,21 @@ Where $\alpha$ and $\beta$ are set ex ante.
 The condition that must be satisfied to make the payments from the mechanism smaller than the surplus it brings collectively to the subjects is $ \alpha + \beta < 1/2NT$.
 
 
-% \section{Limitations}
+The above algorithm is far from perfect.
+The dynamic nature of the market creates a major concern that an expert would not reveal their signal truthfully and lose out on that part of the reward if they can benefit more from being the \emph{owner}.
+By withholding their signal they can suppress the bids of other experts who are thus at a disadvantage; this is a particular concern since the other experts may be able to achieve higher rewards.
 
-% \subsection{Information widtholding and}
+Consider a setting where all experts signals are symmetric and perfect complements to each other. For example, the value of the reward depends on their product.
+All signals are equally valuable in the counter-factual sense used to establish rewards.
+To the extent the second highest bidders value is close tot he first, there is almost no net expected value from being the owner. On the other hand, if a bidder does not report his signal truthfully, then the other bidders valuation for being the owner are 0, and the misreporting bidder can appropriate the full value of the $alpha$ part of the rewards.
+Thus $\alpha$ < $\beta$ for incentive compatibility. 
 
-%  A major concern is that an expert would not reveal their signal truthfully and lose out on that part of the reward if they can benefit more from being the \emph{owner}, and by withholding their signal they can suppress the bids of other experts; this is a particular concern since the other experts may be able to achieve higher rewards.
+Also note that the owner is restricted to using strategies with full support so that the estimator of the signal rewards can be fully evaluate. If the rewards are not IID the full support restriction must be maintained throughout all time periods. 
+Thus the mechanism is inefficient in so far as the owner who knows a priori the correct policy cannot fully implemented. 
+
+It is not clear how to prove when there is a efficient full revelation mechanism for the above mechanism, since the interaction between the owners information about how to aggregate and learn over the signals complicates the dynamic VCG styles of analysis. 
+
+
 % In the one shot version of the game the BNE solution concept side steps these concerns, but they become more pressing in equilibrium. 
 
 % Consider a situation similar to the complementary signals example, but now there are two potential ways of aggregating a period's signals into the optimal choice. %TODO add ref
